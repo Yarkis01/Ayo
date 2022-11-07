@@ -29,7 +29,7 @@ class PingModule(commands.Cog):
 
     @tasks.loop(minutes = 30)
     async def _is_alive(self) -> None:
-        channel = await self.__bot.fetch_channel(config.ERROR_CHANNEL_ID)
+        channel = await self.__bot.fetch_channel(config.LOGS_CHANNEL_ID)
         now     = datetime.datetime.now().astimezone(pytz.timezone(config.TIMEZONE))
         if channel is not None:
             embed = disnake.Embed(
@@ -47,13 +47,13 @@ class PingModule(commands.Cog):
                 else:
                     self.__message_id = None
 
-    @tasks.loop(minutes = 10)
+    @tasks.loop(minutes = 15)
     async def _uptime_loop(self) -> None:
-        reponse = requests.get(config.BOT_API_URL, headers = {"Authorization": f"Bearer {config.BOT_API_KEY}"})
+        reponse = requests.get(config.PTERO_API_URL, headers = {**config.HEADERS_BASE, **{"Authorization": f"Bearer {config.PTERO_API_KEY}"}})
         if reponse.status_code == 200:
             self.__usage_json = reponse.json()['attributes']['resources']
 
-        response_watchbot = requests.get(config.WATCHBOT_API_URL, headers = {"AUTH-TOKEN": config.WATCHBOT_API_KEY})
+        response_watchbot = requests.get(config.WATCH_API_URL, headers = {**config.HEADERS_BASE, **{"AUTH-TOKEN": config.WATCH_API_KEY}})
         if response_watchbot.status_code == 200: 
             self.__uptime_json = response_watchbot.json()
 
@@ -111,7 +111,11 @@ class PingModule(commands.Cog):
                 inline = True
             )
 
-        await inter.edit_original_response(content = "", embed = embed.set_footer(text = "Données actualisées toutes les 10 minutes"))
+        await inter.edit_original_response(content = "", embed = embed.set_footer(text = "Données actualisées toutes les 15 minutes"))
 
 def setup(self) -> None:
-    self.add_cog(PingModule(self))
+    if config.PING_ENABLED:
+        self.add_cog(PingModule(self))
+        logs.info("Le module a bien été détécté et chargé", "[PING]")
+    else:
+        logs.warning("Le module n'a pas été chargé car il est désactivé dans la configuration", "[PING]")

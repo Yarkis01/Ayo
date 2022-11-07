@@ -30,7 +30,7 @@ class AyoBot(commands.AutoShardedInteractionBot):
             )
         )
 
-        channel = await self.fetch_channel(config.ERROR_CHANNEL_ID)
+        channel = await self.fetch_channel(config.LOGS_CHANNEL_ID)
         if channel is not None:
             await channel.send(embed = disnake.Embed(
                 title = ":robot: Bot paré au combat !",
@@ -51,7 +51,7 @@ class AyoBot(commands.AutoShardedInteractionBot):
                 invite = await channel.create_invite()
                 break
         
-        channel = await self.fetch_channel(config.ERROR_CHANNEL_ID)
+        channel = await self.fetch_channel(config.LOGS_CHANNEL_ID)
         if channel is not None:
             if invite is not None:
                 view = JoinServerView(invite.code)
@@ -66,7 +66,7 @@ class AyoBot(commands.AutoShardedInteractionBot):
 
     @commands.Cog.listener()
     async def on_guild_remove(self, guild: disnake.Guild) -> None:
-        channel = await self.fetch_channel(config.ERROR_CHANNEL_ID)
+        channel = await self.fetch_channel(config.LOGS_CHANNEL_ID)
         if channel is not None:
             await channel.send(embed = disnake.Embed(
                 title       = "📉 Le bot a été retiré d'un serveur !",
@@ -85,7 +85,7 @@ class AyoBot(commands.AutoShardedInteractionBot):
             color = disnake.Colour.red()
         ), ephemeral = True, view = ErrorView())
 
-        channel = await self.fetch_channel(config.ERROR_CHANNEL_ID)
+        channel = await self.fetch_channel(config.LOGS_CHANNEL_ID)
         if channel is not None:
             await channel.send(embed = disnake.Embed(
                 title = f":x: {inter.author} a rencontré une erreur",
@@ -102,7 +102,7 @@ class AyoBot(commands.AutoShardedInteractionBot):
     async def on_error(self, *args, **kwargs) -> None:
         logs.fail('Une erreur est survenue', '[ERROR]')
 
-        channel = await self.fetch_channel(config.ERROR_CHANNEL_ID)
+        channel = await self.fetch_channel(config.LOGS_CHANNEL_ID)
         if channel is not None:
             await channel.send(embed = disnake.Embed(
                 title = ":x: Une erreur est survenue",
@@ -112,13 +112,13 @@ class AyoBot(commands.AutoShardedInteractionBot):
 
 if __name__ == '__main__':
     bot = AyoBot(
-        intents = disnake.Intents.default(),
-        test_guilds     = [config.GUILD_ID]
+        intents     = disnake.Intents.default(),
+        test_guilds = config.TEST_GUILDS if config.DEV_MODE else None
     )
 
     for file in os.listdir('./modules'):
         if file.endswith('.py'):
             bot.load_extension(f'modules.{file[:-3]}')
-            logs.info(f"Le module {file[:-3]} a bien été détécté et chargé")
+            #logs.info(f"Le module {file[:-3]} a bien été détécté et chargé")
 
-    bot.run(config.TOKEN)
+    bot.run(config.DISCORD_TOKEN)

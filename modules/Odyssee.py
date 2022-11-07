@@ -1,4 +1,4 @@
-import disnake, json
+import disnake, json, config
 from disnake.ext import commands
 from prettytable import PrettyTable
 
@@ -66,4 +66,8 @@ class OdysseeModule(commands.Cog):
         view.message = await inter.original_response()
 
 def setup(self) -> None:
-    self.add_cog(OdysseeModule(self))
+    if config.ODYSSEE_ENABLED:
+        self.add_cog(OdysseeModule(self))
+        logs.info("Le module a bien été détécté et chargé", "[ODYSSÉE]")
+    else:
+        logs.warning("Le module n'a pas été chargé car il est désactivé dans la configuration", "[ODYSSÉE]")

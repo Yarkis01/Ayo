@@ -1,4 +1,4 @@
-import disnake, qrcode, sqlite3, time, os
+import disnake, qrcode, sqlite3, time, os, config
 from disnake.ext import commands
 
 import helper.codesamis as CA 
@@ -201,4 +201,8 @@ class CodesAmisModule(commands.Cog):
 
 
 def setup(self) -> None:
-    self.add_cog(CodesAmisModule(self))
+    if config.CODESAMIS_ENABLED:
+        self.add_cog(CodesAmisModule(self))
+        logs.info("Le module a bien été détécté et chargé", "[CODES-AMIS]")
+    else:
+        logs.warning("Le module n'a pas été chargé car il est désactivé dans la configuration", "[CODES-AMIS]")

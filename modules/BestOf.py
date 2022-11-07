@@ -1,4 +1,4 @@
-import disnake, json, random, secrets
+import disnake, json, secrets, config
 from disnake.ext import commands
 
 import helper.rotations as RH
@@ -84,4 +84,8 @@ class BestOfModule(commands.Cog):
 
 
 def setup(self) -> None:
-    self.add_cog(BestOfModule(self))
+    if config.BESTOF_ENABLED:
+        self.add_cog(BestOfModule(self))
+        logs.info("Le module a bien été détécté et chargé", "[BOX]")
+    else:
+        logs.warning("Le module n'a pas été chargé car il est désactivé dans la configuration", "[BOX]")

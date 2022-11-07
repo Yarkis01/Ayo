@@ -1,4 +1,4 @@
-import disnake
+import disnake, config
 from disnake.ext import commands
 
 from utils.logger import logs
@@ -75,4 +75,8 @@ class HelpCommandModule(commands.Cog):
         await inter.send(embed = embeds[0].set_footer(text = "Développer avec ♥️ par Yarkis#0397"), view = HelpView(embeds), ephemeral = True)
 
 def setup(self) -> None:
-    self.add_cog(HelpCommandModule(self))
+    if config.HELPCOMMAND_ENABLED:
+        self.add_cog(HelpCommandModule(self))
+        logs.info("Le module a bien été détécté et chargé", "[HELP-CMD]")
+    else:
+        logs.warning("Le module n'a pas été chargé car il est désactivé dans la configuration", "[HELP-CMD]")

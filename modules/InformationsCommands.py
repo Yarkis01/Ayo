@@ -8,7 +8,7 @@ information = "**Ayo <:ayo:1037021125793828874>** est un bot orienté **Nintendo
 class InviteViewButton(disnake.ui.View):
     def __init__(self) -> None:
         super().__init__()
-        self.add_item(disnake.ui.Button(label = "Invitez Ayo sur votre serveur", url = config.ADD_BOT_LINKS, emoji = "<:ayo:1037021125793828874>"))
+        self.add_item(disnake.ui.Button(label = "Invitez Ayo sur votre serveur", url = config.ADD_BOT_LINK, emoji = "<:ayo:1037021125793828874>"))
         self.add_item(disnake.ui.Button(label = "Rejoindre le serveur de support", url = config.SUPPORT_SERVER, emoji = "🤝"))
 
 
@@ -53,4 +53,8 @@ class InformationsCommandModule(commands.Cog):
         ).set_footer(text = f"Latence actuelle du bot: {round(self.__bot.latency * 1000)}ms"), view = InviteViewButton())
 
 def setup(self) -> None:
-    self.add_cog(InformationsCommandModule(self))
+    if config.INFOCOMMAND_ENABLED:
+        self.add_cog(InformationsCommandModule(self))
+        logs.info("Le module a bien été détécté et chargé", "[INFO-CMD]")
+    else:
+        logs.warning("Le module n'a pas été chargé car il est désactivé dans la configuration", "[INFO-CMD]")

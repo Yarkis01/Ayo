@@ -1,34 +1,65 @@
-TOKEN    = ""                                           # Token Discord (str)
-GUILD_ID =                                              # ID du serveur de développement / support (int)
-VERSION  = "1.0.1"                                      # Version du bot (str)
+"""
+    Informations Générales
+"""
+DISCORD_TOKEN   = ""
+TEST_GUILDS     = [0]
+CLIENT_ID       = 0
+DEV_MODE        = True
+VERSION         = "1.0.2"
+TIMEZONE        = "Europe/Paris"
+LOGS_CHANNEL_ID = 0
 
-TIMEZONE = "Europe/Paris"                               # Timezone (str) 
+SUPPORT_SERVER  = ""
+ADD_BOT_LINK    = f"https://discord.com/api/oauth2/authorize?client_id={CLIENT_ID}&permissions=137439463488&scope=bot%20applications.commands"
 
-HEADERS = {                                             # Utilisé pour effectuer les requêtes vers les API publiques (dict)
-    "User-Agent": "Ayo Discord Bot (Yarkis#0397)",
-    "From": "yarkis@ik.me"
+
+
+"""
+    Modules
+"""
+BESTOF_ENABLED      = True
+CODESAMIS_ENABLED   = True
+HELPCOMMAND_ENABLED = True
+INFOCOMMAND_ENABLED = True
+JOIN2CREATE_ENABLED = True
+ODYSSEE_ENABLED     = True
+PING_ENABLED        = True
+ROTATIONS_ENABLED   = True
+SPLATTED_ENABLED    = True
+
+
+
+"""
+    API
+"""
+HEADERS_BASE = {
+    "User-Agent": "",
+    "From": ""
 }
 
-SPLATOON3_API = "https://splatoon3.ink/data"            # Lien de l'API Splatoon3.ink (str)
-SPLATOON2_API = "https://splatoon2.ink/data"            # Lien de l'API Splatoon2.ink (str)
+SPLATOON3_API = "https://splatoon3.ink/data"
+SPLATOON2_API = "https://splatoon2.ink/data"
 
-ROTATION_CHANNEL_ID =                                   # ID du salon textuel qui recevra les messages automatiques de rotations (int)
-ROTATION_ROLES_ID   =                                   # Rôle à mentionner quand le bot poste les messages de rotation (int)
+PTERO_API_URL = ""
+PTERO_API_KEY = ""
 
-SUPPORT_SERVER = ""                                     # Lien d'invitation vers le serveur de support (str)
-ADD_BOT_LINKS  = ""                                     # Lien d'invitation permettant d'inviter le bot (str)
+WATCH_API_URL = f"https://api.watchbot.app/bot/{CLIENT_ID}"
+WATCH_API_KEY = ""
 
-ERROR_CHANNEL_ID = 
 
-JOIN2CREATE = [
-    ,                                                   # ID du salon permettant la création d'un salon vocal avec 2 emplacements (int)
-    ,                                                   # ID du salon permettant la création d'un salon vocal avec 4 emplacements (int)
-    ,                                                   # ID du salon permettant la création d'un salon vocal avec 10 emplacements (int)
-                                                        # Lien de la catégorie qui contiendra les salons vocaux créés et ceux permettant d'en créer (int)
-]
 
-BOT_API_URL = ""                                        # Lien vers l'API Pterodactyl (str)
-BOT_API_KEY = ""                                        # Clé d'authentification de l'API Pterodactyl (str)
+"""
+    Rotations - Config
+"""
+ROTATION_CHANNEL_ID = 1037146146008731698
+ROTATION_ROLES_ID   = 1037146171174555789
 
-WATCHBOT_API_URL = ""                                   # Lien vers l'API Watchbot.app (str)
-WATCHBOT_API_KEY = ""                                   # Clé d'authentification de l'API Watchbot.app (str)
+
+
+"""
+    Join2Create - Config
+"""
+J2C_CHANNEL_02_ID = 1037336865663098931
+J2C_CHANNEL_04_ID = 1037338208385638490
+J2C_CHANNEL_10_ID = 1037338230460268546
+J2C_CATEGORY_ID   = 1037336703402262528

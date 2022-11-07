@@ -42,7 +42,7 @@ class RotationsModule(commands.Cog):
         if (now - self.__start_time) < (self.__end_time - self.__start_time):
             return
 
-        s3_request = requests.get(config.SPLATOON3_API + "/schedules.json", headers = config.HEADERS)
+        s3_request = requests.get(config.SPLATOON3_API + "/schedules.json", headers = config.HEADERS_BASE)
         if s3_request.status_code == 200:
             self.__splatoon3_data = s3_request.json()["data"]
 
@@ -53,7 +53,7 @@ class RotationsModule(commands.Cog):
             self.__start_time     = None
             self.__end_time       = None
 
-        s2_request = requests.get(config.SPLATOON2_API + "/schedules.json", headers = config.HEADERS)
+        s2_request = requests.get(config.SPLATOON2_API + "/schedules.json", headers = config.HEADERS_BASE)
         if s2_request.status_code == 200:
             self.__splatoon2_data = s2_request.json()
         else:
@@ -80,14 +80,14 @@ class RotationsModule(commands.Cog):
         if (now - self.__salmon_start_time) < (self.__salmon_end_time - self.__salmon_start_time):
             return
 
-        s3_request = requests.get(config.SPLATOON3_API + "/schedules.json", headers = config.HEADERS)
+        s3_request = requests.get(config.SPLATOON3_API + "/schedules.json", headers = config.HEADERS_BASE)
         if s3_request.status_code == 200:
             self.__salmonrun_data = s3_request.json()["data"]["coopGroupingSchedule"]
 
             self.__salmon_start_time = datetime.fromisoformat(self.__salmonrun_data["regularSchedules"]["nodes"][0]["startTime"][:-1]).astimezone(pytz.timezone(config.TIMEZONE)) + timedelta(hours = 1)
             self.__salmon_end_time   = datetime.fromisoformat(self.__salmonrun_data["regularSchedules"]["nodes"][0]["endTime"][:-1]).astimezone(pytz.timezone(config.TIMEZONE)) + timedelta(hours = 1, minutes = 1, seconds = 2)
         
-            gears_request = requests.get(config.SPLATOON3_API + "/coop.json", headers = config.HEADERS)
+            gears_request = requests.get(config.SPLATOON3_API + "/coop.json", headers = config.HEADERS_BASE)
             if gears_request.status_code == 200:
                 self.__salmongears_data = gears_request.json()['data']['coopResult']['monthlyGear']
             else:
@@ -149,4 +149,8 @@ class RotationsModule(commands.Cog):
         await inter.send(embed = embed)
 
 def setup(self) -> None:
-    self.add_cog(RotationsModule(self))
+    if config.ROTATIONS_ENABLED:
+        self.add_cog(RotationsModule(self))
+        logs.info("Le module a bien été détécté et chargé", "[ROTATIONS]")
+    else:
+        logs.warning("Le module n'a pas été chargé car il est désactivé dans la configuration", "[ROTATIONS]")

@@ -1,4 +1,4 @@
-import disnake, random, json
+import disnake, random, json, config
 from disnake.ext import commands
 
 from utils.logger import logs
@@ -38,4 +38,8 @@ class SplattedModule(commands.Cog):
         await self.liquider(inter, member)
 
 def setup(self) -> None:
-    self.add_cog(SplattedModule(self))
+    if config.SPLATTED_ENABLED:
+        self.add_cog(SplattedModule(self))
+        logs.info("Le module a bien été détécté et chargé", "[SPLATTED]")
+    else:
+        logs.warning("Le module n'a pas été chargé car il est désactivé dans la configuration", "[SPLATTED]")
