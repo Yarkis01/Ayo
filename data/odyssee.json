@@ -1,0 +1,24 @@
+{
+    "choices": {
+        "Voyage 1": "v1"
+    },
+    "v1": {
+        "image": "https://i.imgur.com/QexnGMV.png",
+        "reward": {
+            "image": "https://i.imgur.com/yiE8rAS.png",
+            "name": "Casquette Omar"
+        },
+        "challenges": [
+            {"id": 1, "points": 2500, "name": "Canyon aux colonnes", "reward": "Papier peint"},
+            {"id": 2, "points": 8000, "name": "En route vers Cité-Clabousse", "reward": "Graffiti"},
+            {"id": 3, "points": 8000, "name": "Cité-Clabousse", "reward": "Papier peint"},
+            {"id": 4, "points": 13000, "name": "Banlieue Balibot", "reward": "Graffiti"},
+            {"id": 5, "points": 13000, "name": "Marché Grefin", "reward": "Papier peint"},
+            {"id": 6, "points": 23000, "name": "Cartodrome", "reward": "Motifs de cartes"},
+            {"id": 7, "points": 13000, "name": "Réservoir Rigadelle", "reward": "Papier peint"},
+            {"id": 8, "points": 16000, "name": "Marée Armée", "reward": "Papier peint"},
+            {"id": 9, "points": 16000, "name": "Bastion Colimaçon", "reward": "Papier peint"},
+            {"id": 10, "points": 33333, "name": "Casse Rascasse", "reward": "Titre"}
+        ]
+    }
+}

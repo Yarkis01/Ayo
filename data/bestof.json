@@ -1,0 +1,80 @@
+{
+    "modes": {
+        "s1": [
+            "Expédition risquée",
+            "Mission Bazookarpe",
+            "Défense de zone"
+        ],
+        "s2": [
+            "Expédition risquée",
+            "Mission Bazookarpe",
+            "Défense de zone",
+            "Pluie de palourdes"
+        ],
+        "s3": [
+            "Expédition risquée",
+            "Mission Bazookarpe",
+            "Défense de zone",
+            "Pluie de palourdes"
+        ]
+    },
+    "stages": {
+        "s1": [
+            "Carrières Caviar",
+            "Centre Arowana",
+            "Club Ca$halot",
+            "Docks Haddock",
+            "Encrepôt",
+            "Galeries Guppy",
+            "Hippo-Camping",
+            "Lotissements Filament",
+            "Mine Marine",
+            "Passage Turbot",
+            "Pont Esturgeon",
+            "Serre Goémon",
+            "Skatepark Mako",
+            "Station Doucebrise",
+            "Tentatec Studio",
+            "Tours Girelle"
+        ],
+        "s2": [
+            "Allées salées",
+            "Gymnase Ancrage",
+            "Scène Sirène",
+            "Piste Méroule",
+            "Institut Calam'arts",
+            "Chantier Narval",
+            "Tours Girelle",
+            "Docks Haddock",
+            "Manta Maria",
+            "Serre Goémon",
+            "Canalamar",
+            "Skatepark Mako",
+            "Encrepôt",
+            "Carrières Caviar",
+            "Parc Carapince",
+            "Hôtel Atoll",
+            "Tentatec Studio",
+            "Lagune aux gobies",
+            "Supermarché Cétacé",
+            "La Galerie des Abysses",
+            "Stade Bernique",
+            "Hippo-Camping",
+            "Centre Arowana"
+        ],
+        "s3": [
+            "Canyon aux colonnes",
+            "Banlieue Balibot",
+            "Marché Grefin",
+            "Réservoir Rigadelle",
+            "Casse Rascasse",
+            "Pont Esturgeon",
+            "Galeries Guppy",
+            "Club Ca$halot",
+            "Institut Calam'arts",
+            "Chantier Narval",
+            "Supermarché Cétacé",
+            "Parc Carapince"
+        ]
+    }
+}
