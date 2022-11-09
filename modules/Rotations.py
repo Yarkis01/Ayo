@@ -3,7 +3,8 @@ from disnake.ext import commands, tasks
 from datetime import datetime, timedelta
 
 import helper.rotations as RH
-from utils.logger import logs 
+import helper.data as HDATA
+from utils.logger import logs
 
 CHOICES = {
     "Splatoon 3": "s3", 
@@ -49,6 +50,9 @@ class RotationsModule(commands.Cog):
 
             self.__start_time = datetime.fromisoformat(self.__splatoon3_data["regularSchedules"]["nodes"][0]["startTime"][:-1]).astimezone(pytz.timezone(config.TIMEZONE)) + timedelta(hours = 1)
             self.__end_time   = datetime.fromisoformat(self.__splatoon3_data["regularSchedules"]["nodes"][0]["endTime"][:-1]).astimezone(pytz.timezone(config.TIMEZONE)) + timedelta(hours = 1, minutes = 1, seconds = 2)
+        
+            if self.__started:
+                HDATA.check_splatoon3_data()
         else:
             self.__splatoon3_data = None
             self.__start_time     = None
@@ -99,6 +103,8 @@ class RotationsModule(commands.Cog):
 
             if not self.__started:
                 return
+
+            HDATA.check_splatoon3_data()
 
             try:
                 channel = await self.__bot.fetch_channel(config.ROTATION_CHANNEL_ID)

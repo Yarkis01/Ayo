@@ -5,6 +5,7 @@ from disnake.ext import commands
 
 import config
 from utils.logger import logs
+import helper.data as HDATA
 
 class ErrorView(disnake.ui.View):
     def __init__(self) -> None:
@@ -115,6 +116,8 @@ if __name__ == '__main__':
         intents     = disnake.Intents.default(),
         test_guilds = config.TEST_GUILDS if config.DEV_MODE else None
     )
+
+    HDATA.check_splatoon3_data()
 
     for file in os.listdir('./modules'):
         if file.endswith('.py'):
