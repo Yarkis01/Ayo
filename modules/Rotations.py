@@ -29,8 +29,9 @@ class RotationsModule(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self) -> None:
-        self.salmonrun_loop.start()
-        self.splatoon_loop.start()
+        if not self.__started:
+            self.salmonrun_loop.start()
+            self.splatoon_loop.start()
         logs.info("Le module est en train d'être initié", "[ROTATIONS]")
         await asyncio.sleep(15)
         self.__started = True
@@ -65,13 +66,16 @@ class RotationsModule(commands.Cog):
         else:
             if not self.__started:
                 return
-
-            channel = await self.__bot.fetch_channel(config.ROTATION_CHANNEL_ID)
-            if channel is not None:
-                await channel.send(f"<@&{config.ROTATION_ROLES_ID}>", embeds = [
-                    RH.generate_splatoon3_embed(self.__splatoon3_data, title = "Une nouvelle rotation est disponible !"), 
-                    RH.generate_splatoon2_embed(self.__splatoon2_data, title = "Une nouvelle rotation est disponible !")
-                ])
+            
+            try:
+                channel = await self.__bot.fetch_channel(config.ROTATION_CHANNEL_ID)
+                if channel is not None:
+                    await channel.send(f"<@&{config.ROTATION_ROLES_ID}>", embeds = [
+                        RH.generate_splatoon3_embed(self.__splatoon3_data, title = "Une nouvelle rotation est disponible !"), 
+                        RH.generate_splatoon2_embed(self.__splatoon2_data, title = "Une nouvelle rotation est disponible !")
+                    ])
+            except:
+                pass
 
 
     @tasks.loop(seconds = 30)
@@ -96,9 +100,12 @@ class RotationsModule(commands.Cog):
             if not self.__started:
                 return
 
-            channel = await self.__bot.fetch_channel(config.ROTATION_CHANNEL_ID)
-            if channel is not None:
-                await channel.send(f"<@&{config.ROTATION_ROLES_ID}>", embed = RH.generate_salmonrun_embed(self.__salmonrun_data, self.__salmongears_data, title = "Une nouvelle rotation est disponible !"))
+            try:
+                channel = await self.__bot.fetch_channel(config.ROTATION_CHANNEL_ID)
+                if channel is not None:
+                    await channel.send(f"<@&{config.ROTATION_ROLES_ID}>", embed = RH.generate_salmonrun_embed(self.__salmonrun_data, self.__salmongears_data, title = "Une nouvelle rotation est disponible !"))
+            except:
+                pass
         else:
             self.__salmonrun_data   = None
             self.__salmongears_data = None

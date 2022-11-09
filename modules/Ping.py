@@ -15,6 +15,7 @@ def convert_size(size_bytes) -> str:
 class PingModule(commands.Cog):
     def __init__(self, bot: commands.AutoShardedInteractionBot) -> None:
         self.__bot         = bot
+        self.__started     = False
         self.__message_id  = None
         self.__usage_json  = None
         self.__uptime_json = None 
@@ -23,29 +24,34 @@ class PingModule(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self) -> None:
-        self._is_alive.start()
-        self._uptime_loop.start()
+        if not self.__started:
+            self._is_alive.start()
+            self._uptime_loop.start()
+            self.__started = True
         logs.success("Le module a été initié correctement", "[PING]")
 
     @tasks.loop(minutes = 30)
     async def _is_alive(self) -> None:
-        channel = await self.__bot.fetch_channel(config.LOGS_CHANNEL_ID)
-        now     = datetime.datetime.now().astimezone(pytz.timezone(config.TIMEZONE))
-        if channel is not None:
-            embed = disnake.Embed(
-                title = "❤️ Je suis vivant !",
-                description = f"Le bot est en ligne depuis: **{humanize.precisedelta(now - self.__start_time)}**",
-                color = disnake.Colour.blurple()
-            ).set_footer(text = f"Dernière modification: {now.strftime('%d/%m/%Y à %H:%M:%S')}")
-            if self.__message_id is None:
-                message = await channel.send(embed = embed)
-                self.__message_id = message.id
-            else:
-                message = await channel.fetch_message(self.__message_id)
-                if message is not None:
-                    await message.edit(embed = embed)
+        try:
+            channel = await self.__bot.fetch_channel(config.LOGS_CHANNEL_ID)
+            now     = datetime.datetime.now().astimezone(pytz.timezone(config.TIMEZONE))
+            if channel is not None:
+                embed = disnake.Embed(
+                    title = "❤️ Je suis vivant !",
+                    description = f"Le bot est en ligne depuis: **{humanize.precisedelta(now - self.__start_time)}**",
+                    color = disnake.Colour.blurple()
+                ).set_footer(text = f"Dernière modification: {now.strftime('%d/%m/%Y à %H:%M:%S')}")
+                if self.__message_id is None:
+                    message = await channel.send(embed = embed)
+                    self.__message_id = message.id
                 else:
-                    self.__message_id = None
+                    message = await channel.fetch_message(self.__message_id)
+                    if message is not None:
+                        await message.edit(embed = embed)
+                    else:
+                        self.__message_id = None
+        except:
+            pass
 
     @tasks.loop(minutes = 15)
     async def _uptime_loop(self) -> None:
