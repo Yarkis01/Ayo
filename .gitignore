@@ -2,4 +2,4 @@
 .env/*
 config.py
 config_.py
-databases/CodesAmis.db
+databases/*

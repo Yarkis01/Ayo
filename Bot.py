@@ -39,7 +39,6 @@ class AyoBot(commands.AutoShardedInteractionBot):
                 color = disnake.Colour.green()
             ))
     
-    @commands.Cog.listener()
     async def on_guild_join(self, guild: disnake.Guild) -> None:
         channels = await guild.fetch_channels()
 
@@ -65,7 +64,6 @@ class AyoBot(commands.AutoShardedInteractionBot):
                 color       = 0xffffff
             ), view = view)
 
-    @commands.Cog.listener()
     async def on_guild_remove(self, guild: disnake.Guild) -> None:
         channel = await self.fetch_channel(config.LOGS_CHANNEL_ID)
         if channel is not None:
