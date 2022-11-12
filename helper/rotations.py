@@ -11,11 +11,7 @@ def get_ranked_icon(mode: str) -> str:
     else:
         return "<:PluieDePalourdes:1036691257629618307>"
 
-def generate_splatoon3_embed(data: dict, number: int = 0, title: str = "Rotation actuelle") -> disnake.Embed:
-    translation = json.load(open("./data/splatoon3.json"))
-    startTime   = datetime.fromisoformat(data["regularSchedules"]["nodes"][number]["startTime"][:-1]).astimezone(pytz.timezone(config.TIMEZONE)) + timedelta(hours = 1)
-    endTime     = datetime.fromisoformat(data["regularSchedules"]["nodes"][number]["endTime"][:-1]).astimezone(pytz.timezone(config.TIMEZONE)) + timedelta(hours = 1)
-    
+def generate_default_splatoon3_embed(data: dict, number: int, title: str, translation: dict, startTime: datetime, endTime: datetime) -> disnake.Embed:
     return disnake.Embed(
         title       = f"<:Splatoon3:1036691272871718963> {title}",
         description = f"Début: <t:{int(datetime.timestamp(startTime))}:f>\nFin: <t:{int(datetime.timestamp(endTime))}:f>",
@@ -33,6 +29,42 @@ def generate_splatoon3_embed(data: dict, number: int = 0, title: str = "Rotation
         value = f"- {translation['stages'][data['bankaraSchedules']['nodes'][number]['bankaraMatchSettings'][1]['vsStages'][0]['id']]['name']}\n- {translation['stages'][data['bankaraSchedules']['nodes'][number]['bankaraMatchSettings'][1]['vsStages'][1]['id']]['name']}",
         inline = False
     ).set_footer(text = "Données provenant de l'API du site Splatoon3.ink", icon_url = "https://i.imgur.com/Ufv6yH4.png")
+
+def generate_splatfest_splatoon3_embed(data: dict, number: int, title: str, translation: dict, startTime: datetime, endTime: datetime) -> disnake.Embed:
+    return disnake.Embed(
+        title       = f"<:Splatoon3:1036691272871718963> {title} - Splatfest",
+        description = f"Début: <t:{int(datetime.timestamp(startTime))}:f>\nFin: <t:{int(datetime.timestamp(endTime))}:f>",
+        color       = 0xebeb3f
+    ).add_field(
+        name   = "<:splatfest:1040780648341848115> Festimatch",
+        value  = f"- {translation['stages'][data['festSchedules']['nodes'][number]['festMatchSetting']['vsStages'][0]['id']]['name']}\n- {translation['stages'][data['festSchedules']['nodes'][number]['festMatchSetting']['vsStages'][1]['id']]['name']}",
+        inline = False
+    ).add_field(
+        name   = "<:splatfest:1040780648341848115> Match tricolore",
+        value  = f"- {translation['stages'][data['currentFest']['tricolorStage']['id']]['name']}",
+        inline = False
+    ).set_image(
+        url = data['currentFest']['tricolorStage']['image']['url']
+    ).set_thumbnail(
+        url = "https://i.imgur.com/DbKsMyr.png"
+    ).set_footer(
+        text = "Données provenant de l'API du site Splatoon3.ink", 
+        icon_url = "https://i.imgur.com/Ufv6yH4.png"
+    )
+
+def generate_splatoon3_embed(data: dict, number: int = 0, title: str = "Rotation actuelle") -> disnake.Embed:
+    translation = json.load(open("./data/splatoon3.json"))
+    startTime   = datetime.fromisoformat(data["regularSchedules"]["nodes"][number]["startTime"][:-1]).astimezone(pytz.timezone(config.TIMEZONE)) + timedelta(hours = 1)
+    endTime     = datetime.fromisoformat(data["regularSchedules"]["nodes"][number]["endTime"][:-1]).astimezone(pytz.timezone(config.TIMEZONE)) + timedelta(hours = 1)
+    
+    if data['regularSchedules']['nodes'][number]['regularMatchSetting'] is None:
+        return generate_splatfest_splatoon3_embed(
+            data, number, title, translation, startTime, endTime
+        )
+    else:
+        return generate_default_splatoon3_embed(
+            data, number, title, translation, startTime, endTime
+        )
 
 def generate_splatoon2_embed(data: dict, number: int = 0, title: str = "Rotation actuelle") -> disnake.Embed:
     translation = json.load(open("./data/splatoon2.json"))
