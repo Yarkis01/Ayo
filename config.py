@@ -47,6 +47,7 @@ PTERO_API_KEY = ""
 WATCH_API_URL = f"https://api.watchbot.app/bot/{CLIENT_ID}"
 WATCH_API_KEY = ""
 
+TIMEOUT = 5
 
 
 """

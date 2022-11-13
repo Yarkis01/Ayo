@@ -55,13 +55,17 @@ class PingModule(commands.Cog):
 
     @tasks.loop(minutes = 15)
     async def _uptime_loop(self) -> None:
-        reponse = requests.get(config.PTERO_API_URL, headers = {**config.HEADERS_BASE, **{"Authorization": f"Bearer {config.PTERO_API_KEY}"}})
-        if reponse.status_code == 200:
-            self.__usage_json = reponse.json()['attributes']['resources']
+        try:
+            reponse = requests.get(config.PTERO_API_URL, headers = {**config.HEADERS_BASE, **{"Authorization": f"Bearer {config.PTERO_API_KEY}"}}, timeout = config.TIMEOUT)        
+            if reponse.status_code == 200:
+                self.__usage_json = reponse.json()['attributes']['resources']
+        except: logs.warning("Impossible de contacter l'API Pterodactyl", "[PING]")
 
-        response_watchbot = requests.get(config.WATCH_API_URL, headers = {**config.HEADERS_BASE, **{"AUTH-TOKEN": config.WATCH_API_KEY}})
-        if response_watchbot.status_code == 200: 
-            self.__uptime_json = response_watchbot.json()
+        try:
+            response_watchbot = requests.get(config.WATCH_API_URL, headers = {**config.HEADERS_BASE, **{"AUTH-TOKEN": config.WATCH_API_KEY}}, timeout = config.TIMEOUT)
+            if response_watchbot.status_code == 200: 
+                self.__uptime_json = response_watchbot.json()
+        except: logs.warning("Impossible de contacter l'API de Watchbot", "[PING]")
 
     @commands.slash_command(name = "ping", description = "Permet d'obtenir plein d'information (in)utile sur le bot", dm_permission = False)
     async def _uptime(self, inter: disnake.CommandInteraction) -> None:
