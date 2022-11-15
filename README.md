@@ -15,9 +15,9 @@
 - ➕ Et bien plus encore...
 
 ## 🏆 Classements
-[![](https://discords.com/bots/api/bot/1036668894976425994/widget)](https://discords.com/bots/bots/1036668894976425994)
-[![](https://top.gg/api/widget/1036668894976425994.svg)](https://top.gg/bot/1036668894976425994)
-[![](https://discordbotlist.com/api/v1/bots/1036668894976425994/widget)](https://discordbotlist.com/bots/1036668894976425994)
+<a href="https://discords.com/bots/bots/1036668894976425994"><img src="https://discords.com/bots/api/bot/1036668894976425994/widget" witdth="128" height="128"></a>
+<a href="https://top.gg/bot/1036668894976425994"><img src="https://top.gg/api/widget/1036668894976425994.svg" witdth="128" height="128"></a>
+<a href="https://discordbotlist.com/bots/1036668894976425994"><img src="https://discordbotlist.com/api/v1/bots/1036668894976425994/widget" witdth="128" height="128"></a>
 
 ## 📜 Licence
 Ayo est sous licence [**GPL 3.0**](https://github.com/Yarkis01/Ayo/blob/main/LICENSE).\
