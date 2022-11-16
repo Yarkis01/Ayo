@@ -11,6 +11,7 @@
 ## ❗ Fonctionnalités
 - 🔄 Un système permettant de récupérer les rotations actuelles des stages de Splatoon 2 et 3
 - 👥 Un système pour rajouter vos codes amis et ne plus jamais les oubliés
+- 📋 Des commandes permettent de récupérer des informations sur l'odyssée d'Omar ou sur les festivals
 - 🔫 La possibilité de liquider vos amis sur discord et plus uniquement en jeu
 - ➕ Et bien plus encore...
 
