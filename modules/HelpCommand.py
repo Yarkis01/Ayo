@@ -21,12 +21,12 @@ embeds = [
     ),
     disnake.Embed(
         title       = "ℹ️ Commande d'information",
-        description = "Voici toutes les commandes utiles pour obtenir des informations sur le bot:\n\n▫️ `/aide`: Permet d'obtenir la liste des commandes et leurs utilités\n▫️ `/information`: Permet d'obtenir des informations sur le bot\n▫️ `/inviter`: Permet d'obtenir un lien pour inviter le bot sur son serveur\n▫️ `/ping`: Permet d'obtenir plein d'information (in)utile sur le bot",
+        description = "Voici toutes les commandes utiles pour obtenir des informations sur le bot:\n\n▫️ `/aide`: Permet d'obtenir la liste des commandes et leurs utilités\n▫️ `/avis`: Donnez votre avis sur le bot\n▫️ `/information`: Permet d'obtenir des informations sur le bot\n▫️ `/inviter`: Permet d'obtenir un lien pour inviter le bot sur son serveur\n▫️ `/ping`: Permet d'obtenir plein d'information (in)utile sur le bot",
         color       = 0xffffff
     ),
     disnake.Embed(
         title       = "<:ayo:1037021125793828874> Autres",
-        description = "Voici les autres commandes, qui ne sont actuellement classé dans aucune catégorie:\n\n▫️ `/bo`: Permet de générer un certain nombre de modes de jeu associé avec des stages\n▫️ `/liquider`: Permet de liquider un membre du serveur\n▫️ `/odyssee`: Permet d'obtenir des informations sur l'odyssée d'Omar",
+        description = "Voici les autres commandes, qui ne sont actuellement classé dans aucune catégorie:\n\n▫️ `/bo`: Permet de générer un certain nombre de modes de jeu associé avec des stages\n▫️ `/festival`: Permet d'obtenir des informations sur un festival\n▫️ `/liquider`: Permet de liquider un membre du serveur\n▫️ `/odyssee`: Permet d'obtenir des informations sur l'odyssée d'Omar",
         color       = 0xffffff
     )
 ]

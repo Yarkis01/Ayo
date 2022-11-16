@@ -32,7 +32,7 @@ def generate_default_splatoon3_embed(data: dict, number: int, title: str, transl
 
 def generate_splatfest_splatoon3_embed(data: dict, number: int, title: str, translation: dict, startTime: datetime, endTime: datetime) -> disnake.Embed:
     return disnake.Embed(
-        title       = f"<:Splatoon3:1036691272871718963> {title} - Splatfest",
+        title       = f"<:Splatoon3:1036691272871718963><:splatfest:1040780648341848115> {title}",
         description = f"Début: <t:{int(datetime.timestamp(startTime))}:f>\nFin: <t:{int(datetime.timestamp(endTime))}:f>",
         color       = 0xebeb3f
     ).add_field(

@@ -1,0 +1,104 @@
+{
+    "choices": {
+        "Qu'emporterais-tu sur une île déserte ?": "0",
+        "Quel type de partenaire Pokémon préfères-tu ?": "1"
+    },
+    "festival": {
+        "0": {
+            "name": "Qu'emporterais-tu sur une île déserte ?",
+            "date": {
+                "start": 1663977600,
+                "end": 1664150400
+            },
+            "color": [136, 58, 193],
+            "image": "https://i.imgur.com/MT1xwrW.png",
+            "winner": {
+                "team": "Outils",
+                "image": "https://i.imgur.com/WZNCSeC.png"
+            },
+            "team": [
+                {
+                    "name": "Outils",
+                    "role": "En attaque",
+                    "result": {
+                        "conques": "33,45%",
+                        "votes": "58,28%",
+                        "ouvert": "35,29%",
+                        "defi": "33,47%"
+                    },
+                    "position": 1
+                },
+                {
+                    "name": "Nourriture",
+                    "role": "En attaque",
+                    "result": {
+                        "conques": "30,44%",
+                        "votes": "20,70%",
+                        "ouvert": "31,38%",
+                        "defi": "30,16%"
+                    },
+                    "position": 3
+                },
+                {
+                    "name": "Jeux",
+                    "role": "En défense",
+                    "result": {
+                        "conques": "36,11%",
+                        "votes": "21,02%",
+                        "ouvert": "33,33%",
+                        "defi": "36,37%"
+                    },
+                    "position": 2
+                }
+            ]
+        },
+        "1": {
+            "name": "Quel type de partenaire Pokémon préfères-tu ?",
+            "date": {
+                "start": 1668211200,
+                "end": 1668384000
+            },
+            "color": [43, 147, 251],
+            "image": "https://i.imgur.com/gwh3s2P.png",
+            "winner": {
+                "team": "Eau",
+                "image": "https://i.imgur.com/a2UyEQg.png"
+            },
+            "team": [
+                {
+                    "name": "Plante",
+                    "role": "En attaque",
+                    "result": {
+                        "conques": "33,71%",
+                        "votes": "25,80%",
+                        "ouvert": "33,41%",
+                        "defi": "33,59%"
+                    },
+                    "position": 2
+                },
+                {
+                    "name": "Feu",
+                    "role": "En attaque",
+                    "result": {
+                        "conques": "32,52%",
+                        "votes": "32,60%",
+                        "ouvert": "32,75%",
+                        "defi": "30,55%"
+                    },
+                    "position": 3
+                },
+                {
+                    "name": "Eau",
+                    "role": "En défense",
+                    "result": {
+                        "conques": "33,77%",
+                        "votes": "40,60%",
+                        "ouvert": "33,84%",
+                        "defi": "35,86%"
+                    },
+                    "position": 1
+                }
+            ]
+        }
+    }
+}

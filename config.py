@@ -5,7 +5,7 @@ DISCORD_TOKEN   = ""
 TEST_GUILDS     = [0]
 CLIENT_ID       = 0
 DEV_MODE        = True
-VERSION         = "1.1.1"
+VERSION         = "1.2.0"
 TIMEZONE        = "Europe/Paris"
 LOGS_CHANNEL_ID = 0
 
@@ -20,6 +20,7 @@ ADD_BOT_LINK    = f"https://discord.com/api/oauth2/authorize?client_id={CLIENT_I
 BESTOF_ENABLED      = True
 CODESAMIS_ENABLED   = True
 FEEDBACK_ENABLED    = True
+FESTIVALS_ENABLED   = True
 HELPCOMMAND_ENABLED = True
 INFOCOMMAND_ENABLED = True
 JOIN2CREATE_ENABLED = True
