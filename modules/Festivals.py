@@ -21,7 +21,7 @@ class FestivalsModule(commands.Cog):
     async def on_ready(self) -> None:
         logs.success("Le module a été initié correctement", "[FESTIVALS]")
 
-    @commands.slash_command(name = "festival", description = "Permet d'obtenir des informations sur un festival")
+    @commands.slash_command(name = "festival", description = "Permet d'obtenir des informations sur un festival", dm_permission = False)
     async def _festival(
         self, 
         inter: disnake.CommandInteraction,
