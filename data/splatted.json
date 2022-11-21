@@ -24,6 +24,16 @@
             "url": "https://i.imgur.com/YOt2fbO.gif",
             "color": [141, 171, 47],
             "weapon": "un **Dépoteur**"
+        },
+        {
+            "url": "https://i.imgur.com/2cVYfl2.gif",
+            "color": [114, 50, 215],
+            "weapon": "un **Multi-missile**"
+        },
+        {
+            "url": "https://i.imgur.com/HxMudd2.gif",
+            "color": [22, 167, 135],
+            "weapon": "un **Exteinteur**"
         }
     ]
 }
