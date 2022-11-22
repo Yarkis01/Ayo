@@ -15,6 +15,19 @@
 - 🔫 La possibilité de liquider vos amis sur discord et plus uniquement en jeu
 - ➕ Et bien plus encore...
 
+## 📝 TODO
+- [ ] Système de rotation pour être informé des prochaines rotations
+  - [X] Splatoon 3
+  - [X] Splatoon 2
+  - [X] Salmon Run - Splatoon 3
+  - [ ] Salmon Run - Splatoon 2
+- [ ] Création du système pour récupérer les équipements de la boutique Céphalochic
+  - [ ] Splatoon 3
+  - [ ] Splatoon 2
+- [ ] Refaire entièrement le système de code-ami (vérification + commandes + gestion de la base de données)
+- [ ] Correction de bugs, et optimisations du code
+
+
 ## 🏆 Classements
 <a href="https://discords.com/bots/bots/1036668894976425994"><img src="https://discords.com/bots/api/bot/1036668894976425994/widget" witdth="128" height="128"></a>
 <a href="https://top.gg/bot/1036668894976425994"><img src="https://top.gg/api/widget/1036668894976425994.svg" witdth="128" height="128"></a>
