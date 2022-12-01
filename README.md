@@ -26,6 +26,7 @@
   - [ ] Splatoon 2
 - [ ] Refaire entièrement le système de code-ami (vérification + commandes + gestion de la base de données)
 - [ ] Correction de bugs, et optimisations du code
+- [ ] Créer une commande permettant de regrouper les QR Codes compatibles avec Splatnet 3.
 
 
 ## 🏆 Classements
