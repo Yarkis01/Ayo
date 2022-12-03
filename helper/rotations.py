@@ -17,16 +17,20 @@ def generate_default_splatoon3_embed(data: dict, number: int, title: str, transl
         description = f"Début: <t:{int(datetime.timestamp(startTime))}:f>\nFin: <t:{int(datetime.timestamp(endTime))}:f>",
         color       = 0xebeb3f
     ).add_field(
-        name = "<:Classique:1036691264504078336> Match Classique",
-        value = f"- {translation['stages'][data['regularSchedules']['nodes'][number]['regularMatchSetting']['vsStages'][0]['id']]['name']}\n- {translation['stages'][data['regularSchedules']['nodes'][number]['regularMatchSetting']['vsStages'][1]['id']]['name']}",
+        name   = "<:Classique:1036691264504078336> Match Classique",
+        value  = f"- {translation['stages'][data['regularSchedules']['nodes'][number]['regularMatchSetting']['vsStages'][0]['id']]['name']}\n- {translation['stages'][data['regularSchedules']['nodes'][number]['regularMatchSetting']['vsStages'][1]['id']]['name']}",
         inline = False
     ).add_field(
-        name = f"<:Anarchie:1036691259865190540>Match Anarchie (serie)  -  {get_ranked_icon(translation['rules'][data['bankaraSchedules']['nodes'][number]['bankaraMatchSettings'][0]['vsRule']['id']]['name'])} {translation['rules'][data['bankaraSchedules']['nodes'][number]['bankaraMatchSettings'][0]['vsRule']['id']]['name']}",
-        value = f"- {translation['stages'][data['bankaraSchedules']['nodes'][number]['bankaraMatchSettings'][0]['vsStages'][0]['id']]['name']}\n- {translation['stages'][data['bankaraSchedules']['nodes'][number]['bankaraMatchSettings'][0]['vsStages'][1]['id']]['name']}",
+        name   = f"<:Anarchie:1036691259865190540>Match Anarchie (serie)  -  {get_ranked_icon(translation['rules'][data['bankaraSchedules']['nodes'][number]['bankaraMatchSettings'][0]['vsRule']['id']]['name'])} {translation['rules'][data['bankaraSchedules']['nodes'][number]['bankaraMatchSettings'][0]['vsRule']['id']]['name']}",
+        value  = f"- {translation['stages'][data['bankaraSchedules']['nodes'][number]['bankaraMatchSettings'][0]['vsStages'][0]['id']]['name']}\n- {translation['stages'][data['bankaraSchedules']['nodes'][number]['bankaraMatchSettings'][0]['vsStages'][1]['id']]['name']}",
         inline = False
     ).add_field(
-        name = f"<:Anarchie:1036691259865190540> Match Anarchie (ouvert)  -  {get_ranked_icon(translation['rules'][data['bankaraSchedules']['nodes'][number]['bankaraMatchSettings'][1]['vsRule']['id']]['name'])} {translation['rules'][data['bankaraSchedules']['nodes'][number]['bankaraMatchSettings'][1]['vsRule']['id']]['name']}",
-        value = f"- {translation['stages'][data['bankaraSchedules']['nodes'][number]['bankaraMatchSettings'][1]['vsStages'][0]['id']]['name']}\n- {translation['stages'][data['bankaraSchedules']['nodes'][number]['bankaraMatchSettings'][1]['vsStages'][1]['id']]['name']}",
+        name   = f"<:Anarchie:1036691259865190540> Match Anarchie (ouvert)  -  {get_ranked_icon(translation['rules'][data['bankaraSchedules']['nodes'][number]['bankaraMatchSettings'][1]['vsRule']['id']]['name'])} {translation['rules'][data['bankaraSchedules']['nodes'][number]['bankaraMatchSettings'][1]['vsRule']['id']]['name']}",
+        value  = f"- {translation['stages'][data['bankaraSchedules']['nodes'][number]['bankaraMatchSettings'][1]['vsStages'][0]['id']]['name']}\n- {translation['stages'][data['bankaraSchedules']['nodes'][number]['bankaraMatchSettings'][1]['vsStages'][1]['id']]['name']}",
+        inline = False
+    ).add_field(
+        name   = f"<:rangx:1048249026413342750> Match X - {get_ranked_icon(translation['rules'][data['xSchedules']['nodes'][number]['xMatchSetting']['vsRule']['id']]['name'])} {translation['rules'][data['xSchedules']['nodes'][number]['xMatchSetting']['vsRule']['id']]['name']}",
+        value  = f"- {translation['stages'][data['xSchedules']['nodes'][number]['xMatchSetting']['vsStages'][0]['id']]['name']}\n- {translation['stages'][data['xSchedules']['nodes'][number]['xMatchSetting']['vsStages'][1]['id']]['name']}",
         inline = False
     ).set_footer(text = "Données provenant de l'API du site Splatoon3.ink", icon_url = "https://i.imgur.com/Ufv6yH4.png")
 

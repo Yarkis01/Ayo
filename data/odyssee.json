@@ -1,6 +1,7 @@
 {
     "choices": {
-        "Voyage 1": "v1"
+        "Voyage 1": "v1",
+        "Voyage 2": "v2"
     },
     "v1": {
         "image": "https://i.imgur.com/QexnGMV.png",
@@ -19,6 +20,25 @@
             {"id": 8, "points": 16000, "name": "Marée Armée", "reward": "Papier peint"},
             {"id": 9, "points": 16000, "name": "Bastion Colimaçon", "reward": "Papier peint"},
             {"id": 10, "points": 33333, "name": "Casse Rascasse", "reward": "Titre"}
+        ]
+    },
+    "v2": {
+        "image": "https://i.imgur.com/7yXSlp6.png",
+        "reward": {
+            "image": "https://i.imgur.com/JT2kYVm.png",
+            "name": "Baskets LaFrite"
+        },
+        "challenges": [
+            {"id": 1, "points": 10000, "name": "Galeries Guppy", "reward": "Papier peint"},
+            {"id": 2, "points": 33333, "name": "Institut Calam'arts", "reward": "Graffiti"},
+            {"id": 3, "points": 20000, "name": "Pont Esturgeon", "reward": "Papier peint"},
+            {"id": 4, "points": 33333, "name": "Chantier Narval", "reward": "Graffiti"},
+            {"id": 5, "points": 30000, "name": "Lotissement Filament", "reward": "Papier peint"},
+            {"id": 6, "points": 33333, "name": "Supermarché Cétacé", "reward": "Graffiti"},
+            {"id": 7, "points": 30000, "name": "Club Ca$halot", "reward": "Papier peint"},
+            {"id": 8, "points": 33333, "name": "Parc Carapince", "reward": "Papier peint"},
+            {"id": 9, "points": 62100, "name": "Épave des braves", "reward": "Papier peint"},
+            {"id": 10, "points": 333333, "name": "Barrage Salmonïde", "reward": "Titre"}
         ]
     }
 }
