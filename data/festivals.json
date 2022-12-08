@@ -1,11 +1,11 @@
 {
     "choices": {
-        "Qu'emporterais-tu sur une île déserte ?": "0",
-        "Quel type de partenaire Pokémon préfères-tu ?": "1"
+        "Qu'emporterais-tu sur une \u00EEle d\u00E9serte ?": "0",
+        "Quel type de partenaire Pok\u00E9mon pr\u00E9f\u00E8res-tu ?": "1"
     },
     "festival": {
         "0": {
-            "name": "Qu'emporterais-tu sur une île déserte ?",
+            "name": "Qu'emporterais-tu sur une \u00EEle d\u00E9serte ?",
             "date": {
                 "start": 1663977600,
                 "end": 1664150400
@@ -41,7 +41,7 @@
                 },
                 {
                     "name": "Jeux",
-                    "role": "En défense",
+                    "role": "En d\u00E9fense",
                     "result": {
                         "conques": "36,11%",
                         "votes": "21,02%",
@@ -53,7 +53,7 @@
             ]
         },
         "1": {
-            "name": "Quel type de partenaire Pokémon préfères-tu ?",
+            "name": "Quel type de partenaire Pok\u00E9mon pr\u00E9f\u00E8res-tu ?",
             "date": {
                 "start": 1668211200,
                 "end": 1668384000
@@ -89,7 +89,7 @@
                 },
                 {
                     "name": "Eau",
-                    "role": "En défense",
+                    "role": "En d\u00E9fense",
                     "result": {
                         "conques": "33,77%",
                         "votes": "40,60%",

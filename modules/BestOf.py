@@ -53,7 +53,9 @@ class BestOfModule(commands.Cog):
             modes_count[mode] = 1 if mode not in modes_count else modes_count[mode] + 1
             stage_count[stage] = 1 if stage not in stage_count else stage_count[stage] + 1
 
-            if modes_count[mode] > 3 or stage_count[stage] > 2:
+            if game == "s1" and (modes_count[mode] > 3 or stage_count[stage] > 2):
+                continue
+            if game in {"s2", "s3"} and (modes_count[mode] > 2 or stage_count[stage] > 2):
                 continue
 
             old_mode     = mode
@@ -62,7 +64,8 @@ class BestOfModule(commands.Cog):
             i           += 1
 
         if number != 1:
-            description += f"\nIl faut au moins remporter **{int(number / 2) + 1} matchs** pour décrocher la victoire !"
+            description += f"\nIl faut au moins remporter **{number // 2 + 1} matchs** pour décrocher la victoire !"
+        
         description += "\nQue la meilleure équipe gagne !"
 
         if game == "s3":
