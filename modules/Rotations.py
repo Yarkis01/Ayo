@@ -1,4 +1,4 @@
-import disnake, pytz, config, requests, asyncio
+import disnake, pytz, config, requests, asyncio, contextlib
 from disnake.ext import commands, tasks
 from datetime import datetime, timedelta
 
@@ -44,13 +44,13 @@ class RotationsModule(commands.Cog):
         if (now - self.__start_time) < (self.__end_time - self.__start_time):
             return
 
-        s3_request = requests.get(config.SPLATOON3_API + "/schedules.json", headers = config.HEADERS_BASE)
+        s3_request = requests.get(f"{config.SPLATOON3_API}/schedules.json", headers=config.HEADERS_BASE)
         if s3_request.status_code == 200:
             self.__splatoon3_data = s3_request.json()["data"]
 
             self.__start_time = datetime.fromisoformat(self.__splatoon3_data["regularSchedules"]["nodes"][0]["startTime"][:-1]).astimezone(pytz.timezone(config.TIMEZONE)) + timedelta(hours = 1)
             self.__end_time   = datetime.fromisoformat(self.__splatoon3_data["regularSchedules"]["nodes"][0]["endTime"][:-1]).astimezone(pytz.timezone(config.TIMEZONE)) + timedelta(hours = 1, minutes = 1, seconds = 2)
-        
+
             if self.__started:
                 HDATA.check_splatoon3_data()
         else:
@@ -58,7 +58,7 @@ class RotationsModule(commands.Cog):
             self.__start_time     = None
             self.__end_time       = None
 
-        s2_request = requests.get(config.SPLATOON2_API + "/schedules.json", headers = config.HEADERS_BASE)
+        s2_request = requests.get(f"{config.SPLATOON2_API}/schedules.json", headers=config.HEADERS_BASE)
         if s2_request.status_code == 200:
             self.__splatoon2_data = s2_request.json()
         else:
@@ -70,16 +70,14 @@ class RotationsModule(commands.Cog):
         else:
             if not self.__started:
                 return
-            
-            try:
+
+            with contextlib.suppress(Exception):
                 channel = await self.__bot.fetch_channel(config.ROTATION_CHANNEL_ID)
                 if channel is not None:
                     await channel.send(f"<@&{config.ROTATION_ROLES_ID}>", embeds = [
                         RH.generate_splatoon3_embed(self.__splatoon3_data, title = "Une nouvelle rotation est disponible !"), 
                         RH.generate_splatoon2_embed(self.__splatoon2_data, title = "Une nouvelle rotation est disponible !")
                     ])
-            except:
-                pass
 
 
     @tasks.loop(seconds = 30)
@@ -88,14 +86,14 @@ class RotationsModule(commands.Cog):
         if (now - self.__salmon_start_time) < (self.__salmon_end_time - self.__salmon_start_time):
             return
 
-        s3_request = requests.get(config.SPLATOON3_API + "/schedules.json", headers = config.HEADERS_BASE)
+        s3_request = requests.get(f"{config.SPLATOON3_API}/schedules.json", headers=config.HEADERS_BASE)
         if s3_request.status_code == 200:
             self.__salmonrun_data = s3_request.json()["data"]["coopGroupingSchedule"]
 
             self.__salmon_start_time = datetime.fromisoformat(self.__salmonrun_data["regularSchedules"]["nodes"][0]["startTime"][:-1]).astimezone(pytz.timezone(config.TIMEZONE)) + timedelta(hours = 1)
             self.__salmon_end_time   = datetime.fromisoformat(self.__salmonrun_data["regularSchedules"]["nodes"][0]["endTime"][:-1]).astimezone(pytz.timezone(config.TIMEZONE)) + timedelta(hours = 1, minutes = 1, seconds = 2)
-        
-            gears_request = requests.get(config.SPLATOON3_API + "/coop.json", headers = config.HEADERS_BASE)
+
+            gears_request = requests.get(f"{config.SPLATOON3_API}/coop.json", headers=config.HEADERS_BASE)
             if gears_request.status_code == 200:
                 self.__salmongears_data = gears_request.json()['data']['coopResult']['monthlyGear']
             else:
@@ -106,12 +104,10 @@ class RotationsModule(commands.Cog):
 
             HDATA.check_splatoon3_data()
 
-            try:
+            with contextlib.suppress(Exception):
                 channel = await self.__bot.fetch_channel(config.ROTATION_CHANNEL_ID)
                 if channel is not None:
-                    await channel.send(f"<@&{config.ROTATION_ROLES_ID}>", embed = RH.generate_salmonrun_embed(self.__salmonrun_data, self.__salmongears_data, title = "Une nouvelle rotation est disponible !"))
-            except:
-                pass
+                    await channel.send(f"<@&{config.ROTATION_ROLES_ID}>", embed = RH.generate_salmonrun_embed(self.__salmonrun_data, self.__salmongears_data, title = "Une nouvelle rotation est disponible !", new_rotation = True))
         else:
             self.__salmonrun_data   = None
             self.__salmongears_data = None
@@ -144,11 +140,7 @@ class RotationsModule(commands.Cog):
         data: str = commands.Param(name = "mode", description = "Choisissez le mode que vous souhaitez avoir la rotation", choices = CHOICES),
         number: commands.Range[1, 2] = commands.Param(name = "numéro", description = "Permet d'indiquer le numéro de la prochaine rotation (entre 1 et 2)", default = 1)
     ):
-        if number == 1:
-            title = "Rotation suivante"
-        else:
-            title = "Prochaine rotation"
-
+        title = "Rotation suivante" if number == 1 else "Prochaine rotation"
         if data == "s3" and self.__splatoon3_data is not None:
             embed = RH.generate_splatoon3_embed(self.__splatoon3_data, number, title)
         elif data == "s2" and self.__splatoon2_data is not None:

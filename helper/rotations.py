@@ -1,4 +1,4 @@
-import disnake, json, pytz, config
+import disnake, json, pytz, config, contextlib
 from datetime import datetime, timedelta
 
 def get_ranked_icon(mode: str) -> str:
@@ -11,7 +11,7 @@ def get_ranked_icon(mode: str) -> str:
     else:
         return "<:PluieDePalourdes:1036691257629618307>"
 
-def generate_default_splatoon3_embed(data: dict, number: int, title: str, translation: dict, startTime: datetime, endTime: datetime) -> disnake.Embed:
+def __generate_splatoon3_embed(data: dict, number: int, title: str, translation: dict, startTime: datetime, endTime: datetime) -> disnake.Embed:
     return disnake.Embed(
         title       = f"<:Splatoon3:1036691272871718963> {title}",
         description = f"Début: <t:{int(datetime.timestamp(startTime))}:f>\nFin: <t:{int(datetime.timestamp(endTime))}:f>",
@@ -34,7 +34,7 @@ def generate_default_splatoon3_embed(data: dict, number: int, title: str, transl
         inline = False
     ).set_footer(text = "Données provenant de l'API du site Splatoon3.ink", icon_url = "https://i.imgur.com/Ufv6yH4.png")
 
-def generate_splatfest_splatoon3_embed(data: dict, number: int, title: str, translation: dict, startTime: datetime, endTime: datetime) -> disnake.Embed:
+def __generate_splatfest_embed(data: dict, number: int, title: str, translation: dict, startTime: datetime, endTime: datetime) -> disnake.Embed:
     return disnake.Embed(
         title       = f"<:Splatoon3:1036691272871718963><:splatfest:1040780648341848115> {title}",
         description = f"Début: <t:{int(datetime.timestamp(startTime))}:f>\nFin: <t:{int(datetime.timestamp(endTime))}:f>",
@@ -62,11 +62,11 @@ def generate_splatoon3_embed(data: dict, number: int = 0, title: str = "Rotation
     endTime     = datetime.fromisoformat(data["regularSchedules"]["nodes"][number]["endTime"][:-1]).astimezone(pytz.timezone(config.TIMEZONE)) + timedelta(hours = 1)
     
     if data['regularSchedules']['nodes'][number]['regularMatchSetting'] is None:
-        return generate_splatfest_splatoon3_embed(
+        return __generate_splatfest_embed(
             data, number, title, translation, startTime, endTime
         )
     else:
-        return generate_default_splatoon3_embed(
+        return __generate_splatoon3_embed(
             data, number, title, translation, startTime, endTime
         )
 
@@ -94,8 +94,7 @@ def generate_splatoon2_embed(data: dict, number: int = 0, title: str = "Rotation
         inline = False
     ).set_footer(text = "Données provenant de l'API du site Splatoon2.ink", icon_url = "https://i.imgur.com/nvxf5TK.png")
 
-def generate_salmonrun_embed(data: dict, gear_data: dict, number: int = 0, title: str = "Rotation actuelle") -> disnake.Embed:
-    data = data["regularSchedules"]["nodes"][number]
+def __generate_salmon_embed(data: dict, gear_data: dict, title: str = "Rotation actuelle") -> disnake.Embed:
     translation = json.load(open("./data/splatoon3.json"))
 
     startTime = datetime.fromisoformat(data["startTime"][:-1]).astimezone(pytz.timezone(config.TIMEZONE)) + timedelta(hours = 1)
@@ -119,13 +118,23 @@ def generate_salmonrun_embed(data: dict, gear_data: dict, number: int = 0, title
 
     if gear_data is not None:
         embed.set_thumbnail(gear_data["image"]["url"])
-        try:
+        with contextlib.suppress(Exception):
             embed.add_field(
                 name   = "👚 Équipement actuel",
                 value  = f"- {translation['gear'][gear_data['__splatoon3ink_id']]['name']}",
                 inline = False
             )
-        except:
-            pass
-
     return embed
+
+def generate_salmonrun_embed(data: dict, gear_data: dict, number: int = 0, title: str = "Rotation actuelle", new_rotation: bool = False) -> disnake.Embed:
+    if number == 0:
+        now = datetime.now().astimezone(pytz.timezone(config.TIMEZONE))
+    else:
+        now = datetime.fromisoformat(data["regularSchedules"]["nodes"][number]["endTime"][:-1]).astimezone(pytz.timezone(config.TIMEZONE)) + timedelta(hours = 1)
+    startTime = datetime.fromisoformat(data["regularSchedules"]["nodes"][number + 1]["startTime"][:-1]).astimezone(pytz.timezone(config.TIMEZONE)) + timedelta(hours = 1)
+
+    if now - startTime >= timedelta(seconds=0):
+        return __generate_salmon_embed(data["regularSchedules"]["nodes"][number], gear_data, title)
+
+    title = "<:bigrun:1050787966794080379> Un Big Run fait des vagues !" if new_rotation else f"<:bigrun:1050787966794080379> {title}"
+    return __generate_salmon_embed(data["bigRunSchedules"]["nodes"][0], gear_data, title)
