@@ -5,7 +5,7 @@ DISCORD_TOKEN   = ""
 TEST_GUILDS     = [0]
 CLIENT_ID       = 0
 DEV_MODE        = True
-VERSION         = "1.3.2"
+VERSION         = "1.3.3"
 TIMEZONE        = "Europe/Paris"
 LOGS_CHANNEL_ID = 0
 

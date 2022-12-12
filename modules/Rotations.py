@@ -44,40 +44,39 @@ class RotationsModule(commands.Cog):
         if (now - self.__start_time) < (self.__end_time - self.__start_time):
             return
 
-        s3_request = requests.get(f"{config.SPLATOON3_API}/schedules.json", headers=config.HEADERS_BASE)
-        if s3_request.status_code == 200:
-            self.__splatoon3_data = s3_request.json()["data"]
+        self.__start_time = datetime(now.year, now.month, now.day, now.hour, 0, 0, 0).astimezone(pytz.timezone(config.TIMEZONE))
+        self.__end_time   = datetime(now.year, now.month, now.day, now.hour + 2, 1, 5, 0).astimezone(pytz.timezone(config.TIMEZONE))
 
-            self.__start_time = datetime.fromisoformat(self.__splatoon3_data["regularSchedules"]["nodes"][0]["startTime"][:-1]).astimezone(pytz.timezone(config.TIMEZONE)) + timedelta(hours = 1)
-            self.__end_time   = datetime.fromisoformat(self.__splatoon3_data["regularSchedules"]["nodes"][0]["endTime"][:-1]).astimezone(pytz.timezone(config.TIMEZONE)) + timedelta(hours = 1, minutes = 1, seconds = 2)
 
-            if self.__started:
-                HDATA.check_splatoon3_data()
-        else:
+        try:
+            s3_request = requests.get(f"{config.SPLATOON3_API}/schedules.json", headers=config.HEADERS_BASE, timeout = 10)
+            self.__splatoon3_data = s3_request.json()["data"] if s3_request.status_code == 200 else None
+        except requests.Timeout:
             self.__splatoon3_data = None
-            self.__start_time     = None
-            self.__end_time       = None
 
-        s2_request = requests.get(f"{config.SPLATOON2_API}/schedules.json", headers=config.HEADERS_BASE)
-        if s2_request.status_code == 200:
-            self.__splatoon2_data = s2_request.json()
-        else:
+        try:
+            s2_request = requests.get(f"{config.SPLATOON2_API}/schedules.json", headers=config.HEADERS_BASE, timeout = 10)
+            self.__splatoon2_data = s2_request.json() if s2_request.status_code == 200 else None
+        except requests.Timeout:
             self.__splatoon2_data = None
 
-        if self.__start_time is None:
-            self.__start_time = datetime.now().astimezone(pytz.timezone(config.TIMEZONE))
-            self.__end_time   = datetime.now().astimezone(pytz.timezone(config.TIMEZONE)) + timedelta(hours = 1)
-        else:
-            if not self.__started:
-                return
 
-            with contextlib.suppress(Exception):
-                channel = await self.__bot.fetch_channel(config.ROTATION_CHANNEL_ID)
-                if channel is not None:
-                    await channel.send(f"<@&{config.ROTATION_ROLES_ID}>", embeds = [
-                        RH.generate_splatoon3_embed(self.__splatoon3_data, title = "Une nouvelle rotation est disponible !"), 
-                        RH.generate_splatoon2_embed(self.__splatoon2_data, title = "Une nouvelle rotation est disponible !")
-                    ])
+        if not self.__started:
+            return
+
+        embeds = []
+
+        if self.__splatoon3_data is not None:
+            HDATA.check_splatoon3_data()
+            embeds.append(RH.generate_splatoon3_embed(self.__splatoon3_data, title = "Une nouvelle rotation est disponible !"))
+        
+        if self.__splatoon2_data is not None:
+            embeds.append(RH.generate_splatoon2_embed(self.__splatoon2_data, title = "Une nouvelle rotation est disponible !"))
+        
+        with contextlib.suppress(Exception):
+            channel = await self.__bot.fetch_channel(config.ROTATION_CHANNEL_ID)
+            if channel is not None and embeds:
+                await channel.send(f"<@&{config.ROTATION_ROLES_ID}>", embeds = embeds)
 
 
     @tasks.loop(seconds = 30)

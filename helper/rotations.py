@@ -133,7 +133,7 @@ def generate_salmonrun_embed(data: dict, gear_data: dict, number: int = 0, title
         now = datetime.fromisoformat(data["regularSchedules"]["nodes"][number]["endTime"][:-1]).astimezone(pytz.timezone(config.TIMEZONE)) + timedelta(hours = 1)
     startTime = datetime.fromisoformat(data["regularSchedules"]["nodes"][number + 1]["startTime"][:-1]).astimezone(pytz.timezone(config.TIMEZONE)) + timedelta(hours = 1)
 
-    if now - startTime >= timedelta(seconds=0):
+    if now - startTime >= timedelta(seconds=0) or len(data["bigRunSchedules"]["nodes"]) == 0:
         return __generate_salmon_embed(data["regularSchedules"]["nodes"][number], gear_data, title)
 
     title = "<:bigrun:1050787966794080379> Un Big Run fait des vagues !" if new_rotation else f"<:bigrun:1050787966794080379> {title}"
