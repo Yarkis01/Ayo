@@ -44,8 +44,8 @@ class RotationsModule(commands.Cog):
         if (now - self.__start_time) < (self.__end_time - self.__start_time):
             return
 
-        self.__start_time = datetime(now.year, now.month, now.day, now.hour, 0, 0, 0).astimezone(pytz.timezone(config.TIMEZONE))
-        self.__end_time   = datetime(now.year, now.month, now.day, now.hour + 2, 1, 5, 0).astimezone(pytz.timezone(config.TIMEZONE))
+        self.__start_time = datetime(now.year, now.month, now.day, now.hour + 1, 0, 0, 0).astimezone(pytz.timezone(config.TIMEZONE))
+        self.__end_time   = datetime(now.year, now.month, now.day, now.hour + 3, 1, 5, 0).astimezone(pytz.timezone(config.TIMEZONE))
 
 
         try:
