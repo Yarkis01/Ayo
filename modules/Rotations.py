@@ -22,8 +22,7 @@ class RotationsModule(commands.Cog):
         self.__salmonrun_data = None
         self.__salmongears_data = None
 
-        self.__start_time = datetime(2022, 10, 30, 20, 0, 0, 0).astimezone(pytz.timezone(config.TIMEZONE))
-        self.__end_time   = datetime(2022, 10, 30, 22, 0, 0, 0).astimezone(pytz.timezone(config.TIMEZONE))
+        self.__next_rotation = datetime(2022, 10, 30, 22, 0, 0, 0).astimezone(pytz.timezone(config.TIMEZONE))
 
         self.__salmon_start_time = datetime(2022, 10, 30, 20, 0, 0, 0).astimezone(pytz.timezone(config.TIMEZONE))
         self.__salmon_end_time   = datetime(2022, 10, 30, 22, 0, 0, 0).astimezone(pytz.timezone(config.TIMEZONE))
@@ -41,12 +40,10 @@ class RotationsModule(commands.Cog):
     @tasks.loop(seconds = 30)
     async def splatoon_loop(self) -> None:
         now = datetime.now().astimezone(pytz.timezone(config.TIMEZONE))
-        if (now - self.__start_time) < (self.__end_time - self.__start_time):
+        if (self.__next_rotation - now) >= timedelta(hours = 0):
             return
 
-        self.__start_time = datetime(now.year, now.month, now.day, now.hour + 1, 0, 0, 0).astimezone(pytz.timezone(config.TIMEZONE))
-        self.__end_time   = datetime(now.year, now.month, now.day, now.hour + 3, 1, 5, 0).astimezone(pytz.timezone(config.TIMEZONE))
-
+        self.__next_rotation = datetime(now.year, now.month, now.day, now.hour, 0, 0, 0).astimezone(pytz.timezone(config.TIMEZONE)) + timedelta(hours=2, minutes=1, seconds=5) if now.hour % 2 else datetime(now.year, now.month, now.day, now.hour, 0, 0, 0).astimezone(pytz.timezone(config.TIMEZONE)) + timedelta(hours=1, minutes=1, seconds=5)
 
         try:
             s3_request = requests.get(f"{config.SPLATOON3_API}/schedules.json", headers=config.HEADERS_BASE, timeout = 10)
@@ -111,8 +108,8 @@ class RotationsModule(commands.Cog):
             self.__salmonrun_data   = None
             self.__salmongears_data = None
 
-            self.__start_time = datetime.now().astimezone(pytz.timezone(config.TIMEZONE))
-            self.__end_time   = datetime.now().astimezone(pytz.timezone(config.TIMEZONE)) + timedelta(hours = 1)
+            self.__salmon_start_time = datetime.now().astimezone(pytz.timezone(config.TIMEZONE))
+            self.__salmon_end_time   = datetime.now().astimezone(pytz.timezone(config.TIMEZONE)) + timedelta(hours = 1)
 
     @commands.slash_command(name = "rotations", description = "Permet d'obtenir des informations sur les rotations", dm_permission = False)
     async def rotations_command(self, inter: disnake.CommandInteraction):
