@@ -71,6 +71,13 @@ class FeedbackModal(disnake.ui.Modal):
 
         await inter.send(":x: Oups, une erreur est survenue !", ephemeral = True)
 
+class FeedbackView(disnake.ui.View):
+    def __init__(self) -> None:
+        super().__init__()
+
+        self.add_item(disnake.ui.Button(label = "Top.gg", url = "https://top.gg/bot/1036668894976425994#reviews"))
+        self.add_item(disnake.ui.Button(label = "DBL", url = "https://discordbotlist.com/bots/ayo"))
+
 class FeedbackModule(commands.Cog):
     def __init__(self, bot: commands.AutoShardedInteractionBot) -> None:
         self.__bot = bot
@@ -82,6 +89,11 @@ class FeedbackModule(commands.Cog):
     @commands.slash_command(name = "avis", description = "Donnez votre avis sur le bot", dm_permission = False)
     async def _feedback(self, inter: disnake.CommandInteraction) -> None:
         await inter.response.send_modal(modal = FeedbackModal())
+        await inter.send(embed = disnake.Embed(
+            title       = "🌟 Votre avis compte pour nous !",
+            description = "Votre avis compte pour nous, alors n'hésitez pas à le partager au maximum de personne.\nVous pouvez aussi poster votre message sur les sites de référencements.",
+            color       = disnake.Colour.yellow()
+        ), view = FeedbackView(), ephemeral = True)
 
 
 def setup(self) -> None:
