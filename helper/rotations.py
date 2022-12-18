@@ -138,3 +138,38 @@ def generate_salmonrun_embed(data: dict, gear_data: dict, number: int = 0, title
 
     title = "<:bigrun:1050787966794080379> Un Big Run fait des vagues !" if new_rotation else f"<:bigrun:1050787966794080379> {title}"
     return __generate_salmon_embed(data["bigRunSchedules"]["nodes"][0], gear_data, title)
+
+def generate_splatoon2_salmonrun_embed(data: dict, number: int = 0, title: str = "Rotation actuelle") -> disnake.Embed:
+    title = f"<:Splatoon2:1036691271076560936><:SalmonRun:1036691274415231006> {title}"
+    if number != 0:
+        return disnake.Embed(
+            title       = title,
+            description = f"Début: <t:{data['schedules'][number]['start_time']}:f>\nFin: <t:{data['schedules'][number]['end_time']}:f>",
+            color       = 0xff5033
+        ).set_footer(text = "Données provenant de l'API du site Splatoon2.ink", icon_url = "https://i.imgur.com/nvxf5TK.png")
+
+    translation = json.load(open("./data/splatoon2.json"))
+    data        = data["details"][0]
+
+    weapons = []
+    for weapon in data["weapons"]:
+        if weapon['id'] not in translation["weapons"]:
+            weapons.append("Aléatoire")
+        else:
+            weapons.append(translation["weapons"][weapon['id']]['name'])
+
+    return disnake.Embed(
+        title       = title,
+        description = f"Début: <t:{data['start_time']}:f>\nFin: <t:{data['end_time']}:f>",
+        color       = 0xff5033
+    ).add_field(
+        name   = "🗺️ Map",
+        value  = f"- {translation['coop_stages'][data['stage']['image']]['name']}",
+        inline = False
+    ).add_field(
+        name   = "🔫 Armes",
+        value  = f"- {weapons[0]}\n- {weapons[1]}\n- {weapons[2]}\n- {weapons[3]}",
+        inline = False
+    ).set_image(
+        url = f"https://splatoon2.ink/assets/splatnet{data['stage']['image']}"
+    ).set_footer(text = "Données provenant de l'API du site Splatoon2.ink", icon_url = "https://i.imgur.com/nvxf5TK.png")

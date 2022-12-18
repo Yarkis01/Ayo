@@ -16,11 +16,11 @@
 - ➕ Et bien plus encore...
 
 ## 📝 TODO
-- [ ] Système de rotation pour être informé des prochaines rotations
+- [X] Système de rotation pour être informé des prochaines rotations
   - [X] Splatoon 3
   - [X] Splatoon 2
   - [X] Salmon Run - Splatoon 3
-  - [ ] Salmon Run - Splatoon 2
+  - [X] Salmon Run - Splatoon 2
 - [ ] Création du système pour récupérer les équipements de la boutique Céphalochic
   - [ ] Splatoon 3
   - [ ] Splatoon 2

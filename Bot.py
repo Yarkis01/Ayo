@@ -50,14 +50,10 @@ class AyoBot(commands.AutoShardedInteractionBot):
             if channel.permissions_for(guild.me).create_instant_invite:
                 invite = await channel.create_invite()
                 break
-        
+
         channel = await self.fetch_channel(config.LOGS_CHANNEL_ID)
         if channel is not None:
-            if invite is not None:
-                view = JoinServerView(invite.code)
-            else:
-                view = None
-            
+            view = JoinServerView(invite.code) if invite is not None else None
             await channel.send(embed = disnake.Embed(
                 title       = "📈 Le bot a rejoint un nouveaux serveur !",
                 description = f"Le bot est à présent sur {len(self.guilds)} serveurs",
@@ -120,6 +116,5 @@ if __name__ == '__main__':
     for file in os.listdir('./modules'):
         if file.endswith('.py'):
             bot.load_extension(f'modules.{file[:-3]}')
-            #logs.info(f"Le module {file[:-3]} a bien été détécté et chargé")
 
     bot.run(config.DISCORD_TOKEN)
