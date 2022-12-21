@@ -16,7 +16,7 @@ embeds = [
     ),
     disnake.Embed(
         title       = "🔄 Rotations",
-        description = "Voici toutes les commandes en rapport avec le système de rotation des stages:\n\n▫️ `/rotations actuelles`: Permet d'obtenir la rotation actuelle des stages\n▫️ `/rotations suivantes`: Permet d'obtenir la prochaine rotation des stages",
+        description = "Voici toutes les commandes en rapport avec un système de rotation:\n\n▫️ `/rotations actuelles`: Permet d'obtenir la rotation actuelle des stages\n▫️ `/rotations suivantes`: Permet d'obtenir la prochaine rotation des stages\n▫️ `/cephalochic`: Permet de récupérer les équipements disponibles dans la boutique Céphalochic",
         color       = 0xffffff
     ),
     disnake.Embed(

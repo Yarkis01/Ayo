@@ -1,15 +1,7 @@
 import disnake, json, pytz, config, contextlib
 from datetime import datetime, timedelta
 
-def get_ranked_icon(mode: str) -> str:
-    if mode == "Expédition risquée":
-        return "<:ExpeditionRisque:1036691276017455196>"
-    elif mode == "Mission Bazookarpe":
-        return "<:MissionBazookarpe:1036691565688668190>"
-    elif mode == "Défense de zone":
-        return "<:DefenseDeZone:1036691255125606400>"
-    else:
-        return "<:PluieDePalourdes:1036691257629618307>"
+from helper.icons import get_ranked_icon
 
 def __generate_splatoon3_embed(data: dict, number: int, title: str, translation: dict, startTime: datetime, endTime: datetime) -> disnake.Embed:
     return disnake.Embed(
@@ -21,7 +13,7 @@ def __generate_splatoon3_embed(data: dict, number: int, title: str, translation:
         value  = f"- {translation['stages'][data['regularSchedules']['nodes'][number]['regularMatchSetting']['vsStages'][0]['id']]['name']}\n- {translation['stages'][data['regularSchedules']['nodes'][number]['regularMatchSetting']['vsStages'][1]['id']]['name']}",
         inline = False
     ).add_field(
-        name   = f"<:Anarchie:1036691259865190540>Match Anarchie (serie)  -  {get_ranked_icon(translation['rules'][data['bankaraSchedules']['nodes'][number]['bankaraMatchSettings'][0]['vsRule']['id']]['name'])} {translation['rules'][data['bankaraSchedules']['nodes'][number]['bankaraMatchSettings'][0]['vsRule']['id']]['name']}",
+        name   = f"<:Anarchie:1036691259865190540> Match Anarchie (serie)  -  {get_ranked_icon(translation['rules'][data['bankaraSchedules']['nodes'][number]['bankaraMatchSettings'][0]['vsRule']['id']]['name'])} {translation['rules'][data['bankaraSchedules']['nodes'][number]['bankaraMatchSettings'][0]['vsRule']['id']]['name']}",
         value  = f"- {translation['stages'][data['bankaraSchedules']['nodes'][number]['bankaraMatchSettings'][0]['vsStages'][0]['id']]['name']}\n- {translation['stages'][data['bankaraSchedules']['nodes'][number]['bankaraMatchSettings'][0]['vsStages'][1]['id']]['name']}",
         inline = False
     ).add_field(
@@ -81,7 +73,7 @@ def generate_splatoon2_embed(data: dict, number: int = 0, title: str = "Rotation
         description = f"Début: <t:{data['regular'][number]['start_time']}:f>\nFin: <t:{data['regular'][number]['end_time']}:f>",
         color = 0xf03c78
     ).add_field(
-        name = "<:Classique:1036691264504078336>Match Classique",
+        name = "<:Classique:1036691264504078336> Match Classique",
         value = f"- {translation['stages'][data['regular'][number]['stage_a']['id']]['name']}\n- {translation['stages'][data['regular'][number]['stage_b']['id']]['name']}",
         inline = False
     ).add_field(

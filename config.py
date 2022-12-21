@@ -5,7 +5,7 @@ DISCORD_TOKEN   = ""
 TEST_GUILDS     = [0]
 CLIENT_ID       = 0
 DEV_MODE        = True
-VERSION         = "1.3.4"
+VERSION         = "1.4.0"
 TIMEZONE        = "Europe/Paris"
 LOGS_CHANNEL_ID = 0
 
@@ -18,6 +18,7 @@ ADD_BOT_LINK    = f"https://discord.com/api/oauth2/authorize?client_id={CLIENT_I
     Modules
 """
 BESTOF_ENABLED      = True
+CEPHALOCHIC_ENABLED = True
 CODESAMIS_ENABLED   = True
 FEEDBACK_ENABLED    = True
 FESTIVALS_ENABLED   = True

@@ -37,7 +37,7 @@ class InformationsCommandModule(commands.Cog):
                 break
 
     @commands.slash_command(name = "information", description = "Obtiens des informations sur le bot", dm_permission = False)
-    async def information_command(self, inter: disnake.CommandInter) -> None:
+    async def _information(self, inter: disnake.CommandInter) -> None:
         await inter.send(embed = disnake.Embed(
             title = "📄 Information",
             description = information,
@@ -45,7 +45,7 @@ class InformationsCommandModule(commands.Cog):
         ).set_footer(text = f"Latence actuelle du bot: {round(self.__bot.latency * 1000)}ms"), view = InviteViewButton())
 
     @commands.slash_command(name = "inviter", description = "Vous souhaitez ajouter Ayo à votre serveur ?", dm_permission = False)
-    async def invite_command(self, inter: disnake.CommandInter) -> None:
+    async def _invite(self, inter: disnake.CommandInter) -> None:
         await inter.send(embed = disnake.Embed(
             title = "✉️ Excellente idée !",
             description = "Voici votre invitation pour pouvoir rajouter **Ayo <:ayo:1037021125793828874>** sur votre propre serveur !\nIl suffit simplement de cliquer sur le bouton en dessous.",

@@ -1,7 +1,7 @@
 import disnake, json, secrets, config
 from disnake.ext import commands
 
-import helper.rotations as RH
+from helper.icons import get_ranked_icon
 from utils.logger import logs
 
 BESTOF_NUMBER = [
@@ -60,7 +60,7 @@ class BestOfModule(commands.Cog):
 
             old_mode     = mode
             old_stage    = stage
-            description += f"**{RH.get_ranked_icon(mode)} {mode}** sur **{stage}**\n"
+            description += f"**{get_ranked_icon(mode)} {mode}** sur **{stage}**\n"
             i           += 1
 
         if number != 1:

@@ -1,4 +1,4 @@
-import disnake, requests, config, datetime, pytz, humanize, math
+import disnake, requests, config, datetime, pytz, humanize, math, contextlib
 from disnake.ext import commands, tasks
 
 from utils.logger import logs
@@ -10,7 +10,7 @@ def convert_size(size_bytes) -> str:
     i = int(math.floor(math.log(size_bytes, 1024)))
     p = math.pow(1024, i)
     s = round(size_bytes / p, 2)
-    return "%s %s" % (s, size_name[i])
+    return f"{s} {size_name[i]}"
 
 class PingModule(commands.Cog):
     def __init__(self, bot: commands.AutoShardedInteractionBot) -> None:
@@ -32,7 +32,7 @@ class PingModule(commands.Cog):
 
     @tasks.loop(minutes = 30)
     async def _is_alive(self) -> None:
-        try:
+        with contextlib.suppress(Exception):
             channel = await self.__bot.fetch_channel(config.LOGS_CHANNEL_ID)
             now     = datetime.datetime.now().astimezone(pytz.timezone(config.TIMEZONE))
             if channel is not None:
@@ -50,8 +50,6 @@ class PingModule(commands.Cog):
                         await message.edit(embed = embed)
                     else:
                         self.__message_id = None
-        except:
-            pass
 
     @tasks.loop(minutes = 30)
     async def _uptime_loop(self) -> None:
@@ -59,13 +57,15 @@ class PingModule(commands.Cog):
             reponse = requests.get(config.PTERO_API_URL, headers = {**config.HEADERS_BASE, **{"Authorization": f"Bearer {config.PTERO_API_KEY}"}}, timeout = config.TIMEOUT)        
             if reponse.status_code == 200:
                 self.__usage_json = reponse.json()['attributes']['resources']
-        except: logs.warning("Impossible de contacter l'API Pterodactyl", "[PING]")
+        except requests.Timeout:
+            logs.warning("Impossible de contacter l'API Pterodactyl", "[PING]")
 
         try:
             response_watchbot = requests.get(config.WATCH_API_URL, headers = {**config.HEADERS_BASE, **{"AUTH-TOKEN": config.WATCH_API_KEY}}, timeout = config.TIMEOUT)
             if response_watchbot.status_code == 200: 
                 self.__uptime_json = response_watchbot.json()
-        except: logs.warning("Impossible de contacter l'API de Watchbot", "[PING]")
+        except requests.Timeout: 
+            logs.warning("Impossible de contacter l'API de Watchbot", "[PING]")
 
     @commands.slash_command(name = "ping", description = "Permet d'obtenir plein d'information (in)utile sur le bot", dm_permission = False)
     async def _uptime(self, inter: disnake.CommandInteraction) -> None:
@@ -91,15 +91,15 @@ class PingModule(commands.Cog):
 
         if self.__uptime_json is not None:
             uptime_data = ["7d", "30d", "90d"]
-            for i in range(len(uptime_data)):
-                uptime = float(self.__uptime_json[uptime_data[i]])
+            for data in uptime_data:
+                uptime = float(self.__uptime_json[data])
                 if uptime < 75.0:
-                    name = f"<:red_clock:1038773522106941530> Uptime ({uptime_data[i].replace('d', '')} jours)"
-                elif uptime >= 75.0 and uptime < 98.0:
-                    name = f"<:orange_clock:1038775657406140467> Uptime ({uptime_data[i].replace('d', '')} jours)"
+                    name = f"<:red_clock:1038773522106941530> Uptime ({data.replace('d', '')} jours)"
+                elif uptime < 98.0:
+                    name = f"<:orange_clock:1038775657406140467> Uptime ({data.replace('d', '')} jours)"
                 else:
-                    name = f"<:green_clock:1038775694655758386> Uptime ({uptime_data[i].replace('d', '')} jours)"
-                
+                    name = f"<:green_clock:1038775694655758386> Uptime ({data.replace('d', '')} jours)"
+
                 embed.add_field(
                     name   = name,
                     value  = f"{uptime} %",

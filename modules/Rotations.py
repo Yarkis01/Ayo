@@ -96,7 +96,7 @@ class RotationsModule(commands.Cog):
             self.__salmonrun_data = None
 
         if self.__salmonrun_data is None:
-            self.__salmonrun3_next_rotation = datetime(now.year, now.month, now.day, now.hour, 0, 0, 0) + timedelta(hours = 1) 
+            self.__salmonrun3_next_rotation = datetime(now.year, now.month, now.day, now.hour, 0, 0, 0).astimezone(pytz.timezone(config.TIMEZONE)) + timedelta(hours = 1) 
             return
 
         self.__salmonrun3_next_rotation = datetime.fromisoformat(self.__salmonrun_data["regularSchedules"]["nodes"][0]["endTime"][:-1]).astimezone(pytz.timezone(config.TIMEZONE)) + timedelta(hours = 1, minutes = 1, seconds = 2)
@@ -131,7 +131,7 @@ class RotationsModule(commands.Cog):
             self.__salmonrun2_data = None
 
         if self.__salmonrun2_data is None:
-            self.__salmonrun2_next_rotation = datetime(now.year, now.month, now.day, now.hour, 0, 0, 0) + timedelta(hours = 1)
+            self.__salmonrun2_next_rotation = datetime(now.year, now.month, now.day, now.hour, 0, 0, 0).astimezone(pytz.timezone(config.TIMEZONE)) + timedelta(hours = 1)
             return
 
         self.__salmonrun2_next_rotation = datetime.fromtimestamp(self.__salmonrun2_data["schedules"][1]["start_time"]).astimezone(pytz.timezone(config.TIMEZONE)) + timedelta(minutes = 1, seconds = 2)
