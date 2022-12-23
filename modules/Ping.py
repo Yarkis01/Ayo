@@ -71,6 +71,8 @@ class PingModule(commands.Cog):
     async def _uptime(self, inter: disnake.CommandInteraction) -> None:
         await inter.send("Chargement...", ephemeral = True)
 
+        print(self.__uptime_json)
+
         embed = disnake.Embed(
             title       = "📊 Statistiques (in)utile",
             description = "Voici plein d'information fortement (in)utile sur le bot.",
@@ -92,13 +94,18 @@ class PingModule(commands.Cog):
         if self.__uptime_json is not None:
             uptime_data = ["7d", "30d", "90d"]
             for data in uptime_data:
-                uptime = float(self.__uptime_json[data])
-                if uptime < 75.0:
-                    name = f"<:red_clock:1038773522106941530> Uptime ({data.replace('d', '')} jours)"
-                elif uptime < 98.0:
-                    name = f"<:orange_clock:1038775657406140467> Uptime ({data.replace('d', '')} jours)"
-                else:
-                    name = f"<:green_clock:1038775694655758386> Uptime ({data.replace('d', '')} jours)"
+                try: 
+                    uptime = float(self.__uptime_json[data])
+
+                    if uptime < 75.0:
+                        name = f"<:red_clock:1038773522106941530> Uptime ({data.replace('d', '')} jours)"
+                    elif uptime < 98.0:
+                        name = f"<:orange_clock:1038775657406140467> Uptime ({data.replace('d', '')} jours)"
+                    else:
+                        name = f"<:green_clock:1038775694655758386> Uptime ({data.replace('d', '')} jours)"
+                except TypeError:
+                    name   = "<:unknown_clock:1055937372828741712> Uptime"
+                    uptime = "???"
 
                 embed.add_field(
                     name   = name,
