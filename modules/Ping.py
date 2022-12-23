@@ -71,8 +71,6 @@ class PingModule(commands.Cog):
     async def _uptime(self, inter: disnake.CommandInteraction) -> None:
         await inter.send("Chargement...", ephemeral = True)
 
-        print(self.__uptime_json)
-
         embed = disnake.Embed(
             title       = "📊 Statistiques (in)utile",
             description = "Voici plein d'information fortement (in)utile sur le bot.",
