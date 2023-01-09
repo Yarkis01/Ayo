@@ -1,7 +1,8 @@
 {
     "choices": {
         "Qu'emporterais-tu sur une \u00EEle d\u00E9serte ?": "0",
-        "Quel type de partenaire Pok\u00E9mon pr\u00E9f\u00E8res-tu ?": "1"
+        "Quel type de partenaire Pok\u00E9mon pr\u00E9f\u00E8res-tu ?": "1",
+        "Quelle est ta saveur pr\u00E9f\u00E9r\u00E9e ?": "2"
     },
     "festival": {
         "0": {
@@ -19,7 +20,6 @@
             "team": [
                 {
                     "name": "Outils",
-                    "role": "En attaque",
                     "result": {
                         "conques": "33,45%",
                         "votes": "58,28%",
@@ -30,7 +30,6 @@
                 },
                 {
                     "name": "Nourriture",
-                    "role": "En attaque",
                     "result": {
                         "conques": "30,44%",
                         "votes": "20,70%",
@@ -41,7 +40,6 @@
                 },
                 {
                     "name": "Jeux",
-                    "role": "En d\u00E9fense",
                     "result": {
                         "conques": "36,11%",
                         "votes": "21,02%",
@@ -67,7 +65,6 @@
             "team": [
                 {
                     "name": "Plante",
-                    "role": "En attaque",
                     "result": {
                         "conques": "33,71%",
                         "votes": "25,80%",
@@ -78,7 +75,6 @@
                 },
                 {
                     "name": "Feu",
-                    "role": "En attaque",
                     "result": {
                         "conques": "32,52%",
                         "votes": "32,60%",
@@ -89,7 +85,6 @@
                 },
                 {
                     "name": "Eau",
-                    "role": "En d\u00E9fense",
                     "result": {
                         "conques": "33,77%",
                         "votes": "40,60%",
@@ -97,6 +92,54 @@
                         "defi": "35,86%"
                     },
                     "position": 1
+                }
+            ]
+        },
+        "2": {
+            "name": "Quelle est ta saveur pr\u00E9f\u00E9r\u00E9e ?",
+            "date": {
+                "start": 1673049600,
+                "end": 1673222400
+            },
+            "color": [234, 57, 245],
+            "image": "https://i.imgur.com/3w1HXCL.png",
+            "winner": {
+                "team": "Sucr\u00E9",
+                "image": "https://i.imgur.com/XNnJeJ0.png"
+            },
+            "team": [
+                {
+                    "name": "\u00C9pic\u00E9",
+                    "result": {
+                        "conques": "32,52%",
+                        "votes": "32,60%",
+                        "ouvert": "32,75%",
+                        "defi": "30,55%",
+                        "tricolore": "33,89%"
+                    },
+                    "position": 2
+                },
+                {
+                    "name": "Sucr\u00E9",
+                    "result": {
+                        "conques": "34,40%",
+                        "votes": "56,84%",
+                        "ouvert": "35,57%",
+                        "defi": "31,96%",
+                        "tricolore": "33,72%"
+                    },
+                    "position": 1
+                },
+                {
+                    "name": "Acide",
+                    "result": {
+                        "conques": "32,38%",
+                        "votes": "15,41%",
+                        "ouvert": "31,58%",
+                        "defi": "34,11%",
+                        "tricolore": "32,39%"
+                    },
+                    "position": 3
                 }
             ]
         }

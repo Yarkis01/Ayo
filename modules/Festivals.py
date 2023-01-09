@@ -41,11 +41,18 @@ class FestivalsModule(commands.Cog):
 
         for i in range(len(festival_data['team'])):
             team_data = festival_data['team'][i]
-            embed.add_field(
-                name   = f"{get_position_icon(team_data['position'])} {team_data['name']}",
-                value  = f"- <:conques:1042508259938013264> Conques: **{team_data['result']['conques']}**\n- 🗳️ Votes: **{team_data['result']['votes']}**\n- 🔫 Contributions (ouvert): **{team_data['result']['ouvert']}**\n- 🏆 Contributions (défi): **{team_data['result']['defi']}**",
-                inline = False
-            )
+            if festival in {"0", "1"}:
+                embed.add_field(
+                    name   = f"{get_position_icon(team_data['position'])} {team_data['name']}",
+                    value  = f"- <:conques:1042508259938013264> Conques: **{team_data['result']['conques']}**\n- 🗳️ Votes: **{team_data['result']['votes']}**\n- 🔫 Contributions (ouvert): **{team_data['result']['ouvert']}**\n- 🏆 Contributions (défi): **{team_data['result']['defi']}**",
+                    inline = False
+                )
+            else:
+                embed.add_field(
+                    name   = f"{get_position_icon(team_data['position'])} {team_data['name']}",
+                    value  = f"- <:conques:1042508259938013264> Conques: **{team_data['result']['conques']}**\n- 🗳️ Votes: **{team_data['result']['votes']}**\n- 🔫 Contributions (ouvert): **{team_data['result']['ouvert']}**\n- 🏆 Contributions (défi): **{team_data['result']['defi']}**\n- <:splatfest:1040780648341848115> Match Tricolore: **{team_data['result']['tricolore']}**",
+                    inline = False
+                )
 
         await inter.send(embed = embed)
 
