@@ -102,7 +102,7 @@ class PingModule(commands.Cog):
                     else:
                         name = f"<:green_clock:1038775694655758386> Uptime ({data.replace('d', '')} jours)"
                 except TypeError:
-                    name   = "<:unknown_clock:1055937372828741712> Uptime"
+                    name   = f"<:unknown_clock:1055937372828741712> Uptime ({data.replace('d', '')} jours)"
                     uptime = "???"
 
                 embed.add_field(
