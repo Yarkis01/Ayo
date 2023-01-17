@@ -92,7 +92,7 @@ class CephalochicModule(commands.Cog):
             self.__s3_cephalochic_next_rotation = datetime(now.year, now.month, now.day, now.hour, 0, 0, 0).astimezone(pytz.timezone(config.TIMEZONE)) + timedelta(hours = 1)
             return
         
-        self.__s3_cephalochic_next_rotation = datetime.fromisoformat(self.__s3_cephalochic_data["limitedGears"][0]["saleEndTime"][:-1]).astimezone(pytz.timezone(config.TIMEZONE)) + timedelta(hours = 1, minutes = 1, seconds = 2)
+        self.__s3_cephalochic_next_rotation = datetime.fromisoformat(self.__s3_cephalochic_data["limitedGears"][0]["saleEndTime"][:-1]).astimezone(pytz.timezone(config.TIMEZONE)) + timedelta(hours = config.ADD_HOURS, minutes = 1, seconds = 2)
 
         if self.__started:
             HDATA.check_splatoon3_data()

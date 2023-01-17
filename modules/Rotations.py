@@ -50,7 +50,7 @@ class RotationsModule(commands.Cog):
         if (self.__next_rotation - now) >= timedelta(hours = 0):
             return
 
-        self.__next_rotation = datetime(now.year, now.month, now.day, now.hour, 0, 0, 0).astimezone(pytz.timezone(config.TIMEZONE)) + timedelta(hours=2, minutes=1, seconds=5) if now.hour % 2 else datetime(now.year, now.month, now.day, now.hour, 0, 0, 0).astimezone(pytz.timezone(config.TIMEZONE)) + timedelta(hours=1, minutes=1, seconds=5)
+        self.__next_rotation = datetime(now.year, now.month, now.day, now.hour, 0, 0, 0).astimezone(pytz.timezone(config.TIMEZONE)) + timedelta(hours=2, minutes=1, seconds=5) if now.hour % 2 else datetime(now.year, now.month, now.day, now.hour, 0, 0, 0).astimezone(pytz.timezone(config.TIMEZONE)) + timedelta(hours = config.ADD_HOURS, minutes=1, seconds=5)
 
         try:
             s3_request = requests.get(f"{config.SPLATOON3_API}/schedules.json", headers=config.HEADERS_BASE, timeout = config.TIMEOUT)
@@ -99,7 +99,7 @@ class RotationsModule(commands.Cog):
             self.__salmonrun3_next_rotation = datetime(now.year, now.month, now.day, now.hour, 0, 0, 0).astimezone(pytz.timezone(config.TIMEZONE)) + timedelta(hours = 1) 
             return
 
-        self.__salmonrun3_next_rotation = datetime.fromisoformat(self.__salmonrun_data["regularSchedules"]["nodes"][0]["endTime"][:-1]).astimezone(pytz.timezone(config.TIMEZONE)) + timedelta(hours = 1, minutes = 1, seconds = 2)
+        self.__salmonrun3_next_rotation = datetime.fromisoformat(self.__salmonrun_data["regularSchedules"]["nodes"][0]["endTime"][:-1]).astimezone(pytz.timezone(config.TIMEZONE)) + timedelta(hours = config.ADD_HOURS, minutes = 1, seconds = 2)
         
         try:
             gears_request           = requests.get(f"{config.SPLATOON3_API}/coop.json", headers = config.HEADERS_BASE, timeout = config.TIMEOUT)
