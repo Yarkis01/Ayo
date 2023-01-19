@@ -50,8 +50,8 @@ def __generate_splatfest_embed(data: dict, number: int, title: str, translation:
 
 def generate_splatoon3_embed(data: dict, number: int = 0, title: str = "Rotation actuelle") -> disnake.Embed:
     translation = json.load(open("./data/splatoon3.json"))
-    startTime   = datetime.fromisoformat(data["regularSchedules"]["nodes"][number]["startTime"][:-1]).astimezone(pytz.timezone(config.TIMEZONE)) + timedelta(hours = 1)
-    endTime     = datetime.fromisoformat(data["regularSchedules"]["nodes"][number]["endTime"][:-1]).astimezone(pytz.timezone(config.TIMEZONE)) + timedelta(hours = 1)
+    startTime   = datetime.fromisoformat(data["regularSchedules"]["nodes"][number]["startTime"][:-1]).astimezone(pytz.timezone(config.TIMEZONE)) + timedelta(hours = config.ADD_HOURS)
+    endTime     = datetime.fromisoformat(data["regularSchedules"]["nodes"][number]["endTime"][:-1]).astimezone(pytz.timezone(config.TIMEZONE)) + timedelta(hours = config.ADD_HOURS)
     
     if data['regularSchedules']['nodes'][number]['regularMatchSetting'] is None:
         return __generate_splatfest_embed(
@@ -89,8 +89,8 @@ def generate_splatoon2_embed(data: dict, number: int = 0, title: str = "Rotation
 def __generate_salmon_embed(data: dict, gear_data: dict, title: str = "Rotation actuelle") -> disnake.Embed:
     translation = json.load(open("./data/splatoon3.json"))
 
-    startTime = datetime.fromisoformat(data["startTime"][:-1]).astimezone(pytz.timezone(config.TIMEZONE)) + timedelta(hours = 1)
-    endTime   = datetime.fromisoformat(data["endTime"][:-1]).astimezone(pytz.timezone(config.TIMEZONE)) + timedelta(hours = 1, seconds = 30)
+    startTime = datetime.fromisoformat(data["startTime"][:-1]).astimezone(pytz.timezone(config.TIMEZONE)) + timedelta(hours = config.ADD_HOURS)
+    endTime   = datetime.fromisoformat(data["endTime"][:-1]).astimezone(pytz.timezone(config.TIMEZONE)) + timedelta(hours = config.ADD_HOURS, seconds = 30)
 
     embed = disnake.Embed(
         title = f"<:Splatoon3:1036691272871718963><:SalmonRun:1036691274415231006> {title}",
@@ -122,8 +122,8 @@ def generate_salmonrun_embed(data: dict, gear_data: dict, number: int = 0, title
     if number == 0:
         now = datetime.now().astimezone(pytz.timezone(config.TIMEZONE))
     else:
-        now = datetime.fromisoformat(data["regularSchedules"]["nodes"][number]["endTime"][:-1]).astimezone(pytz.timezone(config.TIMEZONE)) + timedelta(hours = 1)
-    startTime = datetime.fromisoformat(data["regularSchedules"]["nodes"][number + 1]["startTime"][:-1]).astimezone(pytz.timezone(config.TIMEZONE)) + timedelta(hours = 1)
+        now = datetime.fromisoformat(data["regularSchedules"]["nodes"][number]["endTime"][:-1]).astimezone(pytz.timezone(config.TIMEZONE)) + timedelta(hours = config.ADD_HOURS)
+    startTime = datetime.fromisoformat(data["regularSchedules"]["nodes"][number + 1]["startTime"][:-1]).astimezone(pytz.timezone(config.TIMEZONE)) + timedelta(hours = config.ADD_HOURS)
 
     if now - startTime >= timedelta(seconds=0) or len(data["bigRunSchedules"]["nodes"]) == 0:
         return __generate_salmon_embed(data["regularSchedules"]["nodes"][number], gear_data, title)
