@@ -80,7 +80,9 @@ class RotationsModule(commands.Cog):
         with contextlib.suppress(Exception):
             channel = await self.__bot.fetch_channel(config.ROTATION_CHANNEL_ID)
             if channel is not None and embeds:
-                await channel.send(f"<@&{config.ROTATION_ROLES_ID}>", embeds = embeds)
+                message = await channel.send(f"<@&{config.ROTATION_ROLES_ID}>", embeds = embeds)
+                if channel.type == disnake.channel.NewsChannel:
+                    message.publish()
 
 
     @tasks.loop(seconds = 30)
@@ -115,7 +117,9 @@ class RotationsModule(commands.Cog):
         with contextlib.suppress(Exception):
             channel = await self.__bot.fetch_channel(config.ROTATION_CHANNEL_ID)
             if channel is not None:
-                await channel.send(f"<@&{config.ROTATION_ROLES_ID}>", embed = RH.generate_salmonrun_embed(self.__salmonrun_data, self.__salmongears_data, title = "Une nouvelle rotation est disponible !", new_rotation = True))
+                message = await channel.send(f"<@&{config.ROTATION_ROLES_ID}>", embed = RH.generate_salmonrun_embed(self.__salmonrun_data, self.__salmongears_data, title = "Une nouvelle rotation est disponible !", new_rotation = True))
+                if channel.type == disnake.channel.NewsChannel:
+                    message.publish()
 
 
     @tasks.loop(seconds = 30)
@@ -141,8 +145,9 @@ class RotationsModule(commands.Cog):
 
         channel = await self.__bot.fetch_channel(config.ROTATION_CHANNEL_ID)
         if channel is not None:
-            await channel.send(f"<@&{config.ROTATION_ROLES_ID}>", embed = RH.generate_splatoon2_salmonrun_embed(self.__salmonrun2_data, title = "Une nouvelle rotation est disponible !"))
-
+            message = await channel.send(f"<@&{config.ROTATION_ROLES_ID}>", embed = RH.generate_splatoon2_salmonrun_embed(self.__salmonrun2_data, title = "Une nouvelle rotation est disponible !"))
+            if channel.type == disnake.channel.NewsChannel:
+                message.publish()
 
 
     @commands.slash_command(name = "rotations", description = "Permet d'obtenir des informations sur les rotations", dm_permission = False)
