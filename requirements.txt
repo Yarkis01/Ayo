@@ -7,7 +7,7 @@ charset-normalizer==2.1.1
 deepdiff==6.2.3
 disnake==2.7.0
 frozenlist==1.3.3
-humanize==4.4.0
+humanize==4.5.0
 idna==3.4
 multidict==6.0.4
 ordered-set==4.1.0
