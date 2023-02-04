@@ -24,7 +24,7 @@
 - [X] Création du système pour récupérer les équipements de la boutique Céphalochic
   - [X] Splatoon 3
   - [X] Splatoon 2
-- [ ] Refaire entièrement le système de code-ami (vérification + commandes + gestion de la base de données)
+- [ ] 🔄 Refaire entièrement le système de code-ami (vérification + commandes + gestion de la base de données) 
 - [ ] Créer une commande permettant de regrouper les QR Codes compatibles avec Splatnet 3.
 - [ ] Créer la commande `/tipik` permettant de génèrer un équipement aléatoire avec des bonus aléatoires
 - Correction de bugs, et optimisations du code
