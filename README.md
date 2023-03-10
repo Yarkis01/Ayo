@@ -4,7 +4,7 @@
   <p>Un bot Discord entièrement en français et principalement orienté Nintendo et plus précisément Splatoon.</p>
   
   [![](https://img.shields.io/discord/1035981866303500421?color=7289DA&label=support&logo=discord&logoColor=7289DA&style=for-the-badge)](https://discord.gg/H97txXkNBv)
-  [![](https://img.shields.io/badge/Disnake-2.7.0-3498db?style=for-the-badge&logo=python&logoColor=3498db)](https://pypi.org/project/disnake/2.7.0/)
+  [![](https://img.shields.io/badge/Disnake-2.8.1-3498db?style=for-the-badge&logo=python&logoColor=3498db)](https://pypi.org/project/disnake/2.8.1/)
 </div>
 <br />
 
