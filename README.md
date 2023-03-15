@@ -2,7 +2,8 @@
   <img src="https://i.goopics.net/7w06c1.png" style="float: left;" align="left" width="164" height="164" />
   <h1>Ayo</h1>
   <p>Un bot Discord entièrement en français et principalement orienté Nintendo et plus précisément Splatoon.</p>
-  
+
+  ![](https://img.shields.io/badge/Python-3.11.2-3498db?style=for-the-badge&logo=python&logoColor=3498db)
   [![](https://img.shields.io/discord/1035981866303500421?color=7289DA&label=support&logo=discord&logoColor=7289DA&style=for-the-badge)](https://discord.gg/H97txXkNBv)
   [![](https://img.shields.io/badge/Disnake-2.8.1-3498db?style=for-the-badge&logo=python&logoColor=3498db)](https://pypi.org/project/disnake/2.8.1/)
 </div>
@@ -14,20 +15,6 @@
 - 📋 Des commandes permettent de récupérer des informations sur l'odyssée d'Omar ou sur les festivals
 - 🔫 La possibilité de liquider vos amis sur discord et plus uniquement en jeu
 - ➕ Et bien plus encore...
-
-## 📝 TODO
-- [X] Système de rotation pour être informé des prochaines rotations
-  - [X] Splatoon 3
-  - [X] Splatoon 2
-  - [X] Salmon Run - Splatoon 3
-  - [X] Salmon Run - Splatoon 2
-- [X] Création du système pour récupérer les équipements de la boutique Céphalochic
-  - [X] Splatoon 3
-  - [X] Splatoon 2
-- [ ] 🔄 Refaire entièrement le système de code-ami (vérification + commandes + gestion de la base de données) 
-- [ ] Créer une commande permettant de regrouper les QR Codes compatibles avec Splatnet 3.
-- [ ] Créer la commande `/tipik` permettant de génèrer un équipement aléatoire avec des bonus aléatoires
-- Correction de bugs, et optimisations du code
 
 ## 🏆 Classements
 <a href="https://discords.com/bots/bots/1036668894976425994"><img src="https://discords.com/bots/api/bot/1036668894976425994/widget" witdth="128" height="128"></a>
