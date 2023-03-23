@@ -30,11 +30,14 @@ class SplattedModule(commands.Cog):
         ).set_image(data["url"]))
 
     @commands.slash_command(name = "liquider", description = "Liquide un membre du serveur", dm_permission = False)
-    async def _liquider(self, inter: disnake.CommandInter, member: disnake.Member = commands.Param(name = "membre", description = "Membre que vous souhaitez liquider")) -> None:
+    async def _liquider(self, inter: disnake.CommandInteraction, member: disnake.Member = commands.Param(name = "membre", description = "Membre que vous souhaitez liquider")) -> None:
         await self.liquider(inter, member)
 
     @commands.user_command(name = "Liquider")
     async def _liquider_user_command(self, inter: disnake.UserCommandInteraction, member: disnake.Member) -> None:
+        if not inter.guild:
+            return await inter.send("Vous ne pouvez pas effectuer cette action ici.", ephemeral = True)
+
         await self.liquider(inter, member)
 
 def setup(self) -> None:
