@@ -11,7 +11,7 @@ LOGS_CHANNEL_ID = 0
 
 SUPPORT_SERVER  = ""
 ADD_BOT_LINK    = f"https://discord.com/api/oauth2/authorize?client_id={CLIENT_ID}&permissions=137439463488&scope=bot%20applications.commands"
-
+GITHUB_LINK     = "https://github.com/Yarkis01/Ayo"
 
 
 """

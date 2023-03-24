@@ -1,4 +1,4 @@
-import disnake, requests, config, datetime, pytz, humanize, math, contextlib
+import disnake, requests, config, datetime, pytz, humanize, math, contextlib, sys
 from disnake.ext import commands, tasks
 
 from utils.logger import logs
@@ -125,6 +125,20 @@ class PingModule(commands.Cog):
                 value  = convert_size(self.__usage_json['disk_bytes']),
                 inline = True
             )
+
+        embed.add_field(
+            name   = "<:python:1088566268552028190> Python",
+            value  = f"{sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}",
+            inline = True
+        ).add_field(
+            name   = "<:disnake:1088566257135140984> Disnake",
+            value  = f"{disnake.version_info.major}.{disnake.version_info.minor}.{disnake.version_info.micro}",
+            inline = True
+        ).add_field(
+            name   = "🤖 Version",
+            value  = config.VERSION,
+            inline = True
+        )
 
         await inter.edit_original_response(content = "", embed = embed.set_footer(text = "Données actualisées toutes les 30 minutes"))
 
