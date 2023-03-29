@@ -13,7 +13,7 @@ humanize==4.6.0
 idna==3.4
 multidict==6.0.4
 ordered-set==4.1.0
-orjson==3.8.8
+orjson==3.8.9
 prettytable==3.6.0
 pypng==0.20220715.0
 pytz==2023.2
