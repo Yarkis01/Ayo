@@ -16,7 +16,7 @@ ordered-set==4.1.0
 orjson==3.8.9
 prettytable==3.6.0
 pypng==0.20220715.0
-pytz==2023.2
+pytz==2023.3
 qrcode==7.4.2
 requests==2.28.2
 typing_extensions==4.5.0
