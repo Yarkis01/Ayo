@@ -65,7 +65,7 @@ class CodeChecker:
                 return len(code) == 8 and code.isalnum()
             case "cafemix":
                 return self.__check_common_code(code, True)
-            case default:
+            case _:
                 return False
             
     def format(self, code_type: str, code: str) -> str:
@@ -81,7 +81,7 @@ class CodeChecker:
                 return code if len(code) == 19 else f"{code[:4]}-{code[4:8]}-{code[8:12]}-{code[12:16]}"
             case "cafemix":
                 return (code if len(code) == 14 else f"{code[:4]}-{code[4:8]}-{code[8:12]}").upper()
-            case default:
+            case _:
                 return "0"
             
     def __check_common_code(self, code: str, is_alnum: bool = False) -> bool:

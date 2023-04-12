@@ -3,7 +3,8 @@
         "Qu'emporterais-tu sur une \u00EEle d\u00E9serte ?": "0",
         "Quel type de partenaire Pok\u00E9mon pr\u00E9f\u00E8res-tu ?": "1",
         "Quelle est ta saveur pr\u00E9f\u00E9r\u00E9e ?": "2",
-        "Quel est ton type de chocolat favori ?": "3"
+        "Quel est ton type de chocolat favori ?": "3",
+        "Qu'est-ce qui existe pour de vrai ?": "4"
     },
     "festival": {
         "0": {
@@ -189,6 +190,54 @@
                         "tricolore": "33,94%"
                     },
                     "position": 1
+                }
+            ]
+        },
+        "4": {
+            "name": "Qu'est-ce qui existe pour de vrai ?",
+            "date": {
+                "start": 1680307200,
+                "end": 1680480000
+            },
+            "color": [157, 59, 244],
+            "image": "https://i.imgur.com/Si0Z0Go.png",
+            "winner": {
+                "team": "Nessie",
+                "image": "https://i.imgur.com/nKjqxcu.png"
+            },
+            "team": [
+                {
+                    "name": "Nessie",
+                    "result": {
+                        "conques": "33,62%",
+                        "votes": "45,22%",
+                        "ouvert": "35,33%",
+                        "defi": "33,25%",
+                        "tricolore": "34,91%"
+                    },
+                    "position": 1
+                },
+                {
+                    "name": "Martiens",
+                    "result": {
+                        "conques": "33,74%",
+                        "votes": "46,09%",
+                        "ouvert": "32,67%",
+                        "defi": "30,71%",
+                        "tricolore": "32,86%"
+                    },
+                    "position": 2
+                },
+                {
+                    "name": "Bigfoot",
+                    "result": {
+                        "conques": "32,64%",
+                        "votes": "8,69%",
+                        "ouvert": "32,00%",
+                        "defi": "36,04%",
+                        "tricolore": "32,23%"
+                    },
+                    "position": 3
                 }
             ]
         }

@@ -10,7 +10,8 @@ CHOICES = {
     "Splatoon 3": "s3", 
     "Splatoon 2": "s2", 
     "Salmon Run (Splatoon 3)": "salmon",
-    "Salmon Run (Splatoon 2)": "salmon2"
+    "Salmon Run (Splatoon 2)": "salmon2",
+    "Défi œuf sup' (Splatoon 3)": "oeufsup"
 }
 
 class RotationsModule(commands.Cog):
@@ -164,6 +165,8 @@ class RotationsModule(commands.Cog):
             embed = RH.generate_salmonrun_embed(self.__salmonrun_data, self.__salmongears_data)
         elif data == "salmon2" and self.__salmonrun2_data is not None:
             embed = RH.generate_splatoon2_salmonrun_embed(self.__salmonrun2_data)
+        elif data == "oeufsup" and self.__splatoon3_data is not None:
+            embed = RH.generate_defi_oeuf_sup(self.__salmonrun_data)
         else:
             await inter.send(":x: Oups, une erreur est survenue !", ephemeral = True)
             return
@@ -187,6 +190,8 @@ class RotationsModule(commands.Cog):
             embed = RH.generate_salmonrun_embed(self.__salmonrun_data, self.__salmongears_data, number, title)
         elif data =="salmon2" and self.__salmonrun2_data is not None:
             embed = RH.generate_splatoon2_salmonrun_embed(self.__salmonrun2_data, number, title)
+        elif data == "oeufsup" and self.__splatoon3_data is not None:
+            embed = RH.generate_defi_oeuf_sup(self.__salmonrun_data, number)
         else:
             await inter.send(":x: Oups, une erreur est survenue !", ephemeral = True)
             return

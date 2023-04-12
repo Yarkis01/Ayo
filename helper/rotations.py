@@ -165,3 +165,40 @@ def generate_splatoon2_salmonrun_embed(data: dict, number: int = 0, title: str =
     ).set_image(
         url = f"https://splatoon2.ink/assets/splatnet{data['stage']['image']}"
     ).set_footer(text = "Données provenant de l'API du site Splatoon2.ink", icon_url = "https://i.imgur.com/nvxf5TK.png")
+
+def __generate_no_defi_oeuf_sup_embed() -> disnake.Embed:
+    return disnake.Embed(
+            title       = "<:Splatoon3:1036691272871718963><:SalmonRun:1036691274415231006> Défi œuf sup'",
+            description = "Aucune rotation n'est actuellement disponible dans ce mode de jeu.",
+            color       = 0xFF5033,
+        )
+
+def generate_defi_oeuf_sup(data: dict, number: int = 0) -> disnake.Embed:
+    if len(data["teamContestSchedules"]["nodes"]) == 0:
+        return __generate_no_defi_oeuf_sup_embed()
+    
+    translation = json.load(open("./data/splatoon3.json"))
+    data        = data["teamContestSchedules"]["nodes"][0]
+
+    startTime = datetime.fromisoformat(data["startTime"][:-1]).astimezone(pytz.timezone(config.TIMEZONE)) + timedelta(hours = config.ADD_HOURS)
+    endTime   = datetime.fromisoformat(data["endTime"][:-1]).astimezone(pytz.timezone(config.TIMEZONE)) + timedelta(hours = config.ADD_HOURS)
+    now       = datetime.now().astimezone(pytz.timezone(config.TIMEZONE)) if number == 0 else startTime
+
+    if now - startTime >= timedelta(seconds = 0):
+        return disnake.Embed(
+            title       = "<:Splatoon3:1036691272871718963><:SalmonRun:1036691274415231006> Défi œuf sup'",
+            description = f"Début: <t:{int(datetime.timestamp(startTime))}:f>\nFin: <t:{int(datetime.timestamp(endTime))}:f>",
+            color       = 0xFF5033,
+        ).add_field(
+        name   = "🗺️ Map",
+        value  = f"- {translation['stages'][data['setting']['coopStage']['id']]['name']}",
+        inline = False
+        ).add_field(
+            name   = "🔫 Armes",
+            value  = f"- {translation['weapons'][data['setting']['weapons'][0]['__splatoon3ink_id']]['name']}\n- {translation['weapons'][data['setting']['weapons'][1]['__splatoon3ink_id']]['name']}\n- {translation['weapons'][data['setting']['weapons'][2]['__splatoon3ink_id']]['name']}\n- {translation['weapons'][data['setting']['weapons'][3]['__splatoon3ink_id']]['name']}",
+            inline = False
+        ).set_image(
+            data["setting"]["coopStage"]["image"]["url"]
+        ).set_footer(text = "Données provenant de l'API du site Splatoon3.ink", icon_url = "https://i.imgur.com/Ufv6yH4.png")
+    
+    return __generate_no_defi_oeuf_sup_embed()
