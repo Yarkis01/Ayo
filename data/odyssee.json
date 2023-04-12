@@ -1,7 +1,8 @@
 {
     "choices": {
         "Voyage 1": "v1",
-        "Voyage 2": "v2"
+        "Voyage 2": "v2",
+        "Voyage 3": "v3"
     },
     "v1": {
         "image": "https://i.imgur.com/QexnGMV.png",
@@ -39,6 +40,25 @@
             {"id": 8, "points": 33333, "name": "Parc Carapince", "reward": "Papier peint"},
             {"id": 9, "points": 62100, "name": "\u00C9pave des braves", "reward": "Papier peint"},
             {"id": 10, "points": 333333, "name": "Barrage Salmon\u00EFde", "reward": "Titre"}
+        ]
+    },
+    "v3": {
+        "image": "https://i.imgur.com/UyJSi8p.png",
+        "reward": {
+            "image": "https://i.imgur.com/OapTNPp.png",
+            "name": "Costume Omar"
+        },
+        "challenges": [
+            {"id": 1, "points": 10000, "name": "Ruines Uma'mi", "reward": "Papier peint"},
+            {"id": 2, "points": 30000, "name": "Kipik", "reward": "Graffiti"},
+            {"id": 3, "points": 33333, "name": "Sources Sauret", "reward": "Papier peint"},
+            {"id": 4, "points": 30000, "name": "Le Rab de Crabe", "reward": "Graffiti"},
+            {"id": 5, "points": 30000, "name": "Cit\u00E9-Clabousse (pr\u00E9stival)", "reward": "Papier peint"},
+            {"id": 6, "points": 33333, "name": "Cit\u00E9-Clabousse (festival)", "reward": "Graffiti"},
+            {"id": 7, "points": 33333, "name": "Chantier Narval (guerre tricolore)", "reward": "Papier peint"},
+            {"id": 8, "points": 30000, "name": "Cit\u00E9-Clabousse (Big Run)", "reward": "Graffiti"},
+            {"id": 9, "points": 62100, "name": "Centrale Anguilla", "reward": "Papier peint"},
+            {"id": 10, "points": 333333, "name": "Chromapolis", "reward": "Titre"}
         ]
     }
 }
