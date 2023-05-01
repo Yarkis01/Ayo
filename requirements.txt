@@ -20,6 +20,6 @@ pytz==2023.3
 qrcode==7.4.2
 requests==2.29.0
 typing_extensions==4.5.0
-urllib3==1.26.15
+urllib3==2.0.1
 wcwidth==0.2.6
 yarl==1.9.2
