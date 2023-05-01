@@ -2,10 +2,10 @@
     Informations Générales
 """
 DISCORD_TOKEN   = ""
-TEST_GUILDS     = [0]
+TEST_GUILDS     = []
 CLIENT_ID       = 0
 DEV_MODE        = True
-VERSION         = "1.6.0"
+VERSION         = "1.7.0"
 TIMEZONE        = "Europe/Paris"
 LOGS_CHANNEL_ID = 0
 
@@ -17,19 +17,20 @@ GITHUB_LINK     = "https://github.com/Yarkis01/Ayo"
 """
     Modules
 """
-BESTOF_ENABLED      = True
-CEPHALOCHIC_ENABLED = True
-CODESAMIS_ENABLED   = True
-FEEDBACK_ENABLED    = True
-FESTIVALS_ENABLED   = True
-HELPCOMMAND_ENABLED = True
-INFOCOMMAND_ENABLED = True
-JOIN2CREATE_ENABLED = True
-ODYSSEE_ENABLED     = True
-PING_ENABLED        = True
-ROTATIONS_ENABLED   = True
-SPLATTED_ENABLED    = True
-
+MODULES = {
+    "bestof"                : True,
+    "callout"               : True,
+    "cephalochic"           : True,
+    "codesamis"             : True,
+    "feedback"              : True,
+    "festivals"             : True,
+    "informationcommands"   : True,
+    "liquider"              : True,
+    "loterie"               : True, 
+    "odyssee"               : True,
+    "ping"                  : True,
+    "rotations"             : True
+}
 
 
 """
@@ -58,13 +59,3 @@ ADD_HOURS = 1
 """
 ROTATION_CHANNEL_ID = 0
 ROTATION_ROLES_ID   = 0
-
-
-
-"""
-    Join2Create - Config
-"""
-J2C_CHANNEL_02_ID = 0
-J2C_CHANNEL_04_ID = 0
-J2C_CHANNEL_10_ID = 0
-J2C_CATEGORY_ID   = 0

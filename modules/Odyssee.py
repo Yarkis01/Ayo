@@ -1,10 +1,10 @@
-import disnake, json, config
+import disnake, json
 from disnake.ext import commands
 from prettytable import PrettyTable
 
 from utils.logger import logs
 
-data = json.load(open('./data/odyssee.json'))
+data = json.load(open('./data/s3/odyssee.json'))
 
 class OdysseeView(disnake.ui.View):
     message: disnake.Message
@@ -66,8 +66,5 @@ class OdysseeModule(commands.Cog):
         view.message = await inter.original_response()
 
 def setup(self) -> None:
-    if config.ODYSSEE_ENABLED:
-        self.add_cog(OdysseeModule(self))
-        logs.info("Le module a bien été détécté et chargé", "[ODYSSÉE]")
-    else:
-        logs.warning("Le module n'a pas été chargé car il est désactivé dans la configuration", "[ODYSSÉE]")
+    self.add_cog(OdysseeModule(self))
+    logs.info("Le module a bien été détécté et chargé", "[ODYSSÉE]")

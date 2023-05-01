@@ -97,8 +97,5 @@ class FeedbackModule(commands.Cog):
 
 
 def setup(self) -> None:
-    if config.FEEDBACK_ENABLED:
-        self.add_cog(FeedbackModule(self))
-        logs.info("Le module a bien été détécté et chargé", "[FEEDBACK]")
-    else:
-        logs.warning("Le module n'a pas été chargé car il est désactivé dans la configuration", "[FEEDBACK]")
+    self.add_cog(FeedbackModule(self))
+    logs.info("Le module a bien été détécté et chargé", "[FEEDBACK]")

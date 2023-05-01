@@ -114,7 +114,13 @@ if __name__ == '__main__':
     HDATA.check_splatoon3_data()
 
     for file in os.listdir('./modules'):
-        if file.endswith('.py'):
+        if (
+            file.endswith('.py')
+            and file[:-3].lower() in config.MODULES
+            and config.MODULES.get(file[:-3].lower())
+        ):
             bot.load_extension(f'modules.{file[:-3]}')
+        else:
+            logs.warning(f"[{file[:-3].upper()}] Le module n'a pas été chargé car il est désactivé dans la configuration.")
 
     bot.run(config.DISCORD_TOKEN)

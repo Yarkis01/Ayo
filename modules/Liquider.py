@@ -1,4 +1,4 @@
-import disnake, random, json, config
+import disnake, random, json
 from disnake.ext import commands
 
 from utils.logger import logs
@@ -6,11 +6,11 @@ from utils.logger import logs
 class SplattedModule(commands.Cog):
     def __init__(self, bot: commands.AutoShardedInteractionBot) -> None:
         self.__bot = bot
-        self.__splatted_data = json.load(open("./data/splatted.json"))
+        self.__splatted_data = json.load(open("./data/s3/liquider.json"))
 
     @commands.Cog.listener()
     async def on_ready(self) -> None:
-        logs.success("Le module a été initié correctement", "[SPLATTED]")
+        logs.success("Le module a été initié correctement", "[LIQUIDER]")
 
     async def liquider(self, inter, member: disnake.Member) -> None:
         number = random.randint(0, len(self.__splatted_data["images"]) - 1)
@@ -41,8 +41,5 @@ class SplattedModule(commands.Cog):
         await self.liquider(inter, member)
 
 def setup(self) -> None:
-    if config.SPLATTED_ENABLED:
-        self.add_cog(SplattedModule(self))
-        logs.info("Le module a bien été détécté et chargé", "[SPLATTED]")
-    else:
-        logs.warning("Le module n'a pas été chargé car il est désactivé dans la configuration", "[SPLATTED]")
+    self.add_cog(SplattedModule(self))
+    logs.info("Le module a bien été détécté et chargé", "[LIQUIDER]")

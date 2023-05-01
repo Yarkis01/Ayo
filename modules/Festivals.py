@@ -1,9 +1,9 @@
-import disnake, json, config
+import disnake, json
 from disnake.ext import commands
 
 from utils.logger import logs
 
-data = json.load(open("./data/festivals.json"))
+data = json.load(open("./data/s3/festivals.json"))
 
 def get_position_icon(position: int) -> str:
     if   position == 1:
@@ -57,8 +57,5 @@ class FestivalsModule(commands.Cog):
         await inter.send(embed = embed)
 
 def setup(self) -> None:
-    if config.FESTIVALS_ENABLED:
-        self.add_cog(FestivalsModule(self))
-        logs.info("Le module a bien été détécté et chargé", "[FESTIVALS]")
-    else:
-        logs.warning("Le module n'a pas été chargé car il est désactivé dans la configuration", "[FESTIVALS]")
+    self.add_cog(FestivalsModule(self))
+    logs.info("Le module a bien été détécté et chargé", "[FESTIVALS]")

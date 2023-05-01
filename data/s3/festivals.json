@@ -1,0 +1,245 @@
+{
+    "choices": {
+        "Qu'emporterais-tu sur une \u00EEle d\u00E9serte ?": "0",
+        "Quel type de partenaire Pok\u00E9mon pr\u00E9f\u00E8res-tu ?": "1",
+        "Quelle est ta saveur pr\u00E9f\u00E9r\u00E9e ?": "2",
+        "Quel est ton type de chocolat favori ?": "3",
+        "Qu'est-ce qui existe pour de vrai ?": "4"
+    },
+    "festival": {
+        "0": {
+            "name": "Qu'emporterais-tu sur une \u00EEle d\u00E9serte ?",
+            "date": {
+                "start": 1663977600,
+                "end": 1664150400
+            },
+            "color": [136, 58, 193],
+            "image": "https://i.imgur.com/MT1xwrW.png",
+            "winner": {
+                "team": "Outils",
+                "image": "https://i.imgur.com/WZNCSeC.png"
+            },
+            "team": [
+                {
+                    "name": "Outils",
+                    "result": {
+                        "conques": "33,45%",
+                        "votes": "58,28%",
+                        "ouvert": "35,29%",
+                        "defi": "33,47%"
+                    },
+                    "position": 1
+                },
+                {
+                    "name": "Nourriture",
+                    "result": {
+                        "conques": "30,44%",
+                        "votes": "20,70%",
+                        "ouvert": "31,38%",
+                        "defi": "30,16%"
+                    },
+                    "position": 3
+                },
+                {
+                    "name": "Jeux",
+                    "result": {
+                        "conques": "36,11%",
+                        "votes": "21,02%",
+                        "ouvert": "33,33%",
+                        "defi": "36,37%"
+                    },
+                    "position": 2
+                }
+            ]
+        },
+        "1": {
+            "name": "Quel type de partenaire Pok\u00E9mon pr\u00E9f\u00E8res-tu ?",
+            "date": {
+                "start": 1668211200,
+                "end": 1668384000
+            },
+            "color": [43, 147, 251],
+            "image": "https://i.imgur.com/gwh3s2P.png",
+            "winner": {
+                "team": "Eau",
+                "image": "https://i.imgur.com/a2UyEQg.png"
+            },
+            "team": [
+                {
+                    "name": "Plante",
+                    "result": {
+                        "conques": "33,71%",
+                        "votes": "25,80%",
+                        "ouvert": "33,41%",
+                        "defi": "33,59%"
+                    },
+                    "position": 2
+                },
+                {
+                    "name": "Feu",
+                    "result": {
+                        "conques": "32,52%",
+                        "votes": "32,60%",
+                        "ouvert": "32,75%",
+                        "defi": "30,55%"
+                    },
+                    "position": 3
+                },
+                {
+                    "name": "Eau",
+                    "result": {
+                        "conques": "33,77%",
+                        "votes": "40,60%",
+                        "ouvert": "33,84%",
+                        "defi": "35,86%"
+                    },
+                    "position": 1
+                }
+            ]
+        },
+        "2": {
+            "name": "Quelle est ta saveur pr\u00E9f\u00E9r\u00E9e ?",
+            "date": {
+                "start": 1673049600,
+                "end": 1673222400
+            },
+            "color": [234, 57, 245],
+            "image": "https://i.imgur.com/3w1HXCL.png",
+            "winner": {
+                "team": "Sucr\u00E9",
+                "image": "https://i.imgur.com/XNnJeJ0.png"
+            },
+            "team": [
+                {
+                    "name": "\u00C9pic\u00E9",
+                    "result": {
+                        "conques": "32,52%",
+                        "votes": "32,60%",
+                        "ouvert": "32,75%",
+                        "defi": "30,55%",
+                        "tricolore": "33,89%"
+                    },
+                    "position": 2
+                },
+                {
+                    "name": "Sucr\u00E9",
+                    "result": {
+                        "conques": "34,40%",
+                        "votes": "56,84%",
+                        "ouvert": "35,57%",
+                        "defi": "31,96%",
+                        "tricolore": "33,72%"
+                    },
+                    "position": 1
+                },
+                {
+                    "name": "Acide",
+                    "result": {
+                        "conques": "32,38%",
+                        "votes": "15,41%",
+                        "ouvert": "31,58%",
+                        "defi": "34,11%",
+                        "tricolore": "32,39%"
+                    },
+                    "position": 3
+                }
+            ]
+        },
+        "3": {
+            "name": "Quel est ton type de chocolat favori ?",
+            "date": {
+                "start": 1676073600,
+                "end": 1676246400
+            },
+            "color": [175, 151, 130],
+            "image": "https://i.imgur.com/5fksb0L.png",
+            "winner": {
+                "team": "Chocolat Blanc",
+                "image": "https://i.imgur.com/PvtT4s7.png"
+            },
+            "team": [
+                {
+                    "name": "Chocolat Noir",
+                    "result": {
+                        "conques": "33,18%",
+                        "votes": "24,47%",
+                        "ouvert": "32,14%",
+                        "defi": "33,32%",
+                        "tricolore": "33,15%"
+                    },
+                    "position": 2
+                },
+                {
+                    "name": "Chocolat au lait",
+                    "result": {
+                        "conques": "31,66%",
+                        "votes": "33,31%",
+                        "ouvert": "31,23%",
+                        "defi": "31,18%",
+                        "tricolore": "33,91%"
+                    },
+                    "position": 3
+                },
+                {
+                    "name": "Chocolat Blanc",
+                    "result": {
+                        "conques": "35,16%",
+                        "votes": "42,22%",
+                        "ouvert": "36,63%",
+                        "defi": "35,50%",
+                        "tricolore": "33,94%"
+                    },
+                    "position": 1
+                }
+            ]
+        },
+        "4": {
+            "name": "Qu'est-ce qui existe pour de vrai ?",
+            "date": {
+                "start": 1680307200,
+                "end": 1680480000
+            },
+            "color": [157, 59, 244],
+            "image": "https://i.imgur.com/Si0Z0Go.png",
+            "winner": {
+                "team": "Nessie",
+                "image": "https://i.imgur.com/nKjqxcu.png"
+            },
+            "team": [
+                {
+                    "name": "Nessie",
+                    "result": {
+                        "conques": "33,62%",
+                        "votes": "45,22%",
+                        "ouvert": "35,33%",
+                        "defi": "33,25%",
+                        "tricolore": "34,91%"
+                    },
+                    "position": 1
+                },
+                {
+                    "name": "Martiens",
+                    "result": {
+                        "conques": "33,74%",
+                        "votes": "46,09%",
+                        "ouvert": "32,67%",
+                        "defi": "30,71%",
+                        "tricolore": "32,86%"
+                    },
+                    "position": 2
+                },
+                {
+                    "name": "Bigfoot",
+                    "result": {
+                        "conques": "32,64%",
+                        "votes": "8,69%",
+                        "ouvert": "32,00%",
+                        "defi": "36,04%",
+                        "tricolore": "32,23%"
+                    },
+                    "position": 3
+                }
+            ]
+        }
+    }
+}

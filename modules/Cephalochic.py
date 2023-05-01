@@ -116,7 +116,7 @@ class CephalochicModule(commands.Cog):
             ), ephemeral = True)
             return
 
-        translation = json.load(open("./data/splatoon3.json") if choice == "s3" else open("./data/splatoon2.json"))
+        translation = json.load(open("./data/s3/translation.json") if choice == "s3" else open("./data/s2/translation.json"))
         next_rotation = self.__s2_cephalochic_data[0]["end_time"] if choice == "s2" else datetime.timestamp(datetime.fromisoformat(self.__s3_cephalochic_data["limitedGears"][0]["saleEndTime"][:-1]).astimezone(pytz.timezone(config.TIMEZONE)) + timedelta(hours = 1)) 
         
         embed = disnake.Embed(
@@ -157,8 +157,5 @@ class CephalochicModule(commands.Cog):
             await inter.send(embed = embed)
 
 def setup(self) -> None:
-    if config.CEPHALOCHIC_ENABLED:
-        self.add_cog(CephalochicModule(self))
-        logs.info("Le module a bien été détécté et chargé", "[CEPHALOCHIC]")
-    else:
-        logs.warning("Le module n'a pas été chargé car il est désactivé dans la configuration", "[CEPHALOCHIC]")
+    self.add_cog(CephalochicModule(self))
+    logs.info("Le module a bien été détécté et chargé", "[CEPHALOCHIC]")

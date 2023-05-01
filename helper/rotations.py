@@ -49,7 +49,7 @@ def __generate_splatfest_embed(data: dict, number: int, title: str, translation:
     )
 
 def generate_splatoon3_embed(data: dict, number: int = 0, title: str = "Rotation actuelle") -> disnake.Embed:
-    translation = json.load(open("./data/splatoon3.json"))
+    translation = json.load(open("./data/s3/translation.json"))
     startTime   = datetime.fromisoformat(data["regularSchedules"]["nodes"][number]["startTime"][:-1]).astimezone(pytz.timezone(config.TIMEZONE)) + timedelta(hours = config.ADD_HOURS)
     endTime     = datetime.fromisoformat(data["regularSchedules"]["nodes"][number]["endTime"][:-1]).astimezone(pytz.timezone(config.TIMEZONE)) + timedelta(hours = config.ADD_HOURS)
     
@@ -63,7 +63,7 @@ def generate_splatoon3_embed(data: dict, number: int = 0, title: str = "Rotation
         )
 
 def generate_splatoon2_embed(data: dict, number: int = 0, title: str = "Rotation actuelle") -> disnake.Embed:
-    translation = json.load(open("./data/splatoon2.json"))
+    translation = json.load(open("./data/s2/translation.json"))
 
     match_pro   = translation["rules"][data['gachi'][number]["rule"]["key"]]["name"]
     match_ligue = translation["rules"][data['league'][number]["rule"]["key"]]["name"]
@@ -87,7 +87,7 @@ def generate_splatoon2_embed(data: dict, number: int = 0, title: str = "Rotation
     ).set_footer(text = "Données provenant de l'API du site Splatoon2.ink", icon_url = "https://i.imgur.com/nvxf5TK.png")
 
 def __generate_salmon_embed(data: dict, gear_data: dict, title: str = "Rotation actuelle") -> disnake.Embed:
-    translation = json.load(open("./data/splatoon3.json"))
+    translation = json.load(open("./data/s3/translation.json"))
 
     startTime = datetime.fromisoformat(data["startTime"][:-1]).astimezone(pytz.timezone(config.TIMEZONE)) + timedelta(hours = config.ADD_HOURS)
     endTime   = datetime.fromisoformat(data["endTime"][:-1]).astimezone(pytz.timezone(config.TIMEZONE)) + timedelta(hours = config.ADD_HOURS, seconds = 30)
@@ -140,7 +140,7 @@ def generate_splatoon2_salmonrun_embed(data: dict, number: int = 0, title: str =
             color       = 0xff5033
         ).set_footer(text = "Données provenant de l'API du site Splatoon2.ink", icon_url = "https://i.imgur.com/nvxf5TK.png")
 
-    translation = json.load(open("./data/splatoon2.json"))
+    translation = json.load(open("./data/s2/translation.json"))
     data        = data["details"][0]
 
     weapons = []
@@ -177,7 +177,7 @@ def generate_defi_oeuf_sup(data: dict, number: int = 0) -> disnake.Embed:
     if len(data["teamContestSchedules"]["nodes"]) == 0:
         return __generate_no_defi_oeuf_sup_embed()
     
-    translation = json.load(open("./data/splatoon3.json"))
+    translation = json.load(open("./data/s3/translation.json"))
     data        = data["teamContestSchedules"]["nodes"][0]
 
     startTime = datetime.fromisoformat(data["startTime"][:-1]).astimezone(pytz.timezone(config.TIMEZONE)) + timedelta(hours = config.ADD_HOURS)

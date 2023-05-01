@@ -199,8 +199,5 @@ class RotationsModule(commands.Cog):
         await inter.send(embed = embed)
 
 def setup(self) -> None:
-    if config.ROTATIONS_ENABLED:
-        self.add_cog(RotationsModule(self))
-        logs.info("Le module a bien été détécté et chargé", "[ROTATIONS]")
-    else:
-        logs.warning("Le module n'a pas été chargé car il est désactivé dans la configuration", "[ROTATIONS]")
+    self.add_cog(RotationsModule(self))
+    logs.info("Le module a bien été détécté et chargé", "[ROTATIONS]")

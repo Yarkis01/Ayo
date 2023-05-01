@@ -143,8 +143,5 @@ class PingModule(commands.Cog):
         await inter.edit_original_response(content = "", embed = embed.set_footer(text = "Données actualisées toutes les 30 minutes"))
 
 def setup(self) -> None:
-    if config.PING_ENABLED:
-        self.add_cog(PingModule(self))
-        logs.info("Le module a bien été détécté et chargé", "[PING]")
-    else:
-        logs.warning("Le module n'a pas été chargé car il est désactivé dans la configuration", "[PING]")
+    self.add_cog(PingModule(self))
+    logs.info("Le module a bien été détécté et chargé", "[PING]")

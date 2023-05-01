@@ -13,7 +13,7 @@ class InviteViewButton(disnake.ui.View):
         self.add_item(disnake.ui.Button(label = "Code Source", url = config.GITHUB_LINK, emoji = "<:github:1088570213064253534>"))
 
 
-class InformationsCommandModule(commands.Cog):
+class InformationCommandModule(commands.Cog):
     def __init__(self, bot: commands.AutoShardedInteractionBot) -> None:
         self.__bot = bot
 
@@ -54,8 +54,5 @@ class InformationsCommandModule(commands.Cog):
         ).set_footer(text = f"Latence actuelle du bot: {round(self.__bot.latency * 1000)}ms"), view = InviteViewButton())
 
 def setup(self) -> None:
-    if config.INFOCOMMAND_ENABLED:
-        self.add_cog(InformationsCommandModule(self))
-        logs.info("Le module a bien été détécté et chargé", "[INFO-CMD]")
-    else:
-        logs.warning("Le module n'a pas été chargé car il est désactivé dans la configuration", "[INFO-CMD]")
+    self.add_cog(InformationCommandModule(self))
+    logs.info("Le module a bien été détécté et chargé", "[INFO-CMD]")

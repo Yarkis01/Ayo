@@ -8,14 +8,14 @@ class bcolors:
     ENDC    = '\033[0m'
 
 class logs:
-    def warning(message: str, _type: str = "") -> None:
+    def warning(message: str, _type: str = "") -> None: # sourcery skip: instance-method-first-arg-name
         print(f"{bcolors.WARNING}[{datetime.datetime.now().strftime('%H:%M:%S')}][WARNING]{_type}: {message}{bcolors.ENDC}")
 
-    def success(message: str, _type: str = "") -> None:
+    def success(message: str, _type: str = "") -> None:  # sourcery skip: instance-method-first-arg-name
         print(f"{bcolors.SUCCESS}[{datetime.datetime.now().strftime('%H:%M:%S')}][SUCCESS]{_type}: {message}{bcolors.ENDC}")
 
-    def fail(message: str, _type: str = "") -> None:
+    def fail(message: str, _type: str = "") -> None:  # sourcery skip: instance-method-first-arg-name
         print(f"{bcolors.FAIL}[{datetime.datetime.now().strftime('%H:%M:%S')}][FAIL]{_type}: {message}{bcolors.ENDC}")
 
-    def info(message: str, _type: str = "") -> None:
+    def info(message: str, _type: str = "") -> None:  # sourcery skip: instance-method-first-arg-name
         print(f"{bcolors.INFO}[{datetime.datetime.now().strftime('%H:%M:%S')}][INFO]{_type}: {message}{bcolors.ENDC}")

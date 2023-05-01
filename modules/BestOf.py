@@ -1,4 +1,4 @@
-import disnake, json, secrets, config
+import disnake, json, secrets
 from disnake.ext import commands
 
 from helper.icons import get_ranked_icon
@@ -10,24 +10,37 @@ BESTOF_NUMBER = [
 
 BESTOF_JEUX = {
     "Splatoon 3": "s3",
-    "Splatoon 2": "s2",
-    "Splatoon": "s1"
+    "Splatoon 2": "s2"
 }
 
 class BestOfModule(commands.Cog):
     def __init__(self, bot: commands.AutoShardedInteractionBot) -> None:
         self.__bot  = bot
-        self.__data = json.load(open("./data/bestof.json"))
+
+        self.__data_s2 = {
+            "modes": (json.load(open("./data/s2/modes.json")))["modes"],
+            "stages": (json.load(open("./data/s2/stages.json")))["stages"]
+        }
+        self.__data_s3 = {
+            "modes": (json.load(open("./data/s3/modes.json")))["modes"],
+            "stages": (json.load(open("./data/s3/stages.json")))["stages"]
+        }
 
     @commands.Cog.listener()
     async def on_ready(self) -> None:
         logs.success("Le module a été initié correctement", "[BOX]")
 
-    async def generate_rotation(self, game: str, stages_data) -> tuple:
-        return (
-            secrets.choice(self.__data["modes"][game]),
-            secrets.choice(stages_data)
-        )
+    async def generate_rotation(self, game: str) -> tuple:
+        if game == "s2":
+            return (
+                secrets.choice(self.__data_s2["modes"]),
+                secrets.choice(self.__data_s2["stages"])
+            )   
+        else:
+            return (
+                secrets.choice(self.__data_s3["modes"]),
+                secrets.choice(self.__data_s3["stages"])
+            )
 
     @commands.slash_command(name = "bo", description = "Permet de générer un certain nombre de modes de jeu associé avec des stages", dm_permission = False)
     async def _bo(
@@ -36,7 +49,6 @@ class BestOfModule(commands.Cog):
         number: int = commands.Param(name = "nombre", description = "Nombre de parties que vous voulez jouer", choices = BESTOF_NUMBER),
         game: str = commands.Param(name = "jeu", description = "Quel jeu va être utilisé pour effectuer ses parties ? (par défaut: Splatoon 3)", choices = BESTOF_JEUX, default = "s3")
     ) -> None:
-        stages_data: list = self.__data["stages"][game]
         modes_count: dict = {}
         stage_count: dict = {}
         old_stage: str    = None
@@ -46,16 +58,14 @@ class BestOfModule(commands.Cog):
 
         i = 0
         while i != number:
-            mode, stage = await self.generate_rotation(game, stages_data)
+            mode, stage = await self.generate_rotation(game)
             if mode == old_mode or stage == old_stage:
                 continue
 
             modes_count[mode] = 1 if mode not in modes_count else modes_count[mode] + 1
             stage_count[stage] = 1 if stage not in stage_count else stage_count[stage] + 1
 
-            if game == "s1" and (modes_count[mode] > 3 or stage_count[stage] > 2):
-                continue
-            if game in {"s2", "s3"} and (modes_count[mode] > 2 or stage_count[stage] > 2):
+            if modes_count[mode] > 2 or stage_count[stage] > 2:
                 continue
 
             old_mode     = mode
@@ -87,8 +97,5 @@ class BestOfModule(commands.Cog):
 
 
 def setup(self) -> None:
-    if config.BESTOF_ENABLED:
-        self.add_cog(BestOfModule(self))
-        logs.info("Le module a bien été détécté et chargé", "[BOX]")
-    else:
-        logs.warning("Le module n'a pas été chargé car il est désactivé dans la configuration", "[BOX]")
+    self.add_cog(BestOfModule(self))
+    logs.info("Le module a bien été détécté et chargé", "[BOX]")

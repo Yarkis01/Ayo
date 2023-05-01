@@ -1,4 +1,4 @@
-import disnake, config, qrcode, os, time
+import disnake, qrcode, os, time
 from disnake.ext import commands
 
 from helper.codesamis import Database, CodeChecker
@@ -130,8 +130,5 @@ class CodesAmisModule(commands.Cog):
         os.remove(file_path)
 
 def setup(self) -> None:
-    if config.CODESAMIS_ENABLED:
-        self.add_cog(CodesAmisModule(self))
-        logs.info("Le module a bien été détécté et chargé", "[CODES-AMIS]")
-    else:
-        logs.warning("Le module n'a pas été chargé car il est désactivé dans la configuration", "[CODES-AMIS]")
+    self.add_cog(CodesAmisModule(self))
+    logs.info("Le module a bien été détécté et chargé", "[CODES-AMIS]")
