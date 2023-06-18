@@ -8,14 +8,60 @@ class bcolors:
     ENDC    = '\033[0m'
 
 class logs:
-    def warning(message: str, _type: str = "") -> None: # sourcery skip: instance-method-first-arg-name
-        print(f"{bcolors.WARNING}[{datetime.datetime.now().strftime('%H:%M:%S')}][WARNING]{_type}: {message}{bcolors.ENDC}")
+    @staticmethod
+    def print_log(message: str, log_type: str) -> None:
+        """
+        Print a log message with the specified log type and message.
 
-    def success(message: str, _type: str = "") -> None:  # sourcery skip: instance-method-first-arg-name
-        print(f"{bcolors.SUCCESS}[{datetime.datetime.now().strftime('%H:%M:%S')}][SUCCESS]{_type}: {message}{bcolors.ENDC}")
+        Args:
+            message (str): The log message.
+            log_type (str): The log type (e.g., INFO, SUCCESS, WARNING, FAIL).
+        """
+        timestamp = datetime.datetime.now().strftime('%H:%M:%S')
+        log_color = getattr(bcolors, log_type.upper(), "")
 
-    def fail(message: str, _type: str = "") -> None:  # sourcery skip: instance-method-first-arg-name
-        print(f"{bcolors.FAIL}[{datetime.datetime.now().strftime('%H:%M:%S')}][FAIL]{_type}: {message}{bcolors.ENDC}")
+        print(f"{log_color}[{timestamp}][{log_type.upper()}]: {message}{bcolors.ENDC}")
 
-    def info(message: str, _type: str = "") -> None:  # sourcery skip: instance-method-first-arg-name
-        print(f"{bcolors.INFO}[{datetime.datetime.now().strftime('%H:%M:%S')}][INFO]{_type}: {message}{bcolors.ENDC}")
+    @staticmethod
+    def warning(message: str, log_type: str = "") -> None:
+        """
+        Print a warning log message.
+
+        Args:
+            message (str): The log message.
+            log_type (str): Optional type of the log message.
+        """
+        logs.print_log(message, "WARNING")
+
+    @staticmethod
+    def success(message: str, log_type: str = "") -> None:
+        """
+        Print a success log message.
+
+        Args:
+            message (str): The log message.
+            log_type (str): Optional type of the log message.
+        """
+        logs.print_log(message, "SUCCESS")
+
+    @staticmethod
+    def fail(message: str, log_type: str = "") -> None:
+        """
+        Print a fail log message.
+
+        Args:
+            message (str): The log message.
+            log_type (str): Optional type of the log message.
+        """
+        logs.print_log(message, "FAIL")
+
+    @staticmethod
+    def info(message: str, log_type: str = "") -> None:
+        """
+        Print an info log message.
+
+        Args:
+            message (str): The log message.
+            log_type (str): Optional type of the log message.
+        """
+        logs.print_log(message, "INFO")
