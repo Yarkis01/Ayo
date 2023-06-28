@@ -155,11 +155,11 @@ class RotationsModule(commands.Cog):
 
 
     @commands.slash_command(name = "rotations", description = "Permet d'obtenir des informations sur les rotations", dm_permission = False)
-    async def rotations_command(self, inter: disnake.CommandInteraction):
+    async def _rotations(self, inter: disnake.CommandInteraction):
         return
 
-    @rotations_command.sub_command(name = "actuelles", description = "Permet d'obtenir la rotation actuelle des stages")
-    async def rotations_actuelles_command(self, inter: disnake.CommandInteraction, data: str = commands.Param(name = "mode", description = "Choisissez le mode que vous souhaitez avoir la rotation", choices = CHOICES)):
+    @_rotations.sub_command(name = "actuelles", description = "Permet d'obtenir la rotation actuelle des stages")
+    async def _current_rotations(self, inter: disnake.CommandInteraction, data: str = commands.Param(name = "mode", description = "Choisissez le mode que vous souhaitez avoir la rotation", choices = CHOICES)):
         if data == "s3" and self.__splatoon3_data is not None:
             embed = RH.generate_splatoon3_embed(self.__splatoon3_data)
         elif data == "s2" and self.__splatoon2_data is not None:
@@ -177,12 +177,12 @@ class RotationsModule(commands.Cog):
         await inter.send(embed = embed)
 
 
-    @rotations_command.sub_command(name = "suivantes", description = "Permet d'obtenir la prochaine rotation des stages")
-    async def prochaines_rotations_command(
+    @_rotations.sub_command(name = "suivantes", description = "Permet d'obtenir la prochaine rotation des stages")
+    async def _next_rotations(
         self, 
         inter: disnake.CommandInteraction, 
         data: str = commands.Param(name = "mode", description = "Choisissez le mode que vous souhaitez avoir la rotation", choices = CHOICES),
-        number: commands.Range[1, 2] = commands.Param(name = "numéro", description = "Permet d'indiquer le numéro de la prochaine rotation (entre 1 et 2)", default = 1)
+        number: commands.Range[int, 1, 2] = commands.Param(name = "numéro", description = "Permet d'indiquer le numéro de la prochaine rotation (entre 1 et 2)", default = 1)
     ):
         title = "Rotation suivante" if number == 1 else "Prochaine rotation"
         if data == "s3" and self.__splatoon3_data is not None:

@@ -5,7 +5,7 @@
 
   ![](https://img.shields.io/badge/Python-3.11.2-3498db?style=for-the-badge&logo=python&logoColor=3498db)
   [![](https://img.shields.io/discord/1035981866303500421?color=7289DA&label=support&logo=discord&logoColor=7289DA&style=for-the-badge)](https://discord.gg/H97txXkNBv)
-  [![](https://img.shields.io/badge/Disnake-2.8.1-3498db?style=for-the-badge&logo=python&logoColor=3498db)](https://pypi.org/project/disnake/2.8.1/)
+  [![](https://img.shields.io/badge/Disnake-2.9.0-3498db?style=for-the-badge&logo=python&logoColor=3498db)](https://pypi.org/project/disnake/2.9.0/)
 </div>
 <br />
 
