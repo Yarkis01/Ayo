@@ -24,6 +24,14 @@ class Config:
 
         self.__enabled_modules  = os.getenv("ENABLED_MODULES").split(",") 
         self.__disabled_modules = os.getenv("DISABLED_MODULES").split(",")
+        
+        self.__pterodactyl_api = os.getenv("PTERODACTYL_API")
+        self.__pterodactyl_key = os.getenv("PTERODACTYL_KEY")
+        
+        self.__watchbot_api = os.getenv("WATCHBOT_URL")
+        self.__watchbot_key = os.getenv("WATCHBOT_KEY")
+        
+        self.__uptimekuma_url = os.getenv("UPTIMEKUMA_URL")
 
     @property
     def discord_token(self) -> str:
@@ -104,3 +112,53 @@ class Config:
         """
     
         return self.__disabled_modules
+    
+    @property
+    def pterodactyl_api(self) -> str:
+        """Get the Pterodactyl API URL.
+        
+        Returns:
+            str: The Pterodactyl API URL read from the `.env` file.
+        """
+        
+        return self.__pterodactyl_api
+
+    @property
+    def pterodactyl_key(self) -> str:
+        """Get the Pterodactyl API key.
+        
+        Returns:
+            str: The Pterodactyl API key read from the `.env` file. 
+        """
+        
+        return self.__pterodactyl_key
+
+    @property
+    def watchbot_api(self) -> str:
+        """Get the Watchbot API URL.
+        
+        Returns:
+            str: The Watchbot API URL read from the `.env` file.
+        """
+        
+        return self.__watchbot_api
+
+    @property 
+    def watchbot_key(self) -> str:
+        """Get the Watchbot API key.
+        
+        Returns:
+            str: The Watchbot API key read from the `.env` file.
+        """
+        
+        return self.__watchbot_key
+
+    @property
+    def uptimekuma_url(self) -> str:
+        """Get the Uptime Kuma status page URL.
+        
+        Returns:
+            str: The Uptime Kuma status page URL read from the `.env` file.
+        """
+        
+        return self.__uptimekuma_url

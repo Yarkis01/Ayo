@@ -1,7 +1,7 @@
 from enum import Enum
 
 from motor.motor_asyncio import AsyncIOMotorClient
-from pymongo.server_api  import ServerApi
+#from pymongo.server_api  import ServerApi
 import pymongo
 
 from utils.logger import Logger
@@ -23,7 +23,9 @@ class Database:
             mongo_uri (str): The MongoDB URI.
         """
         Logger.info("Attempting to connect to the database...", "database")
-        self.__client   = AsyncIOMotorClient(mongo_uri, server_api = ServerApi('1'))
+        # For some obscure reason, forced to do it this way...
+        #self.__client   = AsyncIOMotorClient(mongo_uri, server_api = ServerApi('1'))
+        self.__client   = AsyncIOMotorClient(mongo_uri)
         self.__database = self.__client.AyoDatabase
         Logger.success("Successful database connection", "database")
 
@@ -34,7 +36,6 @@ class Database:
         Args:
             collection (Collections): The collection enum. 
         """
-
         collection = self.__database[collection.value]
 
         if not await collection.index_information():
