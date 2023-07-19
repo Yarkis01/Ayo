@@ -14,16 +14,17 @@ class Config:
         
         load_dotenv()
 
-        self.__mongo_uri     = os.getenv("MONGO_URI")
-        self.__discord_token = os.getenv("DISCORD_TOKEN")
-        self.__bot_version   = os.getenv("BOT_VERSION")
+        self.__mongo_uri      = os.getenv("MONGO_URI")
+        self.__discord_token  = os.getenv("DISCORD_TOKEN")
+        self.__bot_version    = os.getenv("BOT_VERSION")
+        self.__support_server = os.getenv("SUPPORT_SERVER")
 
         self.__test_guilds   = int(os.getenv("TEST_GUILDS"))
         self.__dev_mode      = bool(os.getenv("DEV_MODE"))
         self.__logs_channel  = int(os.getenv("LOGS_CHANNEL"))
 
-        self.__enabled_modules  = os.getenv("ENABLED_MODULES").split(",") 
-        self.__disabled_modules = os.getenv("DISABLED_MODULES").split(",")
+        self.__enabled_modules  = os.getenv("ENABLED_MODULES").replace(" ", "").split(",") 
+        self.__disabled_modules = os.getenv("DISABLED_MODULES").replace(" ", "").split(",")
         
         self.__pterodactyl_api = os.getenv("PTERODACTYL_API")
         self.__pterodactyl_key = os.getenv("PTERODACTYL_KEY")
@@ -34,16 +35,6 @@ class Config:
         self.__uptimekuma_url = os.getenv("UPTIMEKUMA_URL")
 
     @property
-    def discord_token(self) -> str:
-        """Get the Discord token value.
-
-        Returns:
-            str: The Discord token read from the `.env` file.
-        """
-
-        return self.__discord_token
-
-    @property
     def mongo_uri(self) -> str:
         """Get the MongoDB URI value.
 
@@ -52,6 +43,36 @@ class Config:
         """
 
         return self.__mongo_uri
+
+    @property
+    def discord_token(self) -> str:
+        """Get the Discord token value.
+
+        Returns:
+            str: The Discord token read from the `.env` file.
+        """
+
+        return self.__discord_token
+    
+    @property
+    def bot_version(self) -> str:
+        """Get the bot version string.
+
+        Returns:
+            str: The bot version read from the `.env` file.
+        """
+
+        return self.__bot_version
+    
+    @property
+    def support_server(self) -> str:
+        """Get support server link.
+
+        Returns:
+            str: Support server link read from `.env` file.
+        """
+
+        return self.__support_server
     
     @property
     def test_guilds(self) -> int:
@@ -82,16 +103,6 @@ class Config:
         """
         
         return self.__logs_channel
-    
-    @property
-    def bot_version(self) -> str:
-        """Get the bot version string.
-
-        Returns:
-            str: The bot version read from the `.env` file.
-        """
-
-        return self.__bot_version
 
     @property
     def enabled_modules(self) -> List[str]:

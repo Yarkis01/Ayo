@@ -65,7 +65,7 @@ class AyoBot(commands.AutoShardedInteractionBot):
         await self.logger.send(embed = Embed.default(
             title       = "📈 Le bot a rejoint un nouveaux serveur !",
             description = f"Le bot est à présent sur **{len(self.guilds)} serveurs**."
-        ), view = InviteView(bot_invite) if bot_invite else None)
+        ), view = InviteView(bot_invite) if bot_invite else disnake.utils.MISSING)
 
     async def on_guild_remove(self, guild: disnake.Guild) -> None:
         for collection in Collections:

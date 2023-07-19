@@ -39,12 +39,14 @@ class PingModule(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self) -> None:
+        Logger.success("The module has been started correctly", "ping")
+
         if not self.__is_started:
+            self.__is_started = True
             await asyncio.gather(
                 self._is_alive_loop.start(),
                 self._update_loop.start()
             )
-            self.__is_started = True
 
     @tasks.loop(seconds = 60)
     async def _is_alive_loop(self) -> None:
@@ -132,4 +134,3 @@ class PingModule(commands.Cog):
 
 def setup(self) -> None:
     self.add_cog(PingModule(self))
-    Logger.success("The module has been started correctly", "ping")
