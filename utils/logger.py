@@ -2,6 +2,7 @@ from typing import List
 from datetime import datetime
 from disnake.ext import commands
 import disnake
+import contextlib
 
 class LogColors:
     INFO    = '\033[96m'
@@ -104,14 +105,16 @@ class DiscordLogger:
         except disnake.NotFound:
             self.__logs_channel = None
             
-    async def send(self, content: str = None, embed: disnake.Embed = None, embeds: List[disnake.Embed] = None) -> None:    
+    async def send(self, content: str = None, embed: disnake.Embed = None, embeds: List[disnake.Embed] = None, view: disnake.ui.View = None) -> None:    
         """
         Send a message to the logs channel.
         
         Args:     
             content (str, optional): The content of the message. 
-            embed (disnake.Embed , optional): The embed to send.  
+            embed (disnake.Embed, optional): The embed to send.  
             embeds (List[disnake.Embed], optional): List of embeds to send.
-        """    
-        if self.__logs_channel:
-            await self.__logs_channel.send(content = content, embed = embed, embeds = embeds)
+            view (disnake.ui.View, optional): A disnake view, for displaying elements such as buttons
+        """
+        with contextlib.suppress():
+            if self.__logs_channel:
+                await self.__logs_channel.send(content = content, embed = embed, embeds = embeds)

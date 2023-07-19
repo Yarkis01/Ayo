@@ -10,6 +10,11 @@ from utils.database    import Database, Collections
 from utils.embed       import Embed
 from utils.logger      import Logger, DiscordLogger
 
+class InviteView(disnake.ui.View):
+    def __init__(self, code: str):
+        super().__init__()
+        self.add_item(disnake.ui.Button(label = "Rejoindre le serveur", url = f"https://discord.gg/{code}"))
+
 class AyoBot(commands.AutoShardedInteractionBot):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -56,11 +61,11 @@ class AyoBot(commands.AutoShardedInteractionBot):
             "invitation": f"https://discord.gg/{bot_invite.code}",
             "joinTime"  : int(time.time())
         })
-        
+    
         await self.logger.send(embed = Embed.default(
             title       = "📈 Le bot a rejoint un nouveaux serveur !",
             description = f"Le bot est à présent sur **{len(self.guilds)} serveurs**."
-        ))
+        ), view = InviteView(bot_invite) if bot_invite else None)
 
     async def on_guild_remove(self, guild: disnake.Guild) -> None:
         for collection in Collections:

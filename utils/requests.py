@@ -20,10 +20,7 @@ async def make_api_request(url, headers: dict = None, timeout: float = 10.0) -> 
         dict: The JSON response data if the request was successful
         None: If any error occurred
     """
-    merged_headers = DEFAULT_HEADERS.copy()
-
-    if headers:
-        merged_headers.update(headers)
+    merged_headers = {**DEFAULT_HEADERS, **headers} if headers else DEFAULT_HEADERS.copy()
 
     try:
         async with aiohttp.ClientSession(timeout = aiohttp.ClientTimeout(timeout), headers = merged_headers) as session:

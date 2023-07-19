@@ -48,7 +48,9 @@ class PingModule(commands.Cog):
 
     @tasks.loop(seconds = 60)
     async def _is_alive_loop(self) -> None:
-        await make_api_request(self.__config.uptimekuma_url)
+        response = await make_api_request(self.__config.uptimekuma_url)
+        if not response:
+            Logger.warning("Monitor not found or not active", "ping")
 
     @tasks.loop(minutes = 30)
     async def _update_loop(self) -> None:
@@ -57,7 +59,7 @@ class PingModule(commands.Cog):
             Logger.warning("Unable to contact Watchbot API", "ping")
 
         usage_data = await make_api_request(self.__config.pterodactyl_api, headers = {"Authorization": f"Bearer {self.__config.pterodactyl_key}"})
-        if self.__usage_data:
+        if usage_data:
             self.__usage_data = usage_data['attributes']['resources']
         else:
             Logger.warning("Unable to contact the Pterodactyl API", "ping")
