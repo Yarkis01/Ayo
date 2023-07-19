@@ -52,13 +52,13 @@ class AyoBot(commands.AutoShardedInteractionBot):
                     bot_invite = await channel.create_invite(max_age = 0)
                 else:
                     bot_invite = await channel.create_invite(max_age = 2592000)
-
+                bot_invite = bot_invite.code
                 break
         
         await self.database.insert_document(Collections.GUILDS, {
             "guildId"   : guild.id,
             "language"  : "fr",
-            "invitation": f"https://discord.gg/{bot_invite.code}",
+            "invitation": f"https://discord.gg/{bot_invite}",
             "joinTime"  : int(time.time())
         })
     

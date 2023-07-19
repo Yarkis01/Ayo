@@ -117,4 +117,4 @@ class DiscordLogger:
         """
         with contextlib.suppress():
             if self.__logs_channel:
-                await self.__logs_channel.send(content = content, embed = embed, embeds = embeds)
+                await self.__logs_channel.send(content = content, embed = embed, embeds = embeds, view = view)
