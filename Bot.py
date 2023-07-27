@@ -1,14 +1,20 @@
-import sys ; sys.dont_write_bytecode = True
+import sys
+
+from disnake.ext.commands import errors
+from disnake.interactions import ApplicationCommandInteraction ; sys.dont_write_bytecode = True
 from pathlib import Path
+import secrets
 import time
+import traceback
 
 from disnake.ext import commands
 import disnake
 
-from utils.config      import Config
-from utils.database    import Database, Collections
-from utils.embed       import Embed
-from utils.logger      import Logger, DiscordLogger
+from utils.config   import Config
+from utils.database import Database, Collections
+from utils.embed    import Embed
+from utils.error    import error_message_generator 
+from utils.logger   import Logger, DiscordLogger
 
 class InviteView(disnake.ui.View):
     def __init__(self, code: str):
@@ -74,6 +80,20 @@ class AyoBot(commands.AutoShardedInteractionBot):
         await self.logger.send(embed = Embed.default(
             title       = "📉 Le bot a été retiré d'un serveur !",
             description = f"Le bot est à présent sur **{len(self.guilds)} serveurs**."
+        ))
+
+    async def on_slash_command_error(self, inter: disnake.ApplicationCommandInteraction, exception: commands.CommandError) -> None:
+        await error_message_generator(bot, inter, exception)
+        
+    async def on_user_command_error(self, inter: disnake.ApplicationCommandInteraction, exception: commands.CommandError) -> None:
+        await error_message_generator(bot, inter, exception)
+        
+    async def on_error(self, *args, **kwargs) -> None:
+        Logger.fail("An error has occurred", "error")
+        
+        await self.logger.send(embed = Embed.error(
+            title = ":x: Une erreur est survenue",
+            description = f"Args: ```{args}```\nKwargs: ```{kwargs}```\nErreur: ```{traceback.format_exc()}```"
         ))
 
 

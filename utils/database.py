@@ -8,6 +8,7 @@ from utils.logger import Logger
 
 class Collections(Enum):
     """An enum representing the collection names."""
+    ERRORS       = "errors"
     FRIEND_CODES = "friendCodes"
     GUILDS       = "guilds"
     ROTATIONS    = "rotations"
