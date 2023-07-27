@@ -11,6 +11,7 @@ class Collections(Enum):
     FRIEND_CODES = "friendCodes"
     GUILDS       = "guilds"
     ROTATIONS    = "rotations"
+    SPLAT        = "splat"
 
 class Database:
     """A class to interact with a MongoDB database."""  
@@ -56,7 +57,22 @@ class Database:
         """
 
         collection = self.__database[collection.value]
-        return await collection.find(query).to_list(length = 100)
+        return await collection.find(query).to_list(length = None)
+    
+    async def find_one(self, collection: Collections, query: dict) -> dict:
+        """
+        Find one document matching the query.
+
+        Args:
+            collection (Collections): The collection enum
+            query (dict): The query filter
+            
+        Returns:
+            dict: The matching document
+        """
+
+        docs = await self.find_documents(collection, query) 
+        return docs[0] if docs else None
     
     async def insert_document(self, collection: Collections, document: dict) -> str:
         """
@@ -98,3 +114,17 @@ class Database:
         
         collection = self.__database[collection.value]
         await collection.update_one(query, {'$set': update})
+        
+    async def count_documents(self, collection: Collections) -> int:
+        """
+        Get the number of documents in a collection.
+
+        Args:
+            collection (Collections): The collection enum.
+
+        Returns: 
+            int: The number of documents.
+        """
+
+        collection = self.__database[collection.value]
+        return await collection.estimated_document_count()

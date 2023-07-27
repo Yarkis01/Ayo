@@ -80,10 +80,15 @@ class AyoBot(commands.AutoShardedInteractionBot):
 if __name__ == '__main__':
     config = Config()
     
+    test_guilds = None
+    if config.dev_mode:
+        test_guilds = config.test_guilds
+        Logger.dev(f"Test servers: {test_guilds}")
+    
     # Create an instance of the AyoBot
     bot = AyoBot(
         intents     = disnake.Intents.default(),
-        test_guilds = [config.test_guilds] if config.dev_mode else None
+        test_guilds = test_guilds
     )
     
     # Set additional properties for the bot

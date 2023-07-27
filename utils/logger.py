@@ -9,6 +9,7 @@ class LogColors:
     SUCCESS = '\033[92m'
     WARNING = '\033[93m'
     FAIL    = '\033[91m'
+    DEV     = '\033[95m'
     ENDC    = '\033[0m'
 
 class Logger:
@@ -74,6 +75,16 @@ class Logger:
         """
         Logger.print_log(message, "INFO", log_custom)
 
+    @staticmethod
+    def dev(message: str, log_custom: str = "") -> None:
+        """
+        Print an dev log message.
+
+        Args:
+            message (str): The log message.
+            log_custom (str): Optional type of the log message.
+        """
+        Logger.print_log(message, "DEV", log_custom)
 
 class DiscordLogger:
     """
