@@ -11,6 +11,7 @@ class Collections(Enum):
     FRIEND_CODES = "friendCodes"
     GUILDS       = "guilds"
     ROTATIONS    = "rotations"
+    SEASON       = "season"
     SPLAT        = "splat"
 
 class Database:

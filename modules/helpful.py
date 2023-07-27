@@ -48,7 +48,7 @@ Je serais heureux que vous preniez part à cette magnifique aventure."""
         ), view = HelpfulView(inter.me.id, self.__config.support_server))
         
     @commands.slash_command(name = "inviter", description = "Vous souhaitez ajouter Ayo à votre serveur ?", dm_permission = False)
-    async def _inviter_command(self, inter: disnake.CommandInteraction) -> None:
+    async def _invite_command(self, inter: disnake.CommandInteraction) -> None:
         await inter.send(embed = Embed.default(
             title       = "✉️ Excellente idée !",
             description = "Voici votre invitation pour pouvoir rajouter **Ayo <:ayo:1037021125793828874>** sur votre propre serveur !\nIl suffit simplement de cliquer sur le bouton en dessous."
