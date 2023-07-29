@@ -34,6 +34,9 @@ class Config:
         self.__watchbot_key = os.getenv("WATCHBOT_KEY")
         
         self.__uptimekuma_url = os.getenv("UPTIMEKUMA_URL")
+        
+        self.__splatoon2_api = os.getenv("SPLATOON2_API")
+        self.__splatoon3_api = os.getenv("SPLATOON3_API")
 
     @property
     def mongo_uri(self) -> str:
@@ -174,3 +177,23 @@ class Config:
         """
         
         return self.__uptimekuma_url
+    
+    @property
+    def splatoon2_api(self) -> str:
+        """Get the Splatoon 2 API URL.
+        
+        Returns:
+            str: The Splatoon 2 API URL read from the `.env` file.
+        """
+
+        return self.__splatoon2_api
+
+    @property
+    def splatoon3_api(self) -> str:
+        """Get the Splatoon 3 API URL.
+        
+        Returns:
+            str: The Splatoon 3 API URL read from the `.env` file.
+        """
+
+        return self.__splatoon3_api

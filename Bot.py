@@ -1,7 +1,4 @@
-import sys
-
-from disnake.ext.commands import errors
-from disnake.interactions import ApplicationCommandInteraction ; sys.dont_write_bytecode = True
+import sys ; sys.dont_write_bytecode = True
 from pathlib import Path
 import time
 import traceback
@@ -14,6 +11,7 @@ from utils.database import Database, Collections
 from utils.embed    import Embed
 from utils.error    import error_message_generator 
 from utils.logger   import Logger, DiscordLogger
+from utils.requests import update_data_if_needed
 
 class InviteView(disnake.ui.View):
     def __init__(self, code: str):
@@ -27,6 +25,10 @@ class AyoBot(commands.AutoShardedInteractionBot):
     async def on_ready(self) -> None:
         # Initiates the Discord logging system
         await self.logger.check_channel(self)
+        
+        # Update API data
+        await update_data_if_needed(f"{self.config.splatoon3_api}/locale/fr-FR.json", "./data/s3/translation.json")
+        await update_data_if_needed(f"{self.config.splatoon2_api}/locale/fr.json",    "./data/s2/translation.json")
         
         # Initialize collections in the database if it doesn't already exist
         for collection in Collections:
