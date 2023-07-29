@@ -27,7 +27,7 @@ class SplatModule(commands.Cog):
     async def on_ready(self) -> None:
         Logger.success("The module has been started correctly", "splat")
         
-    async def liquider(self, inter: disnake.Interaction, member: disnake.Member) -> None:
+    async def liquider(self, inter: disnake.Interaction, member: disnake.User) -> None:
         await inter.response.defer()
         
         count  = await self.__db.count_documents(Collections.SPLAT) 
@@ -53,11 +53,11 @@ class SplatModule(commands.Cog):
         )
 
     @commands.slash_command(name = "liquider", description = "Liquide un membre du serveur", dm_permission = False)
-    async def _splat_command(self, inter: disnake.CommandInteraction, member: disnake.Member = commands.Param(name = "membre", description = "Membre que vous souhaitez liquider")) -> None:
+    async def _splat_command(self, inter: disnake.CommandInteraction, member: disnake.User = commands.Param(name = "membre", description = "Membre que vous souhaitez liquider")) -> None:
         await self.liquider(inter, member)
         
     @commands.user_command(name = "Liquider", dm_permission = False)
-    async def _splat_user_command(self, inter: disnake.UserCommandInteraction, member: disnake.Member) -> None:
+    async def _splat_user_command(self, inter: disnake.UserCommandInteraction, member: disnake.User) -> None:
         await self.liquider(inter, member)
 
 
