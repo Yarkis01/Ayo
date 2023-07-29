@@ -3,7 +3,6 @@ import sys
 from disnake.ext.commands import errors
 from disnake.interactions import ApplicationCommandInteraction ; sys.dont_write_bytecode = True
 from pathlib import Path
-import secrets
 import time
 import traceback
 

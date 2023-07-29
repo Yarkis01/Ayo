@@ -29,6 +29,10 @@ class LotteryModule(commands.Cog):
     @_lottery_command.sub_command(name = "saison", description = "Obtiens les titres et les bannières rares de chaque saison")
     async def _season_command(self, inter: disnake.CommandInteraction, season: str = commands.Param(name = "saison")) -> None:
         data = await self.__db.find_one(Collections.SEASON, {"name": season})
+
+        if not data: 
+            await inter.send(embed = Embed.error(":x: Saison invalide", "Merci de bien vouloir préciser une saison valide."))
+            return
     
         endDate = f"<t:{data['date']['end']}:d>" if data["date"]["end"] else "*Pas encore terminée*"
         
@@ -43,16 +47,16 @@ class LotteryModule(commands.Cog):
         ))
         
     @_season_command.autocomplete("saison")
-    async def _season_autocomplete(self, inter: disnake.CommandInteraction, string: str) -> None:
+    async def _season_autocomplete(self, inter: disnake.CommandInteraction, string: str) -> list:
         seasons = await self.__db.find_documents(Collections.SEASON, {})
 
-        searched_seasons = [
+        search_seasons = [
             season["name"]
             for season in seasons
             if string.lower() in season["name"].lower()
         ]
 
-        return searched_seasons[:25] if len(searched_seasons) > 25 else searched_seasons
+        return search_seasons[:25]
 
 def setup(self) -> None:
     self.add_cog(LotteryModule(self))
