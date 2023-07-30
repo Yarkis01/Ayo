@@ -44,14 +44,7 @@ class FestivalModule(commands.Cog):
     @_festival_command.autocomplete("festival")
     async def _festival_autocomplete(self, inter: disnake.CommandInteraction, string: str) -> list:
         festivals = await self.__db.find_documents(Collections.FESTIVALS, {"game": 3})
-        
-        search_festivals = [
-            festival["name"]
-            for festival in festivals
-            if string.lower() in festival["name"].lower()
-        ]
-
-        return search_festivals[:25]
+        return [festival["name"] for festival in festivals if string.lower() in festival["name"].lower()][:25]
 
 def setup(self) -> None:
     self.add_cog(FestivalModule(self))

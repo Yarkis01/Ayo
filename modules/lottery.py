@@ -49,14 +49,7 @@ class LotteryModule(commands.Cog):
     @_season_command.autocomplete("saison")
     async def _season_autocomplete(self, inter: disnake.CommandInteraction, string: str) -> list:
         seasons = await self.__db.find_documents(Collections.SEASON, {})
-
-        search_seasons = [
-            season["name"]
-            for season in seasons
-            if string.lower() in season["name"].lower()
-        ]
-
-        return search_seasons[:25]
+        return [season["name"] for season in seasons if string.lower() in season["name"].lower()][:25]
 
 def setup(self) -> None:
     self.add_cog(LotteryModule(self))
