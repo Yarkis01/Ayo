@@ -1,5 +1,4 @@
 import time
-import traceback
 import uuid
 
 from disnake.ext import commands
