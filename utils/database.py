@@ -8,14 +8,14 @@ from utils.logger import Logger
 
 class Collections(Enum):
     """An enum representing the collection names."""
-    ERRORS       = "errors"
-    FESTIVALS    = "festivals"
-    FRIEND_CODES = "friendCodes"
-    GUILDS       = "guilds"
-    ODYSSEE      = "odyssee"
-    ROTATIONS    = "rotations"
-    SEASON       = "season"
-    SPLAT        = "splat"
+    ERRORS      = "errors"
+    FESTIVALS   = "festivals"
+    FRIEND_CODE = "friendCode"
+    GUILDS      = "guilds"
+    ODYSSEE     = "odyssee"
+    ROTATIONS   = "rotations"
+    SEASON      = "season"
+    SPLAT       = "splat"
 
 class Database:
     """A class to interact with a MongoDB database."""  

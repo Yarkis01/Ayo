@@ -64,5 +64,5 @@ class OdysseeModule(commands.Cog):
         voyages = await self.__db.find_documents(Collections.ODYSSEE, {})
         return [voyage["name"] for voyage in voyages if string.lower() in voyage["name"].lower()][:25]
 
-def setup(self):
+def setup(self) -> None:
     self.add_cog(OdysseeModule(self))
