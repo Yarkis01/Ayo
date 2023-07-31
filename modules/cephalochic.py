@@ -80,10 +80,10 @@ class CephalochicModule(commands.Cog):
             self.__s3_next_rotation = self.__timezone.localize(datetime.utcnow() + timedelta(hours = 1))
             return
         
-        next_rotation  = self.__timezone.localize(datetime.strptime(data["data"]["gesotown"]["limitedGears"][0]["saleEndTime"], "%Y-%m-%dT%H:%M:%SZ"))
+        next_rotation  = self.__timezone.localize(datetime.strptime(data["data"]["gesotown"]["limitedGears"][0]["saleEndTime"], "%Y-%m-%dT%H:%M:%SZ")) + timedelta(minutes = 1, seconds = 5)
 
         if next_rotation == self.__s3_next_rotation:
-            self.__s3_next_rotation = self.__timezone.localize(datetime.utcnow() + timedelta(hours = 1))
+            self.__s3_next_rotation = self.__timezone.localize(datetime.utcnow() + timedelta(minutes = 15))
             return
         
         self.__s3_next_rotation = next_rotation
@@ -104,14 +104,14 @@ class CephalochicModule(commands.Cog):
             self.__s2_next_rotation = self.__timezone.localize(datetime(now.year, now.month, now.day, now.hour, 0, 0, 0) + timedelta(hours = 1))
             return
         
-        next_rotation = data["merchandises"][0]["end_time"]
+        next_rotation = datetime.fromtimestamp(data["merchandises"][0]["end_time"]).astimezone(pytz.timezone(self.__config.timezone)) + timedelta(minutes = 1, seconds = 5)
         
         if next_rotation == self.__s2_next_rotation:
-            self.__s2_next_rotation = self.__timezone.localize(datetime(now.year, now.month, now.day, now.hour, 0, 0, 0) + timedelta(hours = 1))
+            self.__s2_next_rotation = self.__timezone.localize(datetime(now.year, now.month, now.day, now.hour, 0, 0, 0) + timedelta(minutes = 15))
             return
         
         self.__s2_data          = data["merchandises"]
-        self.__s2_next_rotation = datetime.fromtimestamp(next_rotation).astimezone(pytz.timezone(self.__config.timezone))
+        self.__s2_next_rotation = next_rotation
         
         if self.__is_started:
             await update_data_if_needed(f"{self.__config.splatoon2_api}/locale/fr.json", "./data/s2/translation.json")
