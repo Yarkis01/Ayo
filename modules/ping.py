@@ -1,5 +1,4 @@
 from datetime import datetime
-import asyncio
 import math
 import sys
 
@@ -42,11 +41,9 @@ class PingModule(commands.Cog):
         Logger.success("The module has been started correctly", "ping")
 
         if not self.__is_started:
+            self._is_alive_loop.start()
+            self._update_loop.start()
             self.__is_started = True
-            await asyncio.gather(
-                self._is_alive_loop.start(),
-                self._update_loop.start()
-            )
 
     @tasks.loop(seconds = 60)
     async def _is_alive_loop(self) -> None:
