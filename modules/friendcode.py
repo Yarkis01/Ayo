@@ -15,7 +15,8 @@ CHOICES = {
     "Pokémon GO (XXXX-XXXX-XXXX)": "pogo",
     "Pokémon Master (XXXX-XXXX-XXXX-XXXX)": "master",
     "Pokémon Shuffle (XXXXXXXX)": "shuffle",
-    "Pokémon Cafemix (XXXX-XXXX-XXXX)": "cafemix"
+    "Pokémon Cafemix (XXXX-XXXX-XXXX)": "cafemix",
+    "Pokémon Sleep (XXXX-XXXX-XXXX)": "sleep"
 }
 
 class FriendCodeModule(commands.Cog):

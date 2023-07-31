@@ -27,6 +27,8 @@ def get_friend_code_icon(code_type: str) -> str:
             return "<:PokemonCafeMix:1036761505074524211>"
         case "pogo":
             return "<:PokemonGo:1036761587698114583>"
+        case "sleep":
+            return "<:sleep:1135578783454343190>"
         case _:
             return "❓"
 

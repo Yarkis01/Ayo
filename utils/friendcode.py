@@ -26,7 +26,8 @@ async def ensure_user_exists(database: Database, id: int) -> None:
                 "shuffle": None,
                 "master" : None,
                 "home"   : None,
-                "cafemix": None
+                "cafemix": None,
+                "sleep"  : None
             }
         })
         
@@ -55,6 +56,8 @@ def format_key(code_type: str) -> str:
             return "Pokémon Café Mix"
         case "pogo":
             return "Pokémon Go"
+        case "sleep":
+            return "Pokémon Sleep"
         case _:
             return code_type
         
@@ -73,7 +76,8 @@ class CodeChecker:
         "pogo"   : 12,
         "master" : 16,
         "shuffle": 8,
-        "cafemix": 12
+        "cafemix": 12,
+        "sleep"  : 12
     }
     
     def __format_string(self, code_type: str, code: str) -> str:
@@ -134,7 +138,7 @@ class CodeChecker:
         if self.CODE_LENGTHS[code_type] == 12 and code_type != "home":
             code = f"{code[:4]}-{code[4:8]}-{code[8:12]}"
             if code_type == "switch":
-                code = f"sw-{code}"
+                code = f"SW-{code}"
         elif code_type == "master":
             code = f"{code[:4]}-{code[4:8]}-{code[8:12]}-{code[12:16]}"
 
