@@ -132,10 +132,9 @@ class CephalochicModule(commands.Cog):
         translation  = json.load(open("./data/s3/translation.json"))
         pickup_brand = self.__s3_data["pickupBrand"]["brand"]
 
-        embed = disnake.Embed(
-            title       = "<:Splatoon3:1036691272871718963><:cephalochic:1055073131808686091> Boutique Céphalochic",
-            description = f"Voici les équipements actuels de la boutique Céphalochic.\nProchain chouchou du jour disponible <t:{self.convert_to_timestamp(self.__s3_data['pickupBrand']['saleEndTime'])}:R>",
-            color       = 0xebeb3f 
+        embed = Embed.splatoon3(
+            title       = "<:cephalochic:1055073131808686091> Boutique Céphalochic",
+            description = f"Voici les équipements actuels de la boutique Céphalochic.\nProchain chouchou du jour disponible <t:{self.convert_to_timestamp(self.__s3_data['pickupBrand']['saleEndTime'])}:R>"
         ).add_field(
             name  = f"😍 Chouchou du jour - {get_brand_icon(pickup_brand['name'])} {translation['brands'][pickup_brand['id']]['name']}",
             value = "\n".join([
@@ -152,7 +151,7 @@ class CephalochicModule(commands.Cog):
                 inline = True
             )
         
-        await inter.send(embed = embed.set_image(url = self.__s3_data["pickupBrand"]["image"]["url"]).set_footer(text = "Données provenant de l'API du site Splatoon3.ink", icon_url = "https://i.imgur.com/Ufv6yH4.png"))
+        await inter.send(embed = embed.set_image(url = self.__s3_data["pickupBrand"]["image"]["url"]))
 
     @_cephalochic_command.sub_command(name = "splatoon2", description = "Permet d'avoir les équipements actuels de la boutique Céphalochic. (Splatoon 2)")
     async def _cephalochic_s2_command(self, inter: disnake.CommandInteraction) -> None:
@@ -163,10 +162,9 @@ class CephalochicModule(commands.Cog):
             ))
             return
         
-        embed = disnake.Embed(
-            title       = "<:Splatoon2:1036691271076560936><:cephalochic:1055073131808686091> Boutique Céphalochic",
-            description = f"Voici les équipements actuels de la boutique Céphalochic.\nProchain équipement disponible <t:{self.__s2_data[0]['end_time']}:R>",
-            color       = 0xf03c78
+        embed = Embed.splatoon2(
+            title       = "<:cephalochic:1055073131808686091> Boutique Céphalochic",
+            description = f"Voici les équipements actuels de la boutique Céphalochic.\nProchain équipement disponible <t:{self.__s2_data[0]['end_time']}:R>"
         )
         
         translation  = json.load(open("./data/s2/translation.json"))
@@ -176,7 +174,7 @@ class CephalochicModule(commands.Cog):
                 value = f"- {self.generate_splatoon2_abilities_string(gear)}\n- <:coins:1055085552510185502> {gear['price']}\n<t:{gear['end_time']}:R>"
             )
         
-        await inter.send(embed = embed.set_footer(text = "Données provenant de l'API du site Splatoon2.ink", icon_url = "https://i.imgur.com/nvxf5TK.png"))
+        await inter.send(embed = embed)
 
 
 
