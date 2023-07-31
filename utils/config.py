@@ -37,6 +37,7 @@ class Config:
         
         self.__splatoon2_api = os.getenv("SPLATOON2_API")
         self.__splatoon3_api = os.getenv("SPLATOON3_API")
+        self.__timezone      = os.getenv("TIMEZONE")
 
     @property
     def mongo_uri(self) -> str:
@@ -197,3 +198,13 @@ class Config:
         """
 
         return self.__splatoon3_api
+    
+    @property
+    def timezone(self) -> str:
+        """Get the timezone.
+
+        Returns:
+            str: The timezone read from the `.env` file.
+        """
+
+        return self.__timezone
