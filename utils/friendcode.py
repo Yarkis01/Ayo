@@ -20,14 +20,14 @@ async def ensure_user_exists(database: Database, id: int) -> None:
             "publicAccess": True,
             "friendCode": {
                 "ds"     : None,
-                #"wiiu"   : None,
                 "switch" : None,
-                "pogo"   : None,
-                "shuffle": None,
-                "master" : None,
-                "home"   : None,
                 "cafemix": None,
-                "sleep"  : None
+                "pogo"   : None,
+                "home"   : None,
+                "master" : None,
+                "shuffle": None,
+                "sleep"  : None,
+                "unite": None
             }
         })
         
@@ -46,18 +46,20 @@ def format_key(code_type: str) -> str:
             return "Nintendo 3DS"
         case "switch":
             return "Nintendo Switch"
-        case "home":
-            return "Pokémon Home"
-        case "shuffle":
-            return "Pokémon Shuffle"
-        case "master":
-            return "Pokémon Master"
         case "cafemix":
             return "Pokémon Café Mix"
         case "pogo":
             return "Pokémon Go"
+        case "home":
+            return "Pokémon Home"
+        case "master":
+            return "Pokémon Master"
+        case "shuffle":
+            return "Pokémon Shuffle"
         case "sleep":
             return "Pokémon Sleep"
+        case "unite":
+            return "Pokémon UNITE"
         case _:
             return code_type
         
@@ -72,12 +74,13 @@ class CodeChecker:
     CODE_LENGTHS = {
         "ds"     : 12,
         "switch" : 12,
-        "home"   : 12,
+        "cafemix": 12,
         "pogo"   : 12,
+        "home"   : 12,
         "master" : 16,
         "shuffle": 8,
-        "cafemix": 12,
-        "sleep"  : 12
+        "sleep"  : 12,
+        "unite"  : 7        
     }
     
     def __format_string(self, code_type: str, code: str) -> str:
@@ -119,7 +122,7 @@ class CodeChecker:
         if code_type in {"home", "shuffle"}:
             return code.isalpha()
 
-        pattern = r'^\d+(-\d+){0,2}$' if code_type != "cafemix" else r'^\w+(-\w+){0,2}$'
+        pattern = r'^\d+(-\d+){0,2}$' if code_type not in {"cafemix", "unite"} else r'^\w+(-\w+){0,2}$'
         return bool(re.match(pattern, code))
     
     def format(self, code_type: str, code: str) -> str:

@@ -17,18 +17,20 @@ def get_friend_code_icon(code_type: str) -> str:
             return "<:3ds:1036763036674961468>"
         case "switch":
             return "<:NintendoSwitch:1036762589667020881>"
-        case "home":
-            return "<:PokemonHome:1036760555106615427>"
-        case "shuffle":
-            return "<:PokemonShuffle:1036761953323974656>"
-        case "master":
-            return "<:PokemonMaster:1036761429145030656>"
         case "cafemix":
             return "<:PokemonCafeMix:1036761505074524211>"
         case "pogo":
             return "<:PokemonGo:1036761587698114583>"
+        case "home":
+            return "<:PokemonHome:1036760555106615427>"
+        case "master":
+            return "<:PokemonMaster:1036761429145030656>"
+        case "shuffle":
+            return "<:PokemonShuffle:1036761953323974656>"
         case "sleep":
             return "<:sleep:1135578783454343190>"
+        case "unite":
+            return "<:unite:1137360033621999726>"
         case _:
             return "❓"
 

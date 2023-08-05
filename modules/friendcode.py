@@ -9,14 +9,15 @@ from utils.icons      import get_friend_code_icon
 from utils.logger     import Logger
 
 CHOICES = {
-    "Nintendo 3DS (XXXX-XXXX-XXXX)": "ds",
-    "Nintendo Switch (SW-XXXX-XXXX-XXXX)": "switch",
-    "Pokémon Home (XXXXXXXXXXXX)": "home",
-    "Pokémon GO (XXXX-XXXX-XXXX)": "pogo",
+    "Nintendo 3DS (XXXX-XXXX-XXXX)"       : "ds",
+    "Nintendo Switch (SW-XXXX-XXXX-XXXX)" : "switch",
+    "Pokémon Cafemix (XXXX-XXXX-XXXX)"    : "cafemix",
+    "Pokémon GO (XXXX-XXXX-XXXX)"         : "pogo",
+    "Pokémon Home (XXXXXXXXXXXX)"         : "home",
     "Pokémon Master (XXXX-XXXX-XXXX-XXXX)": "master",
-    "Pokémon Shuffle (XXXXXXXX)": "shuffle",
-    "Pokémon Cafemix (XXXX-XXXX-XXXX)": "cafemix",
-    "Pokémon Sleep (XXXX-XXXX-XXXX)": "sleep"
+    "Pokémon Shuffle (XXXXXXXX)"          : "shuffle",
+    "Pokémon Sleep (XXXX-XXXX-XXXX)"      : "sleep",
+    "Pokémon Unite (XXXXXXX)"             : "unite",
 }
 
 class FriendCodeModule(commands.Cog):
@@ -35,7 +36,7 @@ class FriendCodeModule(commands.Cog):
         await ensure_user_exists(self.__db, inter.author.id)
 
 
-    @_ca_command.sub_command(name = "acces", description = "Permet de sélectionner l'accès aux codes de vos amis.")
+    @_ca_command.sub_command(name = "visibilite", description = "Permet de sélectionner l'accès aux codes de vos amis.")
     async def _public_access_command(
         self,
         inter: disnake.CommandInteraction,
