@@ -26,16 +26,7 @@ class Embed:
             
     @staticmethod       
     def default(title: str, description: str) -> disnake.Embed:      
-        """
-        Create a default embed with white color.
-        
-        Args:
-            title (str): The title of the embed.     
-            description (str): The description of the embed.  
-        
-        Returns:          
-            disnake.Embed: The default embed.
-        """       
+        """Create a default embed with white color."""       
         return Embed.make_embed(0xffffff, title, description)
         
     @staticmethod       
@@ -54,11 +45,11 @@ class Embed:
         return Embed.make_embed(0xf1c40f, title, description)
     
     @staticmethod
-    def splatoon2(title: str, description: str) -> disnake.Embed:
+    def splatoon2(title: str, description: str, color: int = 0xf03c78) -> disnake.Embed:
         """Create a Splatoon 2 embed"""
-        return Embed.make_embed(0xf03c78, f"<:Splatoon2:1036691271076560936> {title}", description).set_footer(text = "Données provenant de l'API du site Splatoon2.ink", icon_url = "https://i.imgur.com/nvxf5TK.png")
+        return Embed.make_embed(color, f"<:Splatoon2:1036691271076560936> {title}", description).set_footer(text = "Données provenant de l'API du site Splatoon2.ink", icon_url = "https://i.imgur.com/nvxf5TK.png")
     
     @staticmethod
-    def splatoon3(title: str, description: str) -> disnake.Embed:
+    def splatoon3(title: str, description: str, color: int = 0xebeb3f) -> disnake.Embed:
         """Create a Splatoon 3 embed"""
-        return Embed.make_embed(0xebeb3f, f"<:Splatoon3:1036691272871718963> {title}", description).set_footer(text = "Données provenant de l'API du site Splatoon3.ink", icon_url = "https://i.imgur.com/Ufv6yH4.png")
+        return Embed.make_embed(color, f"<:Splatoon3:1036691272871718963> {title}", description).set_footer(text = "Données provenant de l'API du site Splatoon3.ink", icon_url = "https://i.imgur.com/Ufv6yH4.png")
