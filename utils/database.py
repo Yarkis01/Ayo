@@ -13,7 +13,6 @@ class Collections(Enum):
     FRIEND_CODE = "friendCode"
     GUILDS      = "guilds"
     ODYSSEE     = "odyssee"
-    ROTATIONS   = "rotations"
     SEASON      = "season"
     SPLAT       = "splat"
 

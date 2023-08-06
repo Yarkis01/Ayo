@@ -9,7 +9,7 @@ class HelpfulView(disnake.ui.View):
     def __init__(self, bot_id: int, support_server: str):
         super().__init__()
         
-        self.add_item(disnake.ui.Button(label = "Ajoutez Ayo", emoji = "<:ayo:1037021125793828874>", url = f"https://ptb.discord.com/api/oauth2/authorize?client_id={bot_id}&permissions=137439463488&scope=applications.commands%20bot"))
+        self.add_item(disnake.ui.Button(label = "Ajoutez Ayo", emoji = "<:ayo:1037021125793828874>", url = f"https://ptb.discord.com/api/oauth2/authorize?client_id={bot_id}&permissions=537380928&scope=applications.commands%20bot"))
         self.add_item(disnake.ui.Button(label = "Serveur de Support", emoji = "🤝", url = support_server))
         self.add_item(disnake.ui.Button(label = "Code Source", emoji = "<:github:1088570213064253534>", url = "https://github.com/Yarkis01/Ayo"))
 

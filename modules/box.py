@@ -22,6 +22,7 @@ class BoxModule(commands.Cog):
     async def on_ready(self) -> None:
         if not self.__is_started:
             self._update_data.start()
+            self.__is_started = True
 
         Logger.success("The module has been started correctly", "BOX")
 

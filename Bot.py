@@ -1,10 +1,12 @@
 import sys ; sys.dont_write_bytecode = True
+from datetime import datetime, timedelta
 from pathlib import Path
 import time
 import traceback
 
-from disnake.ext import commands
+from disnake.ext import commands, tasks
 import disnake
+import pytz
 
 from utils.config   import Config
 from utils.database import Database, Collections
@@ -20,15 +22,31 @@ class InviteView(disnake.ui.View):
 
 class AyoBot(commands.AutoShardedInteractionBot):
     def __init__(self, *args, **kwargs):
+        self.__update_data_started = False
         super().__init__(*args, **kwargs)
+        
+    @tasks.loop(seconds = 5)
+    async def _update_data_loop(self) -> None:
+        now = self.__timezone.localize(datetime.utcnow())
+
+        if (self.__next_update_data - now) >= timedelta(hours = 0):
+            return
+
+        await update_data_if_needed(f"{self.config.splatoon3_api}/locale/fr-FR.json", "./data/s3/translation.json")
+        await update_data_if_needed(f"{self.config.splatoon2_api}/locale/fr.json",    "./data/s2/translation.json")
+
+        self.__next_update_data = self.__timezone.localize(datetime(now.year, now.month, now.day, now.hour + (2 if now.hour % 2 == 0 else 1), 0, 0, 0))
+        
+    async def on_connect(self) -> None:
+        if not self.__update_data_started:
+            self.__update_data_started = True
+            self.__timezone            = pytz.timezone(self.config.timezone)
+            self.__next_update_data    = self.__timezone.localize(datetime(1970, 1, 1, 0, 0, 0, 0))
+            self._update_data_loop.start()
         
     async def on_ready(self) -> None:
         # Initiates the Discord logging system
         await self.logger.check_channel(self)
-        
-        # Update API data
-        await update_data_if_needed(f"{self.config.splatoon3_api}/locale/fr-FR.json", "./data/s3/translation.json")
-        await update_data_if_needed(f"{self.config.splatoon2_api}/locale/fr.json",    "./data/s2/translation.json")
         
         # Initialize collections in the database if it doesn't already exist
         for collection in Collections:
@@ -116,18 +134,14 @@ if __name__ == '__main__':
     bot.config   = config
     bot.database = Database(config.mongo_uri)
     bot.logger   = DiscordLogger(config.logs_channel)
-
-    # Define the folders for modules
-    modules_folder = Path("./modules/")
-    enabled_folder = config.enabled_modules
     
     loaded_modules = []
     
     # Load modules
-    for path in modules_folder.glob("*.py"):
+    for path in Path("./modules/").glob("*.py"):
         name = path.stem
         
-        if name not in enabled_folder:
+        if name not in config.enabled_modules:
             Logger.warning(f"{name} is disabled, skipping...", "modules")
             continue
         

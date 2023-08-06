@@ -38,6 +38,9 @@ class Config:
         self.__splatoon2_api = os.getenv("SPLATOON2_API")
         self.__splatoon3_api = os.getenv("SPLATOON3_API")
         self.__timezone      = os.getenv("TIMEZONE")
+        
+        self.__rotations_channel = os.getenv("ROTATIONS_CHANNEL")
+        self.__rotations_role   = os.getenv("ROTATIONS_ROLE")
 
     @property
     def mongo_uri(self) -> str:
@@ -208,3 +211,21 @@ class Config:
         """
 
         return self.__timezone
+    
+    @property
+    def rotations_channel(self) -> int:
+        """Get the rotation channel ID.
+
+        Returns:
+            int: The rotation channel ID read from the `.env` file.
+        """
+        return self.__rotations_channel
+    
+    @property
+    def rotations_role(self) -> int:
+        """Get the rotation role ID.
+
+        Returns:
+            int: The rotation role ID read from the `.env` file.
+        """
+        return self.__rotations_role

@@ -1,5 +1,4 @@
 from datetime import datetime, timedelta
-import asyncio
 import json
 import time
 
@@ -11,7 +10,7 @@ from utils.config   import Config
 from utils.embed    import Embed
 from utils.icons    import get_ability_icon, get_brand_icon
 from utils.logger   import Logger
-from utils.requests import make_api_request, update_data_if_needed
+from utils.requests import make_api_request
 
 class CephalochicModule(commands.Cog):
     def __init__(self, bot: commands.AutoShardedInteractionBot):
@@ -65,7 +64,6 @@ class CephalochicModule(commands.Cog):
         if not self.__is_started:
             self._s3_update_loop.start()
             self._s2_update_loop.start()
-            await asyncio.sleep(5)
             self.__is_started = True
 
         Logger.success("The module has been started correctly", "cephalochic")
@@ -89,9 +87,6 @@ class CephalochicModule(commands.Cog):
         self.__s3_next_rotation = next_rotation
         self.__s3_data          = data["data"]["gesotown"]
 
-        if self.__is_started:
-            await update_data_if_needed(f"{self.__config.splatoon3_api}/locale/fr-FR.json", "./data/s3/translation.json")
-
     @tasks.loop(seconds = 60)
     async def _s2_update_loop(self) -> None:
         now = datetime.fromtimestamp(int(time.time())).astimezone(pytz.timezone(self.__config.timezone))
@@ -112,9 +107,6 @@ class CephalochicModule(commands.Cog):
         
         self.__s2_data          = data["merchandises"]
         self.__s2_next_rotation = next_rotation
-        
-        if self.__is_started:
-            await update_data_if_needed(f"{self.__config.splatoon2_api}/locale/fr.json", "./data/s2/translation.json")
     
     @commands.slash_command(name = "cephalochic", dm_permission = False)
     async def _cephalochic_command(self, inter: disnake.CommandInteraction) -> None:

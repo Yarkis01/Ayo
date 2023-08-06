@@ -9,7 +9,7 @@ def get_rule_icon(mode: str) -> str:
         case "Pluie de palourdes":
             return "<:PluieDePalourdes:1036691257629618307>"
         case _:
-            return "<:Classique:1036691264504078336>"
+            return "<:classique:1137415472929853440>"
 
 def get_friend_code_icon(code_type: str) -> str:
     match code_type:
