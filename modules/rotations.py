@@ -79,7 +79,7 @@ class RotationsModule(commands.Cog):
         if(self.__schedules_next_rotation - now) >= timedelta(hours = 0):
             return
         
-        self.__schedules_next_rotation = self.__timezone.localize(datetime(now.year, now.month, now.day, now.hour + (2 if now.hour % 2 == 0 else 1), 1, 30, 0))
+        self.__schedules_next_rotation = self.__timezone.localize(datetime(now.year, now.month, now.day, now.hour, 1, 30, 0) + timedelta(hours = 2 if now.hour % 2 == 0 else 1))
         
         s3_data = await make_api_request(f"{self.__config.splatoon3_api}/schedules.json")
         s2_data = await make_api_request(f"{self.__config.splatoon2_api}/schedules.json")
