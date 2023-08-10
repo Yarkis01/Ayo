@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "ayo"
+version = "0.1.0"
+description = "Un bot Discord entièrement en français et principalement orienté Nintendo et plus précisément Splatoon"
+authors = ["Yarkis <109750019+Yarkis01@users.noreply.github.com>"]
+license = "GPL-3.0"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+disnake = "^2.9.0"
+python-dotenv = "^1.0.0"
+motor = "^3.2.0"
+pymongo = "^4.4.1"
+deepdiff = "^6.3.1"
+pytz = "^2023.3"
+prettytable = "^3.8.0"
+humanize = "^4.7.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
