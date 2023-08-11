@@ -35,7 +35,7 @@ class AyoBot(commands.AutoShardedInteractionBot):
         await update_data_if_needed(f"{self.config.splatoon3_api}/locale/fr-FR.json", "./data/s3/translation.json")
         await update_data_if_needed(f"{self.config.splatoon2_api}/locale/fr.json",    "./data/s2/translation.json")
 
-        self.__next_update_data = self.__timezone.localize(datetime(now.year, now.month, now.day, now.hour + (2 if now.hour % 2 == 0 else 1), 0, 0, 0))
+        self.__next_update_data = self.__timezone.localize(datetime(now.year, now.month, now.day, now.hour, 0, 0, 0) + timedelta(hours =  2 if now.hour % 2 == 0 else 1))
         
     async def on_connect(self) -> None:
         if not self.__update_data_started:
