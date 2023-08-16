@@ -33,8 +33,6 @@ class Config:
         self.__watchbot_api = os.getenv("WATCHBOT_URL")
         self.__watchbot_key = os.getenv("WATCHBOT_KEY")
         
-        self.__uptimekuma_url = os.getenv("UPTIMEKUMA_URL")
-        
         self.__splatoon2_api = os.getenv("SPLATOON2_API")
         self.__splatoon3_api = os.getenv("SPLATOON3_API")
         self.__timezone      = os.getenv("TIMEZONE")
@@ -171,16 +169,6 @@ class Config:
         """
         
         return self.__watchbot_key
-
-    @property
-    def uptimekuma_url(self) -> str:
-        """Get the Uptime Kuma status page URL.
-        
-        Returns:
-            str: The Uptime Kuma status page URL read from the `.env` file.
-        """
-        
-        return self.__uptimekuma_url
     
     @property
     def splatoon2_api(self) -> str:

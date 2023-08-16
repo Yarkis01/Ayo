@@ -41,15 +41,8 @@ class PingModule(commands.Cog):
         Logger.success("The module has been started correctly", "ping")
 
         if not self.__is_started:
-            self._is_alive_loop.start()
             self._update_loop.start()
             self.__is_started = True
-
-    @tasks.loop(seconds = 60)
-    async def _is_alive_loop(self) -> None:
-        response = await make_api_request(self.__config.uptimekuma_url)
-        if not response:
-            Logger.warning("Monitor not found or not active", "ping")
 
     @tasks.loop(minutes = 30)
     async def _update_loop(self) -> None:
