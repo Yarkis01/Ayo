@@ -26,11 +26,15 @@ class FestivalModule(commands.Cog):
         embed = Embed.default(
             title = f"<:splatfest:1040780648341848115> {data['name']}",
             description = f"Début: <t:{data['date']['start']}:F>\nFin: <t:{data['date']['end']}:F>"
+        ).set_thumbnail(
+            url = data["winner"]["image"]
+        ).set_image(
+            url = data["image"]
         )
         
         for team in data["team"]:
             embed.add_field(
-                name   = f"{'🏆' if team['name'] == data['winner']['team'] else ''} {team['name']}",
+                name   = f"🏆 {team['name']} l'emporte !" if team['name'] == data['winner']['team'] else team['name'],
                 value  = f"""- <:conques:1042508259938013264> Conques: **{team['result']['conques']:.2f}%**
 - 🗳️ Votes: **{team['result']['votes']:.2f}%**
 - 🔫 Contributions (ouvert): **{team['result']['ouvert']:.2f}%**
