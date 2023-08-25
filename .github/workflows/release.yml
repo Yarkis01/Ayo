@@ -23,7 +23,7 @@ jobs:
             - name: Read version from .ENV_EXAMPLE
               id: get_version
               run: |
-                VERSION=$(grep -oP '^BOT_VERSION\s*=\s*"\K[^"]+' .ENV_EXAMPLE)
+                VERSION=$(grep -oP '^BOT_VERSION\s*=\s*"\K[^"]+' .env_EXAMPLE)
                 echo "version=${VERSION}" >> $GITHUB_OUTPUT
 
             - name: Set outputs
