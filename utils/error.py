@@ -1,3 +1,4 @@
+import traceback
 import time
 import uuid
 
@@ -67,3 +68,13 @@ async def error_message_generator(
         title       = f":x: {inter.author} a rencontré une erreur",
         description = f"**Code d'erreur:** `{error_code}`\n**Commande:** `{inter.application_command.name}`\n**Erreur:** ```{exception}```",
     ))
+    
+def excepthook(exc_type, exc_value, exc_traceback) -> None:
+    if exc_type == KeyboardInterrupt:
+        Logger.dev("See you soon!", "KeyboardInterrupt")
+        return
+    
+    error_message  = f"Type: {exc_type}\nValue: {exc_value}\nTraceback:"
+    error_message += "".join(traceback.format_tb(exc_traceback))
+
+    Logger.fail(f"An error has occurred!\n{error_message}")

@@ -11,7 +11,7 @@ import pytz
 from utils.config   import Config
 from utils.database import Database, Collections
 from utils.embed    import Embed
-from utils.error    import error_message_generator 
+from utils.error    import error_message_generator, excepthook
 from utils.logger   import Logger, DiscordLogger
 from utils.requests import update_data_if_needed
 
@@ -117,6 +117,8 @@ class AyoBot(commands.AutoShardedInteractionBot):
 
 
 if __name__ == '__main__':
+    sys.excepthook = excepthook
+    
     config = Config()
     
     test_guilds = None
