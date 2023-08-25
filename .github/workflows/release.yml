@@ -24,7 +24,7 @@ jobs:
               uses: softprops/action-gh-release@v1
               with:
                 tag_name: test
-                name: Ayo - Test
+                name: Ayo v$VERSION-${{ github.event.head_commit.id }}
                 body: ${{ github.event.head_commit.message }}
                 draft: false
                 prerelease: true
