@@ -30,14 +30,6 @@ jobs:
               id: vars
               run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
 
-            - name: Delete older releases
-              uses: dev-drprasad/delete-older-releases@v0.2.1
-              with:
-                keep_latest: 0
-                delete_tag_pattern: "^v${{ env.version }}\\..*[^a-zA-Z0-9]"
-              env:
-                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
             - name: Release
               uses: softprops/action-gh-release@v1
               with:
