@@ -9,7 +9,6 @@ on:
             - '**/README.md'
             - '**/poetry.lock'
             - '**/pyproject.toml'
-            - '**/requirements.txt'
 
 jobs:
     publish:
