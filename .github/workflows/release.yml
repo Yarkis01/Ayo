@@ -14,7 +14,7 @@ on:
 jobs:
     publish:
         name: Publish
-        runs-on: ubuntu-lastet
+        runs-on: ubuntu-latest
 
         steps:
             - name: Checkout
