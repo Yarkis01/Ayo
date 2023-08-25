@@ -32,7 +32,7 @@ class BoxModule(commands.Cog):
         splatoon3_data = json.load(open("./data/s3/translation.json"))
 
         self.__s2_rules = [rule[1]["name"] for rule in list(splatoon2_data["rules"].items()) if rule[1]["name"] != "Guerre de territoire"]
-        self.__s3_rules = [rule[1]["name"] for rule in list(splatoon3_data["rules"].items()) if rule[1]["name"] != "Guerre de territoire"]
+        self.__s3_rules = [rule[1]["name"] for rule in list(splatoon3_data["rules"].items()) if rule[0] != "undefined" and rule[1]["name"] != "Guerre de territoire"]
         
         self.__s2_stages = [stage[1]["name"] for stage in list(splatoon2_data["stages"].items()) if int(stage[0]) < 100]
         self.__s3_stages = [stage[1]["name"] for stage in list(splatoon3_data["stages"].items()) if "VsStage" in b64decode(stage[0]).decode("utf-8")]
