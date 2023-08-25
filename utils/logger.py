@@ -16,6 +16,17 @@ class LogColors:
 
 class Logger:
     @staticmethod
+    def log_to_file(message: str) -> None:
+        """
+        Log a message to the file.
+
+        Args:
+            message (str): The log message.
+        """
+        with open(f"./logs/{FILENAME}", "a") as logs_file:
+            logs_file.write(message)
+    
+    @staticmethod
     def print_log(message: str, log_type: str, log_custom: str = "") -> None:
         """
         Print a log message with the specified log type and message.
@@ -28,8 +39,7 @@ class Logger:
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         log_color = getattr(LogColors, log_type.upper(), "")
         
-        with open(f"./logs/{FILENAME}", "a") as logs_file:
-            logs_file.write(f"[{timestamp}][{log_type.upper()}]{f'[{log_custom.upper()}]' if log_custom else ''}: {message}\n")
+        Logger.log_to_file(f"[{timestamp}][{log_type.upper()}]{f'[{log_custom.upper()}]' if log_custom else ''}: {message}\n")
 
         if log_custom:
             print(f"{log_color}[{timestamp}][{log_type.upper()}][{log_custom.upper()}]: {message}{LogColors.ENDC}")

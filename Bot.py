@@ -109,6 +109,7 @@ class AyoBot(commands.AutoShardedInteractionBot):
         
     async def on_error(self, *args, **kwargs) -> None:
         Logger.fail("An error has occurred", "error")
+        Logger.log_to_file(f"Args: {args}\nKwargs: {kwargs}\nTraceback: {traceback.format_exc()}")
         
         await self.logger.send(embed = Embed.error(
             title = ":x: Une erreur est survenue",
