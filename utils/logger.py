@@ -4,6 +4,8 @@ from disnake.ext import commands
 import disnake
 import contextlib
 
+FILENAME = f"logs_{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.txt"
+
 class LogColors:
     INFO    = '\033[96m'
     SUCCESS = '\033[92m'
@@ -23,8 +25,11 @@ class Logger:
             log_type (str): The log type (e.g., INFO, SUCCESS, WARNING, FAIL).
             log_custom (str): Optional type of the log message.
         """
-        timestamp = datetime.now().strftime('%H:%M:%S')
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         log_color = getattr(LogColors, log_type.upper(), "")
+        
+        with open(f"./logs/{FILENAME}", "a") as logs_file:
+            logs_file.write(f"[{timestamp}][{log_type.upper()}]{f'[{log_custom.upper()}]' if log_custom else ''}: {message}\n")
 
         if log_custom:
             print(f"{log_color}[{timestamp}][{log_type.upper()}][{log_custom.upper()}]: {message}{LogColors.ENDC}")
