@@ -245,8 +245,16 @@ class RotationsEmbed:
         return self.__generate_no_defi_oeuf_sup_embed()
     
     def get_event_schedules_embed(self, data: dict, number: int = 0) -> disnake.Embed:
+        event_schedules = data.get("nodes", [])
+        if len(event_schedules) < 2 or len(event_schedules[number].get("timePeriods", [])) == 0:
+            return Embed.splatoon3(
+                "<:challenge:1137693377597558804> Match Challenge",
+                "Aucune rotation n'est actuellement disponible dans ce mode de jeu.",
+                0xf02d7d
+            )
+            
         translation = json.load(open("./data/s3/translation.json"))
-        data = data["nodes"][0] if number == 0 else data["nodes"][1]
+        data        = data["nodes"][number]
         
         leagueMatchSetting = data['leagueMatchSetting']
         leagueMatchEvent   = data['leagueMatchSetting']['leagueMatchEvent']

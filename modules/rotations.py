@@ -167,7 +167,12 @@ class RotationsModule(commands.Cog):
             self.__s3_event_schedules_next_rotation = now + timedelta(minutes = 30)
             return
         
-        next_rotation  = self.__timezone.localize(datetime.strptime(data["data"]["eventSchedules"]["nodes"][1]["timePeriods"][0]["startTime"], "%Y-%m-%dT%H:%M:%SZ")) + timedelta(minutes = 1, seconds = 30)
+        event_schedules = data.get("data", {}).get("eventSchedules", {}).get("nodes", [])
+        
+        if len(event_schedules) >= 2 and len(event_schedules[1].get("timePeriods", [])) > 0:
+            next_rotation = self.__timezone.localize(datetime.strptime(data["data"]["eventSchedules"]["nodes"][1]["timePeriods"][0]["startTime"], "%Y-%m-%dT%H:%M:%SZ")) + timedelta(minutes = 1, seconds = 30)
+        else:
+            next_rotation = now + timedelta(hours = 6)
 
         if next_rotation == self.__s3_event_schedules_next_rotation:
             self.__s3_event_schedules_next_rotation = now + timedelta(minutes = 30)
@@ -176,7 +181,8 @@ class RotationsModule(commands.Cog):
         self.__s3_event_schedules_next_rotation = next_rotation
         self.__s3_event_schedules_data          = data["data"]["eventSchedules"]
         
-        await self.__publish_rotations_message([self.__rotations_embed.get_event_schedules_embed(self.__s3_event_schedules_data)])
+        if len(event_schedules) >= 2 and len(event_schedules[1].get("timePeriods", [])) > 0:
+            await self.__publish_rotations_message([self.__rotations_embed.get_event_schedules_embed(self.__s3_event_schedules_data)])
 
 
 
@@ -248,7 +254,7 @@ class RotationsModule(commands.Cog):
         elif data == "oeufsup" and self.__s3_salmon_data:
             embed = self.__rotations_embed.get_defi_oeuf_sup_embed(self.__s3_salmon_data, number)
         elif data == "challenge" and self.__s3_event_schedules_data:
-            embed = self.__rotations_embed.get_event_schedules_embed(self.__s3_event_schedules_data, number)
+            embed = self.__rotations_embed.get_event_schedules_embed(self.__s3_event_schedules_data, 1)
             
         if embed:
             await inter.send(embed = embed)
