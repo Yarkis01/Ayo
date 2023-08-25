@@ -202,7 +202,7 @@ class RotationsModule(commands.Cog):
             await inter.send(embed = Embed.error(":x: Une erreur est survenue", description = "Malheureusement, une erreur est survenue, veuillez réessayer dans quelques minutes..."))
             return
         
-        if not inter.guild.me.guild_permissions.manage_webhooks:
+        if not inter.guild.me.guild_permissions.manage_webhooks or not channel.permissions_for(channel.guild.me).manage_webhooks:
             await inter.send(embed = Embed.error(":x: Permission manquante", description = "Impossible d'activer cette option, car le bot ne dispose pas de la permission pour gérer les webhooks.\nPour régler ce problème, merci de donner la permission manquante et de relancer la commande."))
             return
 
