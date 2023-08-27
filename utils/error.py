@@ -15,6 +15,7 @@ class ErrorView(disnake.ui.View):
     def __init__(self, support_server: str):
         super().__init__()
         self.add_item(disnake.ui.Button(label = "Rejoindre le serveur de support", url = support_server, emoji = "🤝"))
+        self.add_item(disnake.ui.Button(label = "Ouvrir un rapport de bug", url = "https://github.com/Yarkis01/Ayo/issues/new?assignees=&labels=bug&projects=&template=rapport-de-bug.md&title=%5BBUG%5D+Titre+du+probl%C3%A8me", emoji = "<:github:1088570213064253534>"))
 
 async def error_message_generator(
     bot      : commands.AutoShardedInteractionBot,
@@ -40,6 +41,7 @@ async def error_message_generator(
     ), view = ErrorView(bot.config.support_server),ephemeral = True)
     
     Logger.fail(f"\"{inter.author}\" to encounter an error with the \"{str(inter.application_command.name)}\" command ({error_code})", "error")
+    Logger.log_to_file(f"Error code: {error_code}\Command: {inter.application_command.name}\Error: {exception}")
     
     await bot.database.insert_document(Collections.ERRORS, {
         "uuid": str(error_code),

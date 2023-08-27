@@ -58,7 +58,8 @@ class AyoBot(commands.AutoShardedInteractionBot):
                 name = f"Splatoon 3 | {self.config.bot_version}",
                 type = disnake.ActivityType.playing,
             ),
-            status = disnake.Status.do_not_disturb
+            #status = disnake.Status.do_not_disturb
+            status = disnake.Status.online
         )
         
         # Sends a message to say that the bot is online and operational 
