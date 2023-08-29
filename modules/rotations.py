@@ -37,15 +37,18 @@ class RotationsModule(commands.Cog):
         
         # Splatoon 3 - Salmon Run
         self.__s3_salmon_next_rotation = self.__timezone.localize(datetime(1970, 1, 1, 0, 0, 0, 0))
+        self.__s3_salmon_old_rotation  = self.__timezone.localize(datetime(1970, 1, 1, 0, 0, 0, 0))
         self.__s3_salmon_data          = None
         self.__s3_salmon_gears_data    = None
         
         # Splatoon 2 - Salmon Run
         self.__s2_salmon_next_rotation = self.__timezone.localize(datetime(1970, 1, 1, 0, 0, 0, 0))
+        self.__s2_salmon_old_rotation  = self.__timezone.localize(datetime(1970, 1, 1, 0, 0, 0, 0))
         self.__s2_salmon_data          = None
         
         # Splatoon 3 - Challenge
         self.__s3_event_schedules_next_rotation = self.__timezone.localize(datetime(1970, 1, 1, 0, 0, 0, 0))
+        self.__s3_event_schedules_old_rotation  = self.__timezone.localize(datetime(1970, 1, 1, 0, 0, 0, 0))
         self.__s3_event_schedules_data          = None
         
 
@@ -111,11 +114,13 @@ class RotationsModule(commands.Cog):
         
         next_rotation  = self.__timezone.localize(datetime.strptime(data["data"]["coopGroupingSchedule"]["regularSchedules"]["nodes"][0]["endTime"], "%Y-%m-%dT%H:%M:%SZ")) + timedelta(minutes = 1, seconds = 30)
 
-        if next_rotation == self.__s3_salmon_next_rotation:
+        if next_rotation == self.__s3_salmon_old_rotation:
+            self.__s3_salmon_old_rotation  = next_rotation
             self.__s3_salmon_next_rotation = now + timedelta(minutes = 30)
             return
         
         self.__s3_salmon_next_rotation = next_rotation
+        self.__s3_salmon_old_rotation  = next_rotation
         self.__s3_salmon_data          = data["data"]["coopGroupingSchedule"]
         
         gears_data = await make_api_request(f"{self.__config.splatoon3_api}/coop.json")
@@ -145,11 +150,13 @@ class RotationsModule(commands.Cog):
         
         next_rotation = datetime.fromtimestamp(data["schedules"][1]["start_time"]).astimezone(pytz.timezone(self.__config.timezone)) + timedelta(minutes = 1, seconds = 30)
 
-        if next_rotation == self.__s2_salmon_next_rotation:
+        if next_rotation == self.__s2_salmon_old_rotation:
+            self.__s2_salmon_old_rotation  = next_rotation
             self.__s2_salmon_next_rotation = now + timedelta(minutes = 30)
             return
         
         self.__s2_salmon_next_rotation = next_rotation
+        self.__s2_salmon_old_rotation  = next_rotation
         self.__s2_salmon_data          = data
         
         await self.__publish_rotations_message([self.__rotations_embed.get_splatoon2_salmon_embed(self.__s2_salmon_data, title = "Une nouvelle rotation est disponible !")])
@@ -174,11 +181,13 @@ class RotationsModule(commands.Cog):
         else:
             next_rotation = now + timedelta(hours = 6)
 
-        if next_rotation == self.__s3_event_schedules_next_rotation:
+        if next_rotation == self.__s3_event_schedules_old_rotation:
+            self.__s3_event_schedules_old_rotation  = next_rotation
             self.__s3_event_schedules_next_rotation = now + timedelta(minutes = 30)
             return
         
         self.__s3_event_schedules_next_rotation = next_rotation
+        self.__s3_event_schedules_old_rotation  = next_rotation
         self.__s3_event_schedules_data          = data["data"]["eventSchedules"]
         
         if len(event_schedules) >= 2 and len(event_schedules[1].get("timePeriods", [])) > 0:
