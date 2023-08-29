@@ -115,7 +115,6 @@ class RotationsModule(commands.Cog):
         next_rotation  = self.__timezone.localize(datetime.strptime(data["data"]["coopGroupingSchedule"]["regularSchedules"]["nodes"][0]["endTime"], "%Y-%m-%dT%H:%M:%SZ")) + timedelta(minutes = 1, seconds = 30)
 
         if next_rotation == self.__s3_salmon_old_rotation:
-            self.__s3_salmon_old_rotation  = next_rotation
             self.__s3_salmon_next_rotation = now + timedelta(minutes = 30)
             return
         
@@ -151,7 +150,6 @@ class RotationsModule(commands.Cog):
         next_rotation = datetime.fromtimestamp(data["schedules"][1]["start_time"]).astimezone(pytz.timezone(self.__config.timezone)) + timedelta(minutes = 1, seconds = 30)
 
         if next_rotation == self.__s2_salmon_old_rotation:
-            self.__s2_salmon_old_rotation  = next_rotation
             self.__s2_salmon_next_rotation = now + timedelta(minutes = 30)
             return
         
@@ -182,7 +180,6 @@ class RotationsModule(commands.Cog):
             next_rotation = now + timedelta(hours = 6)
 
         if next_rotation == self.__s3_event_schedules_old_rotation:
-            self.__s3_event_schedules_old_rotation  = next_rotation
             self.__s3_event_schedules_next_rotation = now + timedelta(minutes = 30)
             return
         
