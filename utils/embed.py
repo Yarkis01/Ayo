@@ -93,23 +93,28 @@ class RotationsEmbed:
         
     def get_splatoon3_embed(self, data: dict, number: int = 0, title: str = "Rotation actuelle") -> disnake.Embed:
         translation = json.load(open("./data/s3/translation.json"))
-        
+
         embed = Embed.splatoon3(
             title       = f"{title}",
             description = f"Début <t:{self.__convert_to_timestamp(data['regularSchedules']['nodes'][number]['startTime'])}:f>\nFin: <t:{self.__convert_to_timestamp(data['regularSchedules']['nodes'][number]['endTime'])}:f>"
         )
-        
+
         if data['regularSchedules']['nodes'][number]['regularMatchSetting'] is None:
             embed.title = f"<:splatfest:1040780648341848115> {title}"
             embed.add_field(
-                name="<:splatfest:1040780648341848115> Festimatch",
-                value=f"- {translation['stages'][data['festSchedules']['nodes'][number]['festMatchSetting']['vsStages'][0]['id']]['name']}\n- {translation['stages'][data['festSchedules']['nodes'][number]['festMatchSetting']['vsStages'][1]['id']]['name']}",
+                name="<:splatfest:1040780648341848115> Festimatch (Défi)",
+                value=f"- {translation['stages'][data['festSchedules']['nodes'][number]['festMatchSettings'][0]['vsStages'][0]['id']]['name']}\n- {translation['stages'][data['festSchedules']['nodes'][number]['festMatchSettings'][0]['vsStages'][1]['id']]['name']}",
+                inline=False
+            )
+            embed.add_field(
+                name="<:splatfest:1040780648341848115> Festimatch (Ouvert)",
+                value=f"- {translation['stages'][data['festSchedules']['nodes'][number]['festMatchSettings'][1]['vsStages'][0]['id']]['name']}\n- {translation['stages'][data['festSchedules']['nodes'][number]['festMatchSettings'][1]['vsStages'][1]['id']]['name']}",
                 inline=False
             )
             embed.add_field(
                 name="<:splatfest:1040780648341848115> Match tricolore",
-                value=f"- {translation['stages'][data['currentFest']['tricolorStage']['id']]['name']}",
-                inline=False
+                value="- Aléatoire" if str(data['currentFest']['tricolorStage']['name']).lower() == "random" else f"- {translation['stages'][data['currentFest']['tricolorStage']['id']]['name']}",
+                inline=False,
             )
             embed.set_image(url=data['currentFest']['tricolorStage']['image']['url'])
             embed.set_thumbnail(url="https://i.imgur.com/DbKsMyr.png")
