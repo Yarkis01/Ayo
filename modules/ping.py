@@ -33,6 +33,7 @@ class PingModule(commands.Cog):
         self.__is_started  = False
         self.__start_time  = datetime.now()
         self.__uptime_data = None
+        self.__process     = psutil.Process()
         
         humanize.activate("fr_FR")
 
@@ -87,18 +88,19 @@ class PingModule(commands.Cog):
                     name   = name,
                     value  = f"{uptime} %"
                 )
-        
+
         embed.add_field(
             name   = "<:cpu:1038771595164012545> CPU",
-            value  = f"{psutil.cpu_percent()} %",
+            value  = f"{self.__process.cpu_percent()} %",
             inline = True
         ).add_field(
             name   = "<:ram:1038771604622168194> Mémoire Vive",
-            value  = convert_size(psutil.virtual_memory()[3]),
+            value  = convert_size(self.__process.memory_info().rss),
             inline = True
         ).add_field(
             name   = "<:hdd:1038771601468043385> Espace Disque",
-            value  = convert_size(psutil.disk_usage(sys.path[0])[1]),
+            #value  = convert_size(psutil.disk_usage(sys.path[0])[1]),r
+            value  = "???",
             inline = True
         ).add_field(
             name   = "<:python:1088566268552028190> Python",
