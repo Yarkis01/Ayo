@@ -27,9 +27,6 @@ class Config:
         self.__enabled_modules  = os.getenv("ENABLED_MODULES").replace(" ", "").split(",") 
         self.__disabled_modules = os.getenv("DISABLED_MODULES").replace(" ", "").split(",")
         
-        self.__pterodactyl_api = os.getenv("PTERODACTYL_API")
-        self.__pterodactyl_key = os.getenv("PTERODACTYL_KEY")
-        
         self.__watchbot_api = os.getenv("WATCHBOT_URL")
         self.__watchbot_key = os.getenv("WATCHBOT_KEY")
         
@@ -129,26 +126,6 @@ class Config:
         """
     
         return self.__disabled_modules
-    
-    @property
-    def pterodactyl_api(self) -> str:
-        """Get the Pterodactyl API URL.
-        
-        Returns:
-            str: The Pterodactyl API URL read from the `.env` file.
-        """
-        
-        return self.__pterodactyl_api
-
-    @property
-    def pterodactyl_key(self) -> str:
-        """Get the Pterodactyl API key.
-        
-        Returns:
-            str: The Pterodactyl API key read from the `.env` file. 
-        """
-        
-        return self.__pterodactyl_key
 
     @property
     def watchbot_api(self) -> str:

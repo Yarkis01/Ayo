@@ -1,6 +1,7 @@
 from datetime import datetime
 import math
 import sys
+import psutil
 
 from disnake.ext import commands, tasks
 import disnake
@@ -32,7 +33,6 @@ class PingModule(commands.Cog):
         self.__is_started  = False
         self.__start_time  = datetime.now()
         self.__uptime_data = None
-        self.__usage_data  = None
         
         humanize.activate("fr_FR")
 
@@ -49,12 +49,6 @@ class PingModule(commands.Cog):
         self.__uptime_data = await make_api_request(self.__config.watchbot_api, headers = {"AUTH-TOKEN": self.__config.watchbot_key})
         if not self.__uptime_data:
             Logger.warning("Unable to contact Watchbot API", "ping")
-
-        usage_data = await make_api_request(self.__config.pterodactyl_api, headers = {"Authorization": f"Bearer {self.__config.pterodactyl_key}"})
-        if usage_data:
-            self.__usage_data = usage_data['attributes']['resources']
-        else:
-            Logger.warning("Unable to contact the Pterodactyl API", "ping")
 
     @commands.slash_command(name = "ping", description = "Permet d'obtenir plein d'information (in)utile sur le bot", dm_permission = False)
     async def _ping_command(self, inter: disnake.CommandInteraction) -> None:
@@ -93,23 +87,20 @@ class PingModule(commands.Cog):
                     name   = name,
                     value  = f"{uptime} %"
                 )
-
-        if self.__usage_data:
-            embed.add_field(
-                name   = "<:cpu:1038771595164012545> CPU",
-                value  = f"{self.__usage_data['cpu_absolute']} %",
-                inline = True
-            ).add_field(
-                name   = "<:ram:1038771604622168194> Mémoire Vive",
-                value  = convert_size(self.__usage_data['memory_bytes']),
-                inline = True
-            ).add_field(
-                name   = "<:hdd:1038771601468043385> Espace Disque",
-                value  = convert_size(self.__usage_data['disk_bytes']),
-                inline = True
-            )
         
         embed.add_field(
+            name   = "<:cpu:1038771595164012545> CPU",
+            value  = f"{psutil.cpu_percent()} %",
+            inline = True
+        ).add_field(
+            name   = "<:ram:1038771604622168194> Mémoire Vive",
+            value  = convert_size(psutil.virtual_memory()[3]),
+            inline = True
+        ).add_field(
+            name   = "<:hdd:1038771601468043385> Espace Disque",
+            value  = convert_size(psutil.disk_usage(sys.path[0])[1]),
+            inline = True
+        ).add_field(
             name   = "<:python:1088566268552028190> Python",
             value  = f"{sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}"
         ).add_field(
@@ -120,7 +111,7 @@ class PingModule(commands.Cog):
             value  = self.__config.bot_version
         )
         
-        await inter.send(embed = embed.set_footer(text = "Données actualisées toutes les 30 minutes"))
+        await inter.send(embed = embed)
 
 def setup(self) -> None:
     self.add_cog(PingModule(self))
