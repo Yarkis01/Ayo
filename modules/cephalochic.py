@@ -32,6 +32,9 @@ class CephalochicModule(commands.Cog):
         date = self.__timezone.localize(datetime.strptime(date_string, "%Y-%m-%dT%H:%M:%SZ"))
         return int(date.timestamp()) + int(date.utcoffset().total_seconds())
     
+    def generate_splatoon3_translation_string(self, gear: dict, translation: dict) -> str:
+        return translation['gear'].get(gear['gear']['__splatoon3ink_id'], {'name': gear['gear']['name']})['name']
+    
     def generate_splatoon3_abilities_string(self, gear: dict) -> str:
         abilities = get_ability_icon(gear["gear"]["primaryGearPower"]["name"])
         for ability in gear["gear"]["additionalGearPowers"]:
@@ -130,7 +133,7 @@ class CephalochicModule(commands.Cog):
         ).add_field(
             name  = f"😍 Chouchou du jour - {get_brand_icon(pickup_brand['name'])} {translation['brands'][pickup_brand['id']]['name']}",
             value = "\n".join([
-                f"- {translation['gear'][gear['gear']['__splatoon3ink_id']]['name']} (<:coins:1055085552510185502> {gear['price']}) - {self.generate_splatoon3_abilities_string(gear)}"
+                f"- {self.generate_splatoon3_translation_string(gear, translation)} (<:coins:1055085552510185502> {gear['price']}) - {self.generate_splatoon3_abilities_string(gear)}"
                 for gear in self.__s3_data["pickupBrand"]["brandGears"]
             ]),
             inline = False
@@ -138,7 +141,7 @@ class CephalochicModule(commands.Cog):
         
         for gear in self.__s3_data["limitedGears"]:
             embed.add_field(
-                name   = f"{get_brand_icon(gear['gear']['brand']['name'])} {translation['gear'][gear['gear']['__splatoon3ink_id']]['name']}",
+                name   = f"{get_brand_icon(gear['gear']['brand']['name'])} {self.generate_splatoon3_translation_string(gear, translation)}",
                 value  = f"- {self.generate_splatoon3_abilities_string(gear)}\n- <:coins:1055085552510185502> {gear['price']}\n<t:{self.convert_to_timestamp(gear['saleEndTime'])}:R>",
                 inline = True
             )
