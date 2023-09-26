@@ -11,7 +11,7 @@ DEFAULT_HEADERS = {
     "From": "yarkis@ik.me"
 }
 
-async def make_api_request(url, headers: dict = None, timeout: float = 10.0) -> Union[dict, None]:
+async def make_api_request(url: str, headers: dict = None, timeout: float = 10.0) -> Union[dict, None]:
     """
     Make an asynchronous API request with default headers.
 
