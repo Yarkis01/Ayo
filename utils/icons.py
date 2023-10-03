@@ -11,6 +11,7 @@ def get_rule_icon(mode: str) -> str:
         case _:
             return "<:classique:1137415472929853440>"
 
+
 def get_friend_code_icon(code_type: str) -> str:
     match code_type:
         case "ds":
@@ -33,6 +34,7 @@ def get_friend_code_icon(code_type: str) -> str:
             return "<:unite:1137360033621999726>"
         case _:
             return "❓"
+
 
 def get_brand_icon(brand: str) -> str:
     match brand:
@@ -78,6 +80,7 @@ def get_brand_icon(brand: str) -> str:
             return "<:leviathus:1054426036093341839>"
         case _:
             return "<:no_brand:1054426078090887228>"
+
 
 def get_ability_icon(ability: str) -> str:
     match ability:

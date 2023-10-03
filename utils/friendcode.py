@@ -1,6 +1,7 @@
 from utils.database import Collections, Database
 import re
 
+
 async def ensure_user_exists(database: Database, id: int) -> None:
     """Checks if a user with the given ID exists in the database.
     If the user does not exist, creates them with default information.
@@ -8,29 +9,33 @@ async def ensure_user_exists(database: Database, id: int) -> None:
     Args:
         database (Database): Database instance
         id (int): ID of the user to check/create
-    
+
     Returns:
         None
     """
     data = await database.find_one(Collections.FRIEND_CODE, {"uid": id})
-    
+
     if not data:
-        await database.insert_document(Collections.FRIEND_CODE, {
-            "uid": id,
-            "publicAccess": True,
-            "friendCode": {
-                "ds"     : None,
-                "switch" : None,
-                "cafemix": None,
-                "pogo"   : None,
-                "home"   : None,
-                "master" : None,
-                "shuffle": None,
-                "sleep"  : None,
-                "unite": None
-            }
-        })
-        
+        await database.insert_document(
+            Collections.FRIEND_CODE,
+            {
+                "uid": id,
+                "publicAccess": True,
+                "friendCode": {
+                    "ds": None,
+                    "switch": None,
+                    "cafemix": None,
+                    "pogo": None,
+                    "home": None,
+                    "master": None,
+                    "shuffle": None,
+                    "sleep": None,
+                    "unite": None,
+                },
+            },
+        )
+
+
 def format_key(code_type: str) -> str:
     """
     Format a code_type string into its corresponding game console or service name.
@@ -62,7 +67,8 @@ def format_key(code_type: str) -> str:
             return "Pokémon UNITE"
         case _:
             return code_type
-        
+
+
 class CodeChecker:
     """
     A utility class to check and format codes for various game consoles and services.
@@ -72,17 +78,17 @@ class CodeChecker:
     """
 
     CODE_LENGTHS = {
-        "ds"     : 12,
-        "switch" : 12,
+        "ds": 12,
+        "switch": 12,
         "cafemix": 12,
-        "pogo"   : 12,
-        "home"   : 12,
-        "master" : 16,
+        "pogo": 12,
+        "home": 12,
+        "master": 16,
         "shuffle": 8,
-        "sleep"  : 12,
-        "unite"  : 7        
+        "sleep": 12,
+        "unite": 7,
     }
-    
+
     def __format_string(self, code_type: str, code: str) -> str:
         """
         Format the code string by removing unnecessary characters and modifying specific code_types.
@@ -97,9 +103,9 @@ class CodeChecker:
         code = code.lower().replace("-", "")
         if code_type == "switch":
             code = code.replace("sw", "")
-            
+
         return code
-    
+
     def check(self, code_type: str, code: str) -> bool:
         """
         Check the validity of a given code for a specific game console or service.
@@ -113,7 +119,7 @@ class CodeChecker:
         """
         if code_type not in self.CODE_LENGTHS:
             return False
-        
+
         code = self.__format_string(code_type, code)
 
         if len(code) != self.CODE_LENGTHS[code_type]:
@@ -122,9 +128,13 @@ class CodeChecker:
         if code_type in {"home", "shuffle"}:
             return code.isalpha()
 
-        pattern = r'^\d+(-\d+){0,2}$' if code_type not in {"cafemix", "unite"} else r'^\w+(-\w+){0,2}$'
+        pattern = (
+            r"^\d+(-\d+){0,2}$"
+            if code_type not in {"cafemix", "unite"}
+            else r"^\w+(-\w+){0,2}$"
+        )
         return bool(re.match(pattern, code))
-    
+
     def format(self, code_type: str, code: str) -> str:
         """
         Format a code string according to the specified game console or service.
