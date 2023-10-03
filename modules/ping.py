@@ -30,9 +30,7 @@ class PingModule(commands.Cog):
         self.__bot            = bot
         self.__config: Config = bot.config
         
-        self.__is_started  = False
         self.__start_time  = datetime.now()
-        self.__uptime_data = None
         self.__process     = psutil.Process()
         
         humanize.activate("fr_FR")
@@ -40,16 +38,6 @@ class PingModule(commands.Cog):
     @commands.Cog.listener()
     async def on_ready(self) -> None:
         Logger.success("The module has been started correctly", "ping")
-
-        if not self.__is_started:
-            self._update_loop.start()
-            self.__is_started = True
-
-    @tasks.loop(minutes = 30)
-    async def _update_loop(self) -> None:
-        self.__uptime_data = await make_api_request(self.__config.watchbot_api, headers = {"AUTH-TOKEN": self.__config.watchbot_key})
-        if not self.__uptime_data:
-            Logger.warning("Unable to contact Watchbot API", "ping")
 
     @commands.slash_command(name = "ping", description = "Permet d'obtenir plein d'information (in)utile sur le bot", dm_permission = False)
     async def _ping_command(self, inter: disnake.CommandInteraction) -> None:
@@ -68,26 +56,6 @@ class PingModule(commands.Cog):
             name   = "🕛 Temps en ligne",
             value  = f"{humanize.precisedelta(datetime.now() - self.__start_time)}"
         )
-        
-        if self.__uptime_data:
-            for data in ["7d", "30d", "90d"]:
-                try:
-                    uptime = float(self.__uptime_data[data])
-                
-                    if uptime < 75.0:
-                        name = f"<:red_clock:1038773522106941530> Uptime ({data.replace('d', '')} jours)"
-                    elif uptime < 98.0:
-                        name = f"<:orange_clock:1038775657406140467> Uptime ({data.replace('d', '')} jours)"
-                    else:
-                        name = f"<:green_clock:1038775694655758386> Uptime ({data.replace('d', '')} jours)"
-                except TypeError:
-                    name   = f"<:unknown_clock:1055937372828741712> Uptime ({data.replace('d', '')} jours)"
-                    uptime = "???"
-                    
-                embed.add_field(
-                    name   = name,
-                    value  = f"{uptime} %"
-                )
 
         embed.add_field(
             name   = "<:cpu:1038771595164012545> CPU",

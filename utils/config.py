@@ -27,9 +27,6 @@ class Config:
         self.__enabled_modules  = os.getenv("ENABLED_MODULES").replace(" ", "").split(",") 
         self.__disabled_modules = os.getenv("DISABLED_MODULES").replace(" ", "").split(",")
         
-        self.__watchbot_api = os.getenv("WATCHBOT_URL")
-        self.__watchbot_key = os.getenv("WATCHBOT_KEY")
-        
         self.__splatoon2_api = os.getenv("SPLATOON2_API")
         self.__splatoon3_api = os.getenv("SPLATOON3_API")
         self.__timezone      = os.getenv("TIMEZONE")
@@ -126,26 +123,6 @@ class Config:
         """
     
         return self.__disabled_modules
-
-    @property
-    def watchbot_api(self) -> str:
-        """Get the Watchbot API URL.
-        
-        Returns:
-            str: The Watchbot API URL read from the `.env` file.
-        """
-        
-        return self.__watchbot_api
-
-    @property 
-    def watchbot_key(self) -> str:
-        """Get the Watchbot API key.
-        
-        Returns:
-            str: The Watchbot API key read from the `.env` file.
-        """
-        
-        return self.__watchbot_key
     
     @property
     def splatoon2_api(self) -> str:
