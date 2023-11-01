@@ -5,7 +5,7 @@
 
   ![](https://img.shields.io/badge/Python-3.11.X-3498db?style=for-the-badge&logo=python&logoColor=3498db)
   [![](https://img.shields.io/discord/1035981866303500421?color=7289DA&label=support&logo=discord&logoColor=7289DA&style=for-the-badge)](https://discord.gg/H97txXkNBv)
-  [![](https://img.shields.io/badge/Disnake-2.9.0-3498db?style=for-the-badge&logo=python&logoColor=3498db)](https://pypi.org/project/disnake/2.9.0/)
+  [![](https://img.shields.io/badge/Disnake-2.9.1-3498db?style=for-the-badge&logo=python&logoColor=3498db)](https://pypi.org/project/disnake/2.9.1/)
 </div>
 <br />
 
@@ -20,6 +20,9 @@
 <a href="https://discords.com/bots/bots/1036668894976425994"><img src="https://discords.com/bots/api/bot/1036668894976425994/widget" witdth="128" height="128"></a>
 <a href="https://top.gg/bot/1036668894976425994"><img src="https://top.gg/api/widget/1036668894976425994.svg" witdth="128" height="128"></a>
 <a href="https://discordbotlist.com/bots/1036668894976425994"><img src="https://discordbotlist.com/api/v1/bots/1036668894976425994/widget" witdth="128" height="128"></a>
+
+## Charte d'utilisation
+Vous pouvez consulter nos **Conditions Générales d'Utilisation** [ici](https://github.com/Yarkis01/Ayo/blob/main/TERMS_OF_USE.md) et notre **Politique de Confidentialité** [ici](https://github.com/Yarkis01/Ayo/blob/main/PRIVACY_POLICY.md). Nous vous encourageons à lire attentivement ces documents pour comprendre nos règles et notre approche en matière de confidentialité.
 
 ## 📜 Licence
 Ayo est sous licence [**GPL 3.0**](https://github.com/Yarkis01/Ayo/blob/main/LICENSE).\

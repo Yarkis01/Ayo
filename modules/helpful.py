@@ -63,7 +63,9 @@ Qu'attendez-vous pour l'ajouter et vous faire votre propre avis !
 Rejoignez le serveur de support et parlez-en !
 ▪️ **__Vous souhaitez contribuer au développement de Ayo ?__**
 Faites un petit tour sur le Github du bot !
-Je serais heureux que vous preniez part à cette magnifique aventure.""",
+Je serais heureux que vous preniez part à cette magnifique aventure.
+
+*Vous pouvez consulter nos **Conditions Générales d'Utilisation** [ici](https://github.com/Yarkis01/Ayo/blob/main/TERMS_OF_USE.md) et notre **Politique de Confidentialité** [ici](https://github.com/Yarkis01/Ayo/blob/main/PRIVACY_POLICY.md). Nous vous encourageons à lire attentivement ces documents pour comprendre nos règles et notre approche en matière de confidentialité.*""",
             ).set_footer(
                 text=f"Latence actuelle du bot: {round(self.__bot.latency * 1000)}ms"
             ),
