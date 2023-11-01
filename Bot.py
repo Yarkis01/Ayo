@@ -54,6 +54,35 @@ class AyoBot(commands.AutoShardedInteractionBot):
             + timedelta(hours=2 if now.hour % 2 == 0 else 1)
         )
 
+    @tasks.loop(hours=24)
+    async def _delete_inactive_guilds_loop(self) -> None:
+        for guild in await self.database.find_documents(Collections.GUILDS, {}):
+            if guild["lastMessageTime"] + 31557600 < int(time.time()):
+                await self.database.delete_document(
+                    Collections.GUILDS, {"guildId": guild["guildId"]}
+                )
+
+    @tasks.loop(seconds=5)
+    async def _delete_inactive_users_loop(self) -> None:
+        for user in await self.database.find_documents(Collections.USERS, {}):
+            if user["lastMessageTime"] + 31557600 < int(time.time()):
+                for collection in Collections:
+                    await self.database.delete_document(
+                        collection, {"uid": user["uid"]}
+                    )
+
+    async def add_guild(self, guild: disnake.Guild, bot_invite: str = "") -> None:
+        await self.database.insert_document(
+            Collections.GUILDS,
+            {
+                "guildId": guild.id,
+                "language": "fr",
+                "invitation": f"https://discord.gg/{bot_invite}",
+                "joinTime": int(time.time()),
+                "lastMessageTime": int(time.time()),
+            },
+        )
+
     async def on_connect(self) -> None:
         if not self.__update_data_started:
             self.__update_data_started = True
@@ -62,6 +91,8 @@ class AyoBot(commands.AutoShardedInteractionBot):
                 datetime(1970, 1, 1, 0, 0, 0, 0)
             )
             self._update_data_loop.start()
+            self._delete_inactive_guilds_loop.start()
+            self._delete_inactive_users_loop.start()
 
     async def on_ready(self) -> None:
         # Initiates the Discord logging system
@@ -105,15 +136,7 @@ class AyoBot(commands.AutoShardedInteractionBot):
                 bot_invite = bot_invite.code
                 break
 
-        await self.database.insert_document(
-            Collections.GUILDS,
-            {
-                "guildId": guild.id,
-                "language": "fr",
-                "invitation": f"https://discord.gg/{bot_invite}",
-                "joinTime": int(time.time()),
-            },
-        )
+        await self.add_guild(guild, bot_invite)
 
         await self.logger.send(
             embed=Embed.default(
@@ -132,6 +155,53 @@ class AyoBot(commands.AutoShardedInteractionBot):
                 title="📉 Le bot a été retiré d'un serveur !",
                 description=f"Le bot est à présent sur **{len(self.guilds)} serveurs**.",
             )
+        )
+
+    async def on_slash_command(self, inter: disnake.CommandInteraction) -> None:
+        """
+        Handles the execution of a slash command interaction.
+
+        This function is called when a slash command interaction occurs. It updates the last message time for the guild and the user associated with the interaction in the database.
+
+        Args:
+            inter (disnake.CommandInteraction): The slash command interaction object.
+
+        Returns:
+            None
+        """
+        if not inter.guild.id:
+            return
+
+        # Update lastMessageTime (used to delete inactive guilds)
+        if not await self.database.find_one(
+            Collections.GUILDS, {"guildId": inter.guild.id}
+        ):
+            await self.add_guild(inter.guild)
+            return
+
+        await self.database.update_document(
+            Collections.GUILDS,
+            {"guildId": inter.guild.id},
+            {"lastMessageTime": int(time.time())},
+        )
+
+        # Update lastMessageTime (used to delete inactive users)
+        if not await self.database.find_one(
+            Collections.USERS, {"uid": inter.author.id}
+        ):
+            await self.database.insert_document(
+                Collections.USERS,
+                {
+                    "uid": inter.author.id,
+                    "lastMessageTime": int(time.time()),
+                },
+            )
+            return
+
+        await self.database.update_document(
+            Collections.USERS,
+            {"uid": inter.author.id},
+            {"lastMessageTime": int(time.time())},
         )
 
     async def on_slash_command_error(

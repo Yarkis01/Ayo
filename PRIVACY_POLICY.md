@@ -7,11 +7,12 @@ La présente Politique de Confidentialité décrit la manière dont `Ayo#4943` (
 
 ## Collecte de Données
 Les données de nos utilisateurs sont stockées sur des serveurs en Europe. Les informations collectées peuvent inclure les éléments suivants :
-- **ID du serveur et invitation vers celui-ci**: Ces données sont obtenues lorsque le bot est ajouté à un serveur. Elles sont supprimées de notre base de données lorsque le bot quitte ce serveur.
+- **ID du serveur et invitation vers celui-ci**: Ces données sont obtenues lorsque le bot est ajouté à un serveur. Elles sont supprimées de notre base de données lorsque le bot quitte ce serveur ou si aucune commande n'est exécutée sur le serveur pendant 1 an.
 
-- **ID de l'utilisateur, ses codes amis**: Ces informations sont visibles par les autres utilisateurs, sauf si l'utilisateur choisit de les rendre privées. Les codes amis sont retirés de la base de données lorsque l'utilisateur en fait la demande, cependant, l'ID de l'utilisateur demeure.
+- **ID de l'utilisateur et ses codes amis**: Ces informations sont visibles par les autres utilisateurs, sauf si l'utilisateur choisit de les rendre privées. Les codes amis sont retirés de la base de données lorsque l'utilisateur exécute la commande. Si l'utilisateur n'exécute aucune commande pendant 1 an, toutes ces données sont alors supprimées.
 
-- **ID et nom de l'utilisateur, ID et nom du salon**: Ces données ne sont sauvegardées que lorsque des erreurs se produisent lors de l'exécution d'une commande. Elles sont ensuite supprimées de notre base de données une fois que l'erreur est corrigée.
+- **ID et nom de l'utilisateur, ID et nom du salon**: Ces données ne sont sauvegardées que lorsque des erreurs se produisent lors de l'exécution d'une commande. Elles sont ensuite supprimées de notre base de données une fois que l'erreur est corrigée, ou au maximum une semaine après leur stockage.
+
 
 ## Utilisation des Données
 Nous utilisons les données collectées uniquement aux fins suivantes :

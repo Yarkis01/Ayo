@@ -18,6 +18,7 @@ class Collections(Enum):
     ODYSSEE = "odyssee"
     SEASON = "season"
     SPLAT = "splat"
+    USERS = "users"
 
 
 class Database:
