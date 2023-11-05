@@ -39,6 +39,8 @@ class Config:
         self.__rotations_channel = os.getenv("ROTATIONS_CHANNEL")
         self.__rotations_role = os.getenv("ROTATIONS_ROLE")
 
+        self.__data_retention = os.getenv("DATA_RETENTION")
+
     @property
     def mongo_uri(self) -> str:
         """Get the MongoDB URI value.
@@ -180,3 +182,12 @@ class Config:
             int: The rotation role ID read from the `.env` file.
         """
         return self.__rotations_role
+
+    @property
+    def data_retention(self) -> int:
+        """Get the data retention time in seconds.
+
+        Returns:
+            int: The data retention time in seconds read from the `.env` file.
+        """
+        return int(self.__data_retention)

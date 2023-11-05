@@ -1,5 +1,5 @@
 # Politique de Confidentialité
-**Dernière mise à jour**: 1 Novembre 2023
+**Dernière mise à jour**: 5 Novembre 2023
 > *N'oubliez pas de consulter régulièrement cette page, car notre politique de confidentialité peut être modifiée.*
 
 ## Introduction
@@ -7,9 +7,9 @@ La présente Politique de Confidentialité décrit la manière dont `Ayo#4943` (
 
 ## Collecte de Données
 Les données de nos utilisateurs sont stockées sur des serveurs en Europe. Les informations collectées peuvent inclure les éléments suivants :
-- **ID du serveur et invitation vers celui-ci**: Ces données sont obtenues lorsque le bot est ajouté à un serveur. Elles sont supprimées de notre base de données lorsque le bot quitte ce serveur ou si aucune commande n'est exécutée sur le serveur pendant 1 an.
+- **ID du serveur et invitation vers celui-ci**: Ces données sont obtenues lorsque le bot est ajouté à un serveur. Elles sont supprimées de notre base de données lorsque le bot quitte ce serveur ou si aucune commande n'est exécutée sur le serveur pendant 30 jours.
 
-- **ID de l'utilisateur et ses codes amis**: Ces informations sont visibles par les autres utilisateurs, sauf si l'utilisateur choisit de les rendre privées. Les codes amis sont retirés de la base de données lorsque l'utilisateur exécute la commande. Si l'utilisateur n'exécute aucune commande pendant 1 an, toutes ces données sont alors supprimées.
+- **ID de l'utilisateur et ses codes amis**: Ces informations sont visibles par les autres utilisateurs, sauf si l'utilisateur choisit de les rendre privées. Les codes amis sont retirés de la base de données lorsque l'utilisateur exécute la commande. Si l'utilisateur n'exécute aucune commande pendant 30 jours, toutes ces données sont alors supprimées.
 
 - **ID et nom de l'utilisateur, ID et nom du salon**: Ces données ne sont sauvegardées que lorsque des erreurs se produisent lors de l'exécution d'une commande. Elles sont ensuite supprimées de notre base de données une fois que l'erreur est corrigée, ou au maximum une semaine après leur stockage.
 

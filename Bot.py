@@ -54,18 +54,18 @@ class AyoBot(commands.AutoShardedInteractionBot):
             + timedelta(hours=2 if now.hour % 2 == 0 else 1)
         )
 
-    @tasks.loop(hours=24)
+    @tasks.loop(hours=12)
     async def _delete_inactive_guilds_loop(self) -> None:
         for guild in await self.database.find_documents(Collections.GUILDS, {}):
-            if guild["lastMessageTime"] + 31557600 < int(time.time()):
+            if guild["lastMessageTime"] + self.config.data_retention < int(time.time()):
                 await self.database.delete_document(
                     Collections.GUILDS, {"guildId": guild["guildId"]}
                 )
 
-    @tasks.loop(seconds=5)
+    @tasks.loop(hours=12)
     async def _delete_inactive_users_loop(self) -> None:
         for user in await self.database.find_documents(Collections.USERS, {}):
-            if user["lastMessageTime"] + 31557600 < int(time.time()):
+            if user["lastMessageTime"] + self.config.data_retention < int(time.time()):
                 for collection in Collections:
                     await self.database.delete_document(
                         collection, {"uid": user["uid"]}
