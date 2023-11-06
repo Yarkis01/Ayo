@@ -21,7 +21,9 @@
 <a href="https://top.gg/bot/1036668894976425994"><img src="https://top.gg/api/widget/1036668894976425994.svg" witdth="128" height="128"></a>
 <a href="https://discordbotlist.com/bots/1036668894976425994"><img src="https://discordbotlist.com/api/v1/bots/1036668894976425994/widget" witdth="128" height="128"></a>
 
-## Charte d'utilisation
+Le bot peut également être trouvé sur le Répertoire d'Applications de Discord, disponible via ce lien : <a href="https://discord.com/application-directory/1036668894976425994">Répertoire d'App</a>.
+
+## 🚨 Charte d'utilisation
 Vous pouvez consulter nos **Conditions Générales d'Utilisation** [ici](https://github.com/Yarkis01/Ayo/blob/main/TERMS_OF_USE.md) et notre **Politique de Confidentialité** [ici](https://github.com/Yarkis01/Ayo/blob/main/PRIVACY_POLICY.md). Nous vous encourageons à lire attentivement ces documents pour comprendre nos règles et notre approche en matière de confidentialité.
 
 ## 📜 Licence
